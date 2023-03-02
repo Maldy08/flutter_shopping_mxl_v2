@@ -11,131 +11,79 @@ class FormRegister extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-        child: ListView(
-      children: [
-        TextFormField(
-          textInputAction: TextInputAction.next,
-          decoration: const InputDecoration(
-            labelText: 'Nombre Completo',
+      child: Column(
+        children: [
+          TextFormField(
+            textInputAction: TextInputAction.next,
+            decoration: const InputDecoration(
+              labelText: 'Nombre Completo',
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        TextFormField(
-          textInputAction: TextInputAction.next,
-          keyboardType: TextInputType.number,
-          // decoration: InputDecoration(
-          //   isDense: true,
-          //   filled: true,
-          //   fillColor: bgContainer,
-          //   labelText: 'Edad',
-          //   border: const OutlineInputBorder(
-          //     borderSide: BorderSide.none,
-          //     borderRadius: BorderRadius.all(
-          //       Radius.circular(25),
-          //     ),
-          //   ),
-          // ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        TextFormField(
-          textInputAction: TextInputAction.next,
-          // decoration: InputDecoration(
-          //   isDense: true,
-          //   filled: true,
-          //   fillColor: bgContainer,
-          //   labelText: 'Sexo',
-          //   border: const OutlineInputBorder(
-          //     borderSide: BorderSide.none,
-          //     borderRadius: BorderRadius.all(
-          //       Radius.circular(25),
-          //     ),
-          //   ),
-          // ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        TextFormField(
-          textInputAction: TextInputAction.next,
-          keyboardType: TextInputType.emailAddress,
-          // decoration: InputDecoration(
-          //   isDense: true,
-          //   filled: true,
-          //   fillColor: bgContainer,
-          //   labelText: 'Correo',
-          //   border: const OutlineInputBorder(
-          //     borderSide: BorderSide.none,
-          //     borderRadius: BorderRadius.all(
-          //       Radius.circular(25),
-          //     ),
-          //   ),
-          // ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        TextFormField(
-          textInputAction: TextInputAction.next,
-          keyboardType: TextInputType.phone,
-
-          // decoration: InputDecoration(
-          //   isDense: true,
-          //   filled: true,
-          //   fillColor: bgContainer,
-          //   labelText: 'Telefono',
-          //   border: const OutlineInputBorder(
-          //     borderSide: BorderSide.none,
-          //     borderRadius: BorderRadius.all(
-          //       Radius.circular(25),
-          //     ),
-          //   ),
-          // ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        TextFormField(
-          textInputAction: TextInputAction.done,
-          keyboardType: TextInputType.number,
-          // decoration: InputDecoration(
-          //   isDense: true,
-          //   filled: true,
-          //   fillColor: bgContainer,
-          //   labelText: 'Codigo Postal',
-          //   border: const OutlineInputBorder(
-          //     borderSide: BorderSide.none,
-          //     borderRadius: BorderRadius.all(
-          //       Radius.circular(25),
-          //     ),
-          //   ),
-          // ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        CustomElevatedButton(
-            func: () {}, label: 'Crear Cuenta', color: Colors.orange),
-        const SizedBox(
-          height: 20.0,
-        ),
-        Row(
-          children: [
-            const Text('Ya tienes cuenta?'),
-            TextButton(
-                onPressed: () {
-                  context.pushNamed(LoginScreen.name);
-                },
-                child: const Text(
-                  'Inicia sesión',
-                  style: TextStyle(color: Colors.orange),
-                ))
-          ],
-        )
-      ],
-    ));
+          const SizedBox(
+            height: 20,
+          ),
+          TextFormField(
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(labelText: 'Edad'),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          TextFormField(
+            textInputAction: TextInputAction.next,
+            decoration: const InputDecoration(labelText: 'Sexo'),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          TextFormField(
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(labelText: 'Correo'),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          TextFormField(
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.phone,
+            decoration: const InputDecoration(labelText: 'Telefono'),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          TextFormField(
+            textInputAction: TextInputAction.done,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(labelText: 'Codigo Postal'),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: CustomElevatedButton(
+                func: () {}, label: 'Crear Cuenta', color: Colors.orange),
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            children: [
+              const Text('Ya tienes cuenta?'),
+              TextButton(
+                  onPressed: () {
+                    context.pushNamed(LoginScreen.name);
+                  },
+                  child: const Text(
+                    'Inicia sesión',
+                    style: TextStyle(color: Colors.orange),
+                  ))
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

@@ -24,15 +24,13 @@ class RegisterScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
-              const RegisterImage(),
               const SizedBox(
                 height: 10,
               ),
               Container(
                 width: 350,
-                height: 600,
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
