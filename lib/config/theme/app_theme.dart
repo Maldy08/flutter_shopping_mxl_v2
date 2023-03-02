@@ -7,7 +7,8 @@ const colorList = <Color>[
   Colors.red,
   Colors.purple,
   Colors.deepPurple,
-  Colors.pink
+  Colors.pink,
+  Colors.orange,
 ];
 
 class AppTheme {
