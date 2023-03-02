@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  static const String name = "welcome_screen";
+
   const WelcomeScreen({super.key});
 
   @override
@@ -41,30 +44,28 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 30.0,
+              height: 20.0,
             ),
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: SizedBox(
-                  width: 260.00,
-                  height: 50,
-                  child: CustomElevatedButton(
-                    func: () {
-                      context.push('/login');
-                    },
-                    label: 'Login',
-                    color: Colors.orange,
-                  ) //boton,
-                  ),
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-              child: SizedBox(
+            SizedBox(
                 width: 260.00,
                 height: 50,
                 child: CustomElevatedButton(
-                    func: () {}, label: 'Registrarte', color: Colors.green),
+                  func: () {
+                    //context.push('/login');
+                    context.pushNamed(LoginScreen.name);
+                  },
+                  label: 'Login',
+                  color: Colors.orange,
+                ) //boton,
               ),
+           const SizedBox(
+              height: 10.0,
+            ),
+            SizedBox(
+              width: 260.00,
+              height: 50,
+              child: CustomElevatedButton(
+                  func: () {}, label: 'Registrarte', color: Colors.green),
             ),
           ],
         ),
