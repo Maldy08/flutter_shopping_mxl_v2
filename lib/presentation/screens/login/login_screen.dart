@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/shared/custom_appbar.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens/login/widgets/form_login.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens/login/widgets/login_image.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -9,7 +10,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       appBar: const CustomAppBar(
         title: 'Sign in',
@@ -26,19 +26,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
-                  width: 350,
-                  height: 250,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(30),
-                    ),
-                  ),
-                  child: Image.asset(
-                    'assets/images/login-image.png',
-                  ),
-                ),
+                const LoginImage(),
                 const SizedBox(height: 10),
                 Container(
                   width: 350,
@@ -47,61 +35,7 @@ class LoginScreen extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(30))),
                   padding: const EdgeInsets.all(30),
-                  child: Form(
-                      child: Column(
-                    children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                          isDense: true,
-                          prefixIcon: Icon(
-                            Icons.mail_outline,
-                            color: theme.primaryColor,
-                          ),
-                          filled: true,
-                          fillColor: bgContainer,
-                          labelText: 'Correo',
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(25),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          prefixIcon: Icon(
-                            Icons.lock_outline,
-                            color: theme.primaryColor,
-                          ),
-                          filled: true,
-                          fillColor: bgContainer,
-                          labelText: 'Password',
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(25),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: CustomElevatedButton(
-                            func: () {},
-                            label: 'Iniciar sesión',
-                            color: Colors.orange),
-                      )
-                    ],
-                  )),
+                  child: const FormLogin(),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(top: 20),
@@ -116,33 +50,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(0.5),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Image.asset(
-                          'assets/images/google-logo.png',
-                          height: 60,
-                          width: 60,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(0.5),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Image.asset(
-                          'assets/images/facebook-logo.png',
-                          height: 60,
-                          width: 60,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
+                const SocialIconsButtons()
               ],
             ),
           ),
