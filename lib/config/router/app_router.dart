@@ -1,4 +1,3 @@
-
 import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,6 +12,11 @@ final appRouter = GoRouter(
       path: '/login',
       name: LoginScreen.name,
       builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: '/register',
+      name: RegisterScreen.name,
+      builder: (context, state) => const RegisterScreen(),
     ),
   ],
 );

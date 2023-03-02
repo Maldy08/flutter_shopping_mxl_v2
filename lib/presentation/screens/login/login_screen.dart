@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                       child: Column(
                     children: [
                       TextFormField(
-                        decoration:  InputDecoration(
+                        decoration: InputDecoration(
                           isDense: true,
                           prefixIcon: Icon(
                             Icons.mail_outline,
@@ -73,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       TextFormField(
                         obscureText: true,
-                        decoration:  InputDecoration(
+                        decoration: InputDecoration(
                           isDense: true,
                           prefixIcon: Icon(
                             Icons.lock_outline,
@@ -116,30 +116,33 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                  
-                  Container(
-                    padding: const EdgeInsets.all(0.5),
-                    child: IconButton(
-                      onPressed: (){},
-                      icon: Image.asset('assets/images/Icon_Google.png',height: 40, width: 40,),
-                     ),
-                     
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(0.5),
-                    child: IconButton(
-                      onPressed: (){},
-                      icon: Image.asset('assets/images/Icon_facebook.png',height: 40, width: 40,),
-                     ),
-                     
-                  ),
-                  
-                ],)
-    
+                    Container(
+                      padding: const EdgeInsets.all(0.5),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Image.asset(
+                          'assets/images/google-logo.png',
+                          height: 60,
+                          width: 60,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(0.5),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Image.asset(
+                          'assets/images/facebook-logo.png',
+                          height: 60,
+                          width: 60,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
