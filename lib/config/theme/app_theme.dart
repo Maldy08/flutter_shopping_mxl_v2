@@ -11,6 +11,8 @@ const colorList = <Color>[
   Colors.orange,
 ];
 
+const Color bgContainer = Color.fromRGBO(249, 249, 255, 1);
+
 class AppTheme {
   final int selectedColor;
 
@@ -18,6 +20,11 @@ class AppTheme {
       : assert(selectedColor >= 0, 'Selected color must be greater than 0'),
         assert(selectedColor < colorList.length, 
         'Selected color must be less or equal than ${colorList.length - 1 }');
+
+
+  static Color getBackgroundContainerColor(){
+    return const Color.fromRGBO(249, 249, 255, 1);
+  }
 
   ThemeData getTheme() =>
       ThemeData(
