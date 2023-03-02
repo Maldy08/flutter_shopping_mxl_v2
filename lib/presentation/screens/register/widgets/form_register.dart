@@ -64,7 +64,11 @@ class FormRegister extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: CustomElevatedButton(
-                func: () {}, label: 'Crear Cuenta', color: Colors.orange),
+                func: () {
+                  context.pushReplacementNamed(AccountCreatedScreen.name);
+                },
+                label: 'Crear Cuenta',
+                color: Colors.orange),
           ),
           const SizedBox(
             height: 20.0,
