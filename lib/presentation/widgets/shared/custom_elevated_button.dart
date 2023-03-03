@@ -14,21 +14,24 @@ class CustomElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return FilledButton(
       onPressed: func,
-      style: ButtonStyle(
-        elevation: const MaterialStatePropertyAll(0),
-        foregroundColor: const MaterialStatePropertyAll(Colors.white),
-        
-        backgroundColor: MaterialStatePropertyAll(
-          color,
-        ),
-        shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-        ),
+      style: const ButtonStyle(
+        enableFeedback: true,
       ),
+      // style: ButtonStyle(
+      //   elevation: const MaterialStatePropertyAll(0),
+      //   foregroundColor: const MaterialStatePropertyAll(Colors.white),
+        
+      //   backgroundColor: MaterialStatePropertyAll(
+      //     color,
+      //   ),
+      //   shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+      //     RoundedRectangleBorder(
+      //       borderRadius: BorderRadius.circular(30.0),
+      //     ),
+      //   ),
+      // ),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Text(

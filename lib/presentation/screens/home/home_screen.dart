@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const String name = "home_screen";
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,14 +30,25 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+      bottomNavigationBar: NavigationBar(
+        //surfaceTintColor: Colors.white,
+        
+        onDestinationSelected: (value) {
+          setState(() {
+            currentPageIndex = value;
+          });
+        },
+        selectedIndex: currentPageIndex,
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.home), 
+            label: 'Home'
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings), 
+            label: 'Settings'
+          ),
         ],
-        currentIndex: 0,
       ),
     );
   }

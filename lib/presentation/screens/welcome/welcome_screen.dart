@@ -13,65 +13,73 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.getBackgroundContainerColor(),
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
-              width: 310,
-              height: 300,
-              padding: const EdgeInsets.all(30),
-              child: Image.asset(
-                'assets/images/app-logo.png',
-                width: 140,
-                height: 140,
-                fit: BoxFit.fitWidth,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-              child: Text(
-                'Bienvenido!!',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Roboto',
-                    fontSize: 25),
-              ),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            SizedBox(
-                width: 260.00,
-                height: 50,
-                child: CustomElevatedButton(
-                  func: () {
-                    //context.push('/login');
-                    context.pushNamed(LoginScreen.name);
-                  },
-                  label: 'Login',
-                  color: Colors.orange,
-                ) //boton,
+      body: SafeArea(
+        child: SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 50,
+                )
+                ,
+                Container(
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  width: 310,
+                  height: 300,
+                  padding: const EdgeInsets.all(30),
+                  child: Image.asset(
+                    'assets/images/app-logo.png',
+                    width: 140,
+                    height: 140,
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
-            const SizedBox(
-              height: 10.0,
+                const Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                  child: Text(
+                    'Bienvenido!!',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Roboto',
+                        fontSize: 25),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                SizedBox(
+                    width: 260.00,
+                    height: 50,
+                    child: CustomElevatedButton(
+                      func: () {
+                        //context.push('/login');
+                        context.pushNamed(LoginScreen.name);
+                      },
+                      label: 'Login',
+                      color: Colors.orange,
+                    ) //boton,
+                    ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                SizedBox(
+                  width: 260.00,
+                  height: 50,
+                  child: CustomElevatedButton(
+                      func: () {
+                        context.pushNamed(RegisterScreen.name);
+                      },
+                      label: 'Registrarte',
+                      color: Colors.green),
+                ),
+              ],
             ),
-            SizedBox(
-              width: 260.00,
-              height: 50,
-              child: CustomElevatedButton(
-                  func: () {
-                    context.pushNamed(RegisterScreen.name);
-                  },
-                  label: 'Registrarte',
-                  color: Colors.green),
-            ),
-          ],
+          ),
         ),
       ),
     );
