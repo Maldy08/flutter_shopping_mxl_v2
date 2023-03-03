@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class FormLogin extends StatelessWidget {
   const FormLogin({super.key});
@@ -57,7 +59,11 @@ class FormLogin extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: CustomElevatedButton(
-              func: () {}, label: 'Iniciar sesión', color: Colors.orange),
+              func: () {
+                context.pushReplacementNamed(HomeScreen.name);
+              },
+              label: 'Iniciar sesión',
+              color: Colors.orange),
         )
       ],
     ));
