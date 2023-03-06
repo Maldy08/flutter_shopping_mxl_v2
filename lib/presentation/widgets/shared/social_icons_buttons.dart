@@ -11,7 +11,11 @@ class SocialIconsButtons extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(0.5),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Login con Google')));
+            },
             icon: Image.asset(
               'assets/images/google-logo.png',
               height: 60,
@@ -22,7 +26,11 @@ class SocialIconsButtons extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(0.5),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Login con Facebook')));
+            },
             icon: Image.asset(
               'assets/images/facebook-logo.png',
               height: 60,
