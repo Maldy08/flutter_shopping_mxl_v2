@@ -12,6 +12,8 @@ class HomeSearchButtons extends StatelessWidget {
         shape: const RoundedRectangleBorder(),
         side: BorderSide(color: theme.primaryColor));
 
+    final textStyle = TextStyle(fontSize: 12);
+
     return Column(
       children: [
         SingleChildScrollView(
@@ -21,25 +23,43 @@ class HomeSearchButtons extends StatelessWidget {
           child: Wrap(
             spacing: 10,
             children: [
-              OutlinedButton.icon(
+              FilledButton.icon(
                 onPressed: () {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(const SnackBar(content: Text('Mercados')));
                 },
                 icon: const Icon(Icons.shopping_bag),
-                label: const Text('Mercados'),
+                label: Text(
+                  'Mercados',
+                  style: textStyle,
+                ),
                 style: buttonStyle,
               ),
-              OutlinedButton.icon(
+              FilledButton.icon(
                 onPressed: () {},
                 icon: const Icon(Icons.restaurant),
-                label: const Text('Restaurantes'),
+                label: Text(
+                  'Restaurantes',
+                  style: textStyle,
+                ),
                 style: buttonStyle,
               ),
-              OutlinedButton.icon(
+              FilledButton.icon(
                 onPressed: () {},
                 icon: const Icon(Icons.cut),
-                label: const Text('Esteticas'),
+                label: Text(
+                  'Esteticas',
+                  style: textStyle,
+                ),
+                style: buttonStyle,
+              ),
+              FilledButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.abc_outlined),
+                label: Text(
+                  'Varios',
+                  style: textStyle,
+                ),
                 style: buttonStyle,
               ),
               // OutlinedButton.icon(

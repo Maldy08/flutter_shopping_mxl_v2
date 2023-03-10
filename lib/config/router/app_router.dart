@@ -3,7 +3,6 @@ import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
 import 'package:go_router/go_router.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -30,9 +29,18 @@ final appRouter = GoRouter(
       builder: (context, state) => const AccountCreatedScreen(),
     ),
     GoRoute(
-      path: '/home',
+      path: '/home/:page',
       name: HomeScreen.name,
-      builder: (context, state) => const HomeScreen(),
+      builder: (context, state) {
+        final pageIndex = int.parse(state.params['page'] ?? '0');
+        return HomeScreen(pageIndex: pageIndex);
+      },
+      routes: const [],
+    ),
+    GoRoute(
+      path: '/theme',
+      name: ThemeChangerScreen.name,
+      builder: (context, state) => const ThemeChangerScreen(),
     ),
   ],
 );

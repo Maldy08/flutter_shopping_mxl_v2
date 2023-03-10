@@ -14,15 +14,18 @@ class CustomElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final buttonStyle = OutlinedButton.styleFrom(
+        shape: const RoundedRectangleBorder(),
+        side: BorderSide(color: theme.primaryColor));
+
     return FilledButton(
       onPressed: func,
-      style: const ButtonStyle(
-        enableFeedback: true,
-      ),
+      style: buttonStyle,
       // style: ButtonStyle(
       //   elevation: const MaterialStatePropertyAll(0),
       //   foregroundColor: const MaterialStatePropertyAll(Colors.white),
-        
+
       //   backgroundColor: MaterialStatePropertyAll(
       //     color,
       //   ),

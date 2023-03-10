@@ -23,8 +23,7 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 const SizedBox(
                   height: 50,
-                )
-                ,
+                ),
                 Container(
                   decoration: const BoxDecoration(
                       color: Colors.white,
@@ -50,7 +49,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: 25.0,
                 ),
                 SizedBox(
                     width: 260.00,
