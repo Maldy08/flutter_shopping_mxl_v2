@@ -23,50 +23,56 @@ class CustomBottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double size = 30;
+    const double size = 28;
     //final theme = Theme.of(context);
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      //backgroundColor: Colors.blue,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      currentIndex: currentIndex,
-      onTap: (index) => onItemTapped(context, index),
-      //surfaceTintColor: Colors.white,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.home_outlined,
-            size: size,
+    return SizedBox(
+      height: 70,
+      width: double.infinity,
+      child: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        //backgroundColor: Colors.blue,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedFontSize: 0.0,
+        unselectedFontSize: 0.0,
+        currentIndex: currentIndex,
+        onTap: (index) => onItemTapped(context, index),
+        //surfaceTintColor: Colors.white,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home_outlined,
+              size: size,
+            ),
+            label: 'Home',
+            // activeIcon: Icon(Icons.home_filled),
           ),
-          label: 'Home',
-          // activeIcon: Icon(Icons.home_filled),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.search,
-            size: size,
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search,
+              size: size,
+            ),
+            label: 'Search',
+            // activeIcon: Icon(Icons.search),
           ),
-          label: 'Search',
-          // activeIcon: Icon(Icons.search),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.favorite_outline,
-            size: size,
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.favorite_outline,
+              size: size,
+            ),
+            label: 'Favorites',
+            // activeIcon: Icon(Icons.favorite),
           ),
-          label: 'Favorites',
-          // activeIcon: Icon(Icons.favorite),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.settings_outlined,
-            size: size,
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings_outlined,
+              size: size,
+            ),
+            label: 'Settings',
+            // activeIcon: Icon(Icons.settings),
           ),
-          label: 'Settings',
-          // activeIcon: Icon(Icons.settings),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

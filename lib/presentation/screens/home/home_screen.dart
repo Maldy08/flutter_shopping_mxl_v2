@@ -5,6 +5,7 @@ import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 class HomeScreen extends StatelessWidget {
   static const String name = "home_screen";
   final int pageIndex;
+
   const HomeScreen({super.key, required this.pageIndex});
 
   final viewRoutes = const <Widget>[
