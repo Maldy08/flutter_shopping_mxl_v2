@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final appRouter = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/home',
   navigatorKey: _rootNavigatorKey,
   routes: [
     GoRoute(
@@ -29,13 +29,13 @@ final appRouter = GoRouter(
       builder: (context, state) => const AccountCreatedScreen(),
     ),
     GoRoute(
-      path: '/home/:page',
+      path: '/home',
       name: HomeScreen.name,
       builder: (context, state) {
-        final pageIndex = int.parse(state.params['page'] ?? '0');
-        return HomeScreen(pageIndex: pageIndex);
+        //final pageIndex = int.parse(state.params['page'] ?? '0');
+        return const HomeScreen();
       },
-      routes: const [],
+      //routes: const [],
     ),
     GoRoute(
       path: '/theme',
