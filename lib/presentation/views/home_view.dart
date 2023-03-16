@@ -22,7 +22,7 @@ class HomeView extends StatelessWidget {
                   height: 50,
                   width: 50,
                   child: InkWell(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(30),
                     child: Image.asset(
                       'assets/images/app-logo-mini.png',
                       fit: BoxFit.fitWidth,
@@ -67,8 +67,9 @@ class HomeView extends StatelessWidget {
                     'Buscar Negocio o Producto',
                   ),
                   style: const ButtonStyle(
-                      alignment: AlignmentDirectional.centerStart,
-                      backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                    alignment: AlignmentDirectional.centerStart,
+                    backgroundColor: MaterialStatePropertyAll(Colors.white),
+                  ),
                 )),
               ],
             ),

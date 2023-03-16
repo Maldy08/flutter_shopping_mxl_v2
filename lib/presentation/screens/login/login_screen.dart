@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
       appBar: const CustomAppBar(
         title: 'Sign in',
       ),
-      backgroundColor: AppTheme.getBackgroundContainerColor(),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SizedBox(
           width: double.infinity,
@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
                   height: 260,
                   decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   padding: const EdgeInsets.all(30),
                   child: const FormLogin(),
                 ),

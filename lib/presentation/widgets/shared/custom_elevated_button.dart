@@ -16,8 +16,9 @@ class CustomElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final buttonStyle = OutlinedButton.styleFrom(
-        shape: const RoundedRectangleBorder(),
-        side: BorderSide(color: theme.primaryColor));
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      side: BorderSide(color: theme.primaryColor),
+    );
 
     return FilledButton(
       onPressed: func,

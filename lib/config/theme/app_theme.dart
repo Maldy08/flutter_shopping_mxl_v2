@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const colorList = <Color>[
-  Colors.blue,
+  Color(0xff364FD4),
   Colors.teal,
   Colors.green,
   Colors.red,
@@ -22,7 +22,7 @@ class AppTheme {
             'Selected color must be less or equal than ${colorList.length - 1}');
 
   static Color getBackgroundContainerColor() {
-    return const Color.fromRGBO(249, 249, 255, 1);
+    return Colors.white; //const Color.fromRGBO(249, 249, 255, 1);
   }
 
   ThemeData getTheme() => ThemeData(
@@ -36,7 +36,7 @@ class AppTheme {
         border: OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(
-            Radius.circular(25),
+            Radius.circular(10),
           ),
         ),
       ),

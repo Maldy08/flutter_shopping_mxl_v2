@@ -60,7 +60,6 @@ class WelcomeScreen extends StatelessWidget {
                         context.pushNamed(LoginScreen.name);
                       },
                       label: 'Login',
-                      color: Colors.orange,
                     ) //boton,
                     ),
                 const SizedBox(
@@ -70,11 +69,11 @@ class WelcomeScreen extends StatelessWidget {
                   width: 260.00,
                   height: 50,
                   child: CustomElevatedButton(
-                      func: () {
-                        context.pushNamed(RegisterScreen.name);
-                      },
-                      label: 'Registrarte',
-                      color: Colors.green),
+                    func: () {
+                      context.pushNamed(RegisterScreen.name);
+                    },
+                    label: 'Registrarte',
+                  ),
                 ),
               ],
             ),

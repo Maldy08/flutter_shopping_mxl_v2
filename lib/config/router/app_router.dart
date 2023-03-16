@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final appRouter = GoRouter(
-  initialLocation: '/home/0',
+  initialLocation: '/',
   navigatorKey: _rootNavigatorKey,
   routes: [
     GoRoute(

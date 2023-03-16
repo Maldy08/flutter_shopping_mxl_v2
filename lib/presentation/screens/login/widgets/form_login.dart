@@ -25,7 +25,7 @@ class FormLogin extends StatelessWidget {
             border: const OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.all(
-                Radius.circular(25),
+                Radius.circular(10),
               ),
             ),
           ),
@@ -47,7 +47,7 @@ class FormLogin extends StatelessWidget {
             border: const OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.all(
-                Radius.circular(25),
+                Radius.circular(10),
               ),
             ),
           ),

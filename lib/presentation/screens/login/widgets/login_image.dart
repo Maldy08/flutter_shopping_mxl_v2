@@ -7,15 +7,15 @@ class LoginImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 350,
-      height: 250,
+      height: 280,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(
-          Radius.circular(30),
+          Radius.circular(10),
         ),
       ),
       child: Image.asset(
-        'assets/images/login-image.png',
+        'assets/images/login-ilust.png',
       ),
     );
   }
