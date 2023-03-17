@@ -8,7 +8,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scaffoldKey = GlobalKey<ScaffoldState>();
+    // final scaffoldKey = GlobalKey<ScaffoldState>();
     final theme = Theme.of(context);
 
     return SingleChildScrollView(
