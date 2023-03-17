@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
 
 class SocialIconsButtons extends StatelessWidget {
   const SocialIconsButtons({super.key});
@@ -6,10 +7,7 @@ class SocialIconsButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const textStyle = TextStyle(color: Colors.black54);
-    final buttonStyle = OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-        side: BorderSide(color: Colors.grey.shade300),
-        backgroundColor: Colors.white);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -24,7 +22,7 @@ class SocialIconsButtons extends StatelessWidget {
               'Facebook',
               style: textStyle,
             ),
-            style: buttonStyle,
+            style: AppTheme.outlinedButtonStyle(),
           ),
         ),
         const SizedBox(width: 5),
@@ -38,7 +36,7 @@ class SocialIconsButtons extends StatelessWidget {
               'Google',
               style: textStyle,
             ),
-            style: buttonStyle,
+            style: AppTheme.outlinedButtonStyle(),
           ),
         ),
       ],

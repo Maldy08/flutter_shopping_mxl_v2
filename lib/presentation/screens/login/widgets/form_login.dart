@@ -20,7 +20,7 @@ class FormLogin extends StatelessWidget {
               color: theme.primaryColor,
             ),
             filled: true,
-            fillColor: AppTheme.getBackgroundContainerColor(),
+            fillColor: bgContainer,
             labelText: 'Correo',
             border: const OutlineInputBorder(
               borderSide: BorderSide.none,

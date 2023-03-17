@@ -20,6 +20,7 @@ class HomeScreen extends StatelessWidget {
     final scaffoldKey = GlobalKey<ScaffoldState>();
     // final theme = Theme.of(context);
     return Scaffold(
+        backgroundColor: Colors.white,
         key: scaffoldKey,
         body: SafeArea(
           child: IndexedStack(

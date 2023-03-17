@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
 
 import '../screens/home/widgets/home_search_buttons.dart';
 
@@ -18,18 +19,6 @@ class HomeView extends StatelessWidget {
           children: [
             Row(
               children: [
-                SizedBox(
-                  height: 50,
-                  width: 50,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Image.asset(
-                      'assets/images/app-logo-mini.png',
-                      fit: BoxFit.fitWidth,
-                    ),
-                    onTap: () => scaffoldKey.currentState?.openDrawer(),
-                  ),
-                ),
                 const Spacer(),
                 CircleAvatar(
                   child: IconButton(
@@ -59,19 +48,29 @@ class HomeView extends StatelessWidget {
             ),
             Row(
               children: [
-                Expanded(
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SizedBox(
+                    height: 50,
                     child: OutlinedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.search),
-                  label: const Text(
-                    'Buscar Negocio o Producto',
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.search,
+                        color: Color(0xffB9C1CC),
+                      ),
+                      label: const Text(
+                        'Buscar Negocio o Producto',
+                        style:
+                            TextStyle(color: Color(0xffB9C1CC), fontSize: 16),
+                      ),
+                      style: AppTheme.outlinedButtonStyleAlignCenterLeft(),
+                    ),
                   ),
-                  style: const ButtonStyle(
-                    alignment: AlignmentDirectional.centerStart,
-                    backgroundColor: MaterialStatePropertyAll(Colors.white),
-                  ),
-                )),
+                ),
               ],
+            ),
+            const SizedBox(
+              height: 20,
             ),
             const HomeSearchButtons(),
           ],

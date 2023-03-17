@@ -25,8 +25,24 @@ class AppTheme {
     return Colors.white; //const Color.fromRGBO(249, 249, 255, 1);
   }
 
+  static ButtonStyle outlinedButtonStyle() {
+    return OutlinedButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+        side: BorderSide(color: Colors.grey.shade300),
+        backgroundColor: Colors.white);
+  }
+
+  static ButtonStyle outlinedButtonStyleAlignCenterLeft() {
+    return OutlinedButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+        side: BorderSide(color: Colors.grey.shade300),
+        alignment: Alignment.centerLeft,
+        backgroundColor: const Color(0xffF0F3F8));
+  }
+
   ThemeData getTheme() => ThemeData(
       useMaterial3: true,
+      fontFamily: 'Poppins',
       colorSchemeSeed: colorList[selectedColor],
       inputDecorationTheme: const InputDecorationTheme(
         filled: true,
