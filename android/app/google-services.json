@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "342727236805",
+    "project_id": "enofferta-app",
+    "storage_bucket": "enofferta-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342727236805:android:cbe8d3b5f6379c7f5a64ac",
+        "android_client_info": {
+          "package_name": "com.enofferta.shoppingmxl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "342727236805-kj68cmj3umgcr59ivn1ch8k6q660qntv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsbD_CrQIiAalLlvDlO2KDOuptxQ7iUG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "342727236805-kj68cmj3umgcr59ivn1ch8k6q660qntv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "342727236805-4c0oocnqgs38r7pdd76tfisoi1akgrf0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterShoppingMxlV2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

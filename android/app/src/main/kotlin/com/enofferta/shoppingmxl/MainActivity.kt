@@ -1,4 +1,4 @@
-package com.example.flutter_shopping_mxl_v2
+package com.enofferta.shoppingmxl
 
 import io.flutter.embedding.android.FlutterActivity
 
