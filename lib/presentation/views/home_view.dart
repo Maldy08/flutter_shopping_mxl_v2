@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/notifications/notifications_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/shared/custom_elevated_button.dart';
 
@@ -91,12 +92,8 @@ class _HomeView extends StatelessWidget {
         ),
         const HomeSearchButtons(),
         const SizedBox(height: 20),
-        CustomElevatedButton(
-          label: 'Algo',
-          func: () {
-            context.read<NotificationsBloc>().requestPermission();
-          },
-        )
+        Text(context
+            .select((AuthenticationBloc bloc) => bloc.state.status.toString()))
       ],
     );
   }

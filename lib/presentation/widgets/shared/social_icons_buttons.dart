@@ -1,7 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authentication_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class SocialIconsButtons extends StatelessWidget {
   const SocialIconsButtons({super.key});
@@ -32,7 +33,10 @@ class SocialIconsButtons extends StatelessWidget {
           height: 50,
           width: 150,
           child: FilledButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              context.read<AuthenticationBloc>().onGoogleSingIn();
+              // context.push('/home/0');
+            },
             icon: Image.asset('assets/images/google-logo.png', height: 30),
             label: const Text(
               'Google',

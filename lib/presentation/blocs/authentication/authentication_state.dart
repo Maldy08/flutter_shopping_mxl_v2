@@ -4,6 +4,7 @@ enum AuthenticationStatus {
   unknown,
   authenticated,
   notauthenticated,
+  authenticating
 }
 
 class AuthenticationState extends Equatable {
@@ -26,5 +27,5 @@ class AuthenticationState extends Equatable {
   }
 
   @override
-  List<Object> get props => [status, user!];
+  List<Object> get props => [status];
 }
