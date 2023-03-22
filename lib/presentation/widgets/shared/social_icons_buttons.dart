@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/login/login_cubit.dart';
 
 class SocialIconsButtons extends StatelessWidget {
   const SocialIconsButtons({super.key});
@@ -29,16 +32,21 @@ class SocialIconsButtons extends StatelessWidget {
         SizedBox(
           height: 50,
           width: 150,
-          child: FilledButton.icon(
-            onPressed: () {
-              // context.push('/home/0');
+          child: BlocBuilder<LoginCubit, LoginState>(
+            builder: (context, state) {
+              return FilledButton.icon(
+                onPressed: () {
+                  // context.push('/home/0');
+                  context.read<LoginCubit>().logInWithGoogle();
+                },
+                icon: Image.asset('assets/images/google-logo.png', height: 30),
+                label: const Text(
+                  'Google',
+                  style: textStyle,
+                ),
+                style: AppTheme.outlinedButtonStyle(),
+              );
             },
-            icon: Image.asset('assets/images/google-logo.png', height: 30),
-            label: const Text(
-              'Google',
-              style: textStyle,
-            ),
-            style: AppTheme.outlinedButtonStyle(),
           ),
         ),
       ],

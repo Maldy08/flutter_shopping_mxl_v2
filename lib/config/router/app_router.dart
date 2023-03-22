@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,7 +13,22 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/',
       name: WelcomeScreen.name,
-      builder: (context, state) => const WelcomeScreen(),
+      builder: (context, state) {
+        return StreamBuilder(
+          stream: context.read<AuthenticationBloc>().stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data?.status == AuthenticationStatus.authenticated) {
+                return const HomeScreen(pageIndex: 0);
+              } else {
+                return const WelcomeScreen();
+              }
+            }
+
+            return const WelcomeScreen();
+          },
+        );
+      },
     ),
     GoRoute(
       path: '/login',

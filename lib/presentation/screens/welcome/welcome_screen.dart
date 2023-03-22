@@ -7,6 +7,8 @@ import 'package:go_router/go_router.dart';
 class WelcomeScreen extends StatelessWidget {
   static const String name = "welcome_screen";
 
+  static Page<void> page() => const MaterialPage<void>(child: WelcomeScreen());
+
   const WelcomeScreen({super.key});
 
   @override

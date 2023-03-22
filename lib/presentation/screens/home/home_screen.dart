@@ -7,6 +7,8 @@ class HomeScreen extends StatelessWidget {
   final int pageIndex;
 
   const HomeScreen({super.key, required this.pageIndex});
+  static Page<void> page() =>
+      const MaterialPage<void>(child: HomeScreen(pageIndex: 0));
 
   final viewRoutes = const <Widget>[
     HomeView(),

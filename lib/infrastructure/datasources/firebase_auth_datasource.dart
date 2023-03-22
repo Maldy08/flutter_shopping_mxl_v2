@@ -9,11 +9,11 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
   final GoogleSignIn _googleSignIn;
   final CacheClient _cache;
 
-  FirebaseAuthDatasource(
+  FirebaseAuthDatasource({
     CacheClient? cache,
     FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
-  )   : _cache = cache ?? CacheClient(),
+  })  : _cache = cache ?? CacheClient(),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
 
