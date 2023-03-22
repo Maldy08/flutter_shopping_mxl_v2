@@ -32,21 +32,17 @@ class SocialIconsButtons extends StatelessWidget {
         SizedBox(
           height: 50,
           width: 150,
-          child: BlocBuilder<LoginCubit, LoginState>(
-            builder: (context, state) {
-              return FilledButton.icon(
-                onPressed: () {
-                  // context.push('/home/0');
-                  context.read<LoginCubit>().logInWithGoogle();
-                },
-                icon: Image.asset('assets/images/google-logo.png', height: 30),
-                label: const Text(
-                  'Google',
-                  style: textStyle,
-                ),
-                style: AppTheme.outlinedButtonStyle(),
-              );
+          child: FilledButton.icon(
+            onPressed: () {
+              // context.push('/home/0');
+              context.read<LoginCubit>().logInWithGoogle();
             },
+            icon: Image.asset('assets/images/google-logo.png', height: 30),
+            label: const Text(
+              'Google',
+              style: textStyle,
+            ),
+            style: AppTheme.outlinedButtonStyle(),
           ),
         ),
       ],
