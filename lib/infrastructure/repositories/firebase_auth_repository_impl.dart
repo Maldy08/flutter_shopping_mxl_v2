@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter_shopping_mxl_v2/domain/repositories/auth_repository.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/datasources/firebase_auth_datasource.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/firebase/firebase_user.dart';
 
 class FirebaseAuthRepositoryImpl extends AuthRepository {
   final FirebaseAuthDatasource datasoruce;
@@ -18,5 +21,9 @@ class FirebaseAuthRepositoryImpl extends AuthRepository {
 
   Future<void> signInWithGoogle() {
     return datasoruce.signInWithGoogle();
+  }
+
+  Stream<FirebaseUser> get user {
+    return datasoruce.user;
   }
 }

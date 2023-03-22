@@ -1,10 +1,14 @@
 part of 'authentication_bloc.dart';
 
-class AuthenticationEvent {
+abstract class AuthenticationEvent {
   const AuthenticationEvent();
 }
 
-class GoogleSignInRequested extends AuthenticationEvent {}
+class LogoutRequested extends AuthenticationEvent {
+  const LogoutRequested();
+}
 
-// When the user signing out this event is called and the [AuthRepository] is called to sign out the user
-class SignOutRequested extends AuthenticationEvent {}
+class _UserChanged extends AuthenticationEvent {
+  const _UserChanged(this.user);
+  final FirebaseUser user;
+}

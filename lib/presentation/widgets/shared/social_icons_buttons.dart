@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authentication_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class SocialIconsButtons extends StatelessWidget {
   const SocialIconsButtons({super.key});
@@ -34,7 +31,6 @@ class SocialIconsButtons extends StatelessWidget {
           width: 150,
           child: FilledButton.icon(
             onPressed: () {
-              context.read<AuthenticationBloc>().onGoogleSingIn();
               // context.push('/home/0');
             },
             icon: Image.asset('assets/images/google-logo.png', height: 30),

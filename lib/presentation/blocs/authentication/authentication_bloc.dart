@@ -1,62 +1,50 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/firebase/firebase_user.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/repositories/firebase_auth_repository_impl.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc() : super(const AuthenticationState()) {
-    on<GoogleSignInRequested>(_onGoogleSignInRequest);
+  AuthenticationBloc(
+      {required FirebaseAuthRepositoryImpl authenticationRepository})
+      : _authenticationRepository = authenticationRepository,
+        super(
+          authenticationRepository.datasoruce.currentUser.isEmpty
+              ? AuthenticationState.authenticated(
+                  authenticationRepository.datasoruce.currentUser)
+              : const AuthenticationState.notauthenticated(),
+        ) {
+    on<_UserChanged>(_onUserChanged);
+    on<LogoutRequested>(_onLogoutRequested);
+    _userSubscription = _authenticationRepository.user.listen(
+      (user) => add(_UserChanged(user)),
+    );
   }
 
-  void _onGoogleSignInRequest(
-      GoogleSignInRequested event, Emitter<AuthenticationState> emit) async {
-    //FirebaseAuthDatasource firebaseAuthDatasource =
-    //  FirebaseAuthDatasource(FirebaseAuth.instance);
-    //FirebaseAuthRepositoryImpl firebaseAuthRepositoryImpl =
-    //  FirebaseAuthRepositoryImpl(firebaseAuthDatasource);
+  final FirebaseAuthRepositoryImpl _authenticationRepository;
+  late final StreamSubscription<FirebaseUser> _userSubscription;
 
-    emit(state.copyWith(
-      status: AuthenticationStatus.authenticating,
-      user: null,
-    ));
-    await signInWithGoogle();
-
-    // firebaseAuthRepositoryImpl.signInWithGoogle();
-    await Future.delayed(const Duration(seconds: 2));
-
-    emit(state.copyWith(
-      status: AuthenticationStatus.authenticated,
-      user: FirebaseAuth.instance.currentUser,
-    ));
+  void _onUserChanged(_UserChanged event, Emitter<AuthenticationState> emit) {
+    emit(
+      event.user.isNotEmpty
+          ? AuthenticationState.authenticated(event.user)
+          : const AuthenticationState.notauthenticated(),
+    );
   }
 
-  void onGoogleSingIn() {
-    add(GoogleSignInRequested());
+  void _onLogoutRequested(
+      LogoutRequested event, Emitter<AuthenticationState> emit) {
+    unawaited(_authenticationRepository.singOut());
   }
 
-  Future<void> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser =
-          await GoogleSignIn().signIn().catchError(
-                (onError) => print('Error $onError'),
-              );
-
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      // await _firebaseAuth.signInWithCredential(credential);
-    } catch (e) {
-      throw Exception(e.toString());
-    }
+  @override
+  Future<void> close() {
+    _userSubscription.cancel();
+    return super.close();
   }
 }
