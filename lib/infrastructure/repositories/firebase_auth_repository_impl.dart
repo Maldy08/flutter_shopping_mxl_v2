@@ -5,25 +5,26 @@ import 'package:flutter_shopping_mxl_v2/infrastructure/datasources/firebase_auth
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/firebase/firebase_user.dart';
 
 class FirebaseAuthRepositoryImpl extends AuthRepository {
-  final FirebaseAuthDatasource datasoruce;
+  final FirebaseAuthDatasource datasource;
 
-  FirebaseAuthRepositoryImpl(this.datasoruce);
+  FirebaseAuthRepositoryImpl({FirebaseAuthDatasource? datasource})
+      : datasource = datasource ?? FirebaseAuthDatasource();
 
   @override
   Future<void> signIn(String email, String password) {
-    return datasoruce.signIn(email: email, password: password);
+    return datasource.signIn(email: email, password: password);
   }
 
   @override
   Future<void> singOut() {
-    return datasoruce.singOut();
+    return datasource.singOut();
   }
 
   Future<void> signInWithGoogle() {
-    return datasoruce.signInWithGoogle();
+    return datasource.signInWithGoogle();
   }
 
   Stream<FirebaseUser> get user {
-    return datasoruce.user;
+    return datasource.user;
   }
 }

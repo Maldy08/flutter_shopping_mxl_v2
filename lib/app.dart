@@ -8,10 +8,10 @@ import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authen
 class App extends StatelessWidget {
   final FirebaseAuthRepositoryImpl _firebaseAuthRepositoryImpl;
 
-  const App(
-      {super.key,
-      required FirebaseAuthRepositoryImpl firebaseAuthRepositoryImpl})
-      : _firebaseAuthRepositoryImpl = firebaseAuthRepositoryImpl;
+  const App({
+    super.key,
+    required FirebaseAuthRepositoryImpl firebaseAuthRepositoryImpl,
+  }) : _firebaseAuthRepositoryImpl = firebaseAuthRepositoryImpl;
 
   @override
   Widget build(BuildContext context) {

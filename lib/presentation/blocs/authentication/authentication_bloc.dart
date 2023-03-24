@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/firebase/firebase_user.dart';
@@ -8,15 +9,15 @@ import 'package:flutter_shopping_mxl_v2/infrastructure/repositories/firebase_aut
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
-class AuthenticationBloc
-    extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc(
-      {required FirebaseAuthRepositoryImpl authenticationRepository})
-      : _authenticationRepository = authenticationRepository,
+class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
+    with ChangeNotifier {
+  AuthenticationBloc({FirebaseAuthRepositoryImpl? authenticationRepository})
+      : _authenticationRepository =
+            authenticationRepository ?? FirebaseAuthRepositoryImpl(),
         super(
-          authenticationRepository.datasoruce.currentUser.isEmpty
+          authenticationRepository!.datasource.currentUser.isEmpty
               ? AuthenticationState.authenticated(
-                  authenticationRepository.datasoruce.currentUser)
+                  authenticationRepository.datasource.currentUser)
               : const AuthenticationState.notauthenticated(),
         ) {
     on<_UserChanged>(_onUserChanged);
