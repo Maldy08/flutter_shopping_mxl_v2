@@ -34,9 +34,21 @@ GoRouter routes(AuthenticationBloc bloc) {
         path: '/home/:page',
         name: HomeScreen.name,
         builder: (context, state) {
-          //final status = context.watch<AuthenticationBloc>().state.status;
+          final status = context.watch<AuthenticationBloc>().state.status;
           final pageIndex = int.parse(state.params['page'] ?? '0');
           return HomeScreen(pageIndex: pageIndex);
+        },
+        redirect: (context, state) {
+          final isLoggedIn =
+              bloc.state.status == AuthenticationStatus.authenticated;
+          final pageIndex = int.parse(state.params['page'] ?? '0');
+          if (bloc.state.status == AuthenticationStatus.authenticated) {
+            return null;
+          }
+          print('pageIndex $pageIndex');
+          final isGoingTo = state.subloc;
+          print('state.subloc: $isGoingTo');
+          return null;
         },
         routes: const [],
       ),
@@ -46,5 +58,17 @@ GoRouter routes(AuthenticationBloc bloc) {
         builder: (context, state) => const ThemeChangerScreen(),
       ),
     ],
+    refreshListenable: bloc,
+    redirect: (_, state) {
+      final pageIndex = int.parse(state.params['page'] ?? '0');
+      print('pageIndex $pageIndex');
+      final isGoingTo = state.subloc;
+      print('state.subloc: $isGoingTo');
+      if (bloc.state.status == AuthenticationStatus.authenticated) {
+        return null;
+      }
+
+      //   return null;
+    },
   );
 }

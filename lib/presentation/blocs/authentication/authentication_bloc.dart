@@ -15,7 +15,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
       : _authenticationRepository =
             authenticationRepository ?? FirebaseAuthRepositoryImpl(),
         super(
-          authenticationRepository!.datasource.currentUser.isEmpty
+          authenticationRepository!.datasource.currentUser.isNotEmpty
               ? AuthenticationState.authenticated(
                   authenticationRepository.datasource.currentUser)
               : const AuthenticationState.notauthenticated(),

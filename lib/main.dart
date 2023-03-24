@@ -10,6 +10,7 @@ import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authen
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/login/login_cubit.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/notifications/notifications_bloc.dart';
 
+final firebaseRepository = FirebaseAuthRepositoryImpl();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
@@ -17,7 +18,7 @@ void main() async {
   await LocalNotifications.initializeLocalNotifications();
 
   //final firebaseDatasource = FirebaseAuthDatasource();
-  final firebaseRepository = FirebaseAuthRepositoryImpl();
+
   await firebaseRepository.user.first;
 
   runApp(
@@ -52,7 +53,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routerConfig: routes(AuthenticationBloc()),
+      routerConfig: routes(
+          AuthenticationBloc(authenticationRepository: firebaseRepository)),
       theme: AppTheme(selectedColor: 0).getTheme(),
     );
   }
