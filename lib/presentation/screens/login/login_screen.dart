@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authentication_bloc.dart';
 
 import 'package:flutter_shopping_mxl_v2/presentation/screens/login/widgets/form_login.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/login/widgets/login_image.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
-import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String name = "login_screen";
@@ -28,42 +25,45 @@ class LoginScreen extends StatelessWidget {
 class _LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            const LoginImage(),
-            const SizedBox(height: 10),
-            Container(
-              width: 350,
-              height: 260,
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              padding: const EdgeInsets.all(30),
-              child: const FormLogin(),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Text(
-                '-o inicia sesión con-',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black45,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              const LoginImage(),
+              const SizedBox(height: 10),
+              Container(
+                width: 350,
+                height: 260,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                padding: const EdgeInsets.all(30),
+                child: const FormLogin(),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Text(
+                  '-o inicia sesión con-',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black45,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const SocialIconsButtons()
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              const SocialIconsButtons()
+            ],
+          ),
         ),
       ),
     );

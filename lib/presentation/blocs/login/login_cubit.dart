@@ -19,4 +19,14 @@ class LoginCubit extends Cubit<LoginState> {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }
+
+  Future<void> loginWithEmaildAndPassword(String email, String password) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    try {
+      await _firebaseAuthRepositoryImpl.signIn(email, password);
+      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+    } catch (_) {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
+  }
 }

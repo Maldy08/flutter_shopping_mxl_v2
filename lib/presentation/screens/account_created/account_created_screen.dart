@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/account_created/widgets/account_created_image.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/login/login_screen.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
+
+import 'package:flutter_shopping_mxl_v2/config/config.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
 class AccountCreatedScreen extends StatelessWidget {
   static const String name = "account_created_screen";

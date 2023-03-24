@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
-import 'package:go_router/go_router.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -34,21 +34,18 @@ GoRouter routes(AuthenticationBloc bloc) {
         path: '/home/:page',
         name: HomeScreen.name,
         builder: (context, state) {
-          final status = context.watch<AuthenticationBloc>().state.status;
           final pageIndex = int.parse(state.params['page'] ?? '0');
           return HomeScreen(pageIndex: pageIndex);
         },
         redirect: (context, state) {
-          final isLoggedIn =
-              bloc.state.status == AuthenticationStatus.authenticated;
-          final pageIndex = int.parse(state.params['page'] ?? '0');
-          if (bloc.state.status == AuthenticationStatus.authenticated) {
-            return null;
-          }
-          print('pageIndex $pageIndex');
           final isGoingTo = state.subloc;
-          print('state.subloc: $isGoingTo');
-          return null;
+          if (bloc.state.status == AuthenticationStatus.authenticated) {
+            if (isGoingTo == '/home/0' ||
+                isGoingTo == '/home/1' ||
+                isGoingTo == '/home/2' ||
+                isGoingTo == '/home/3') return null;
+          }
+          return '/';
         },
         routes: const [],
       ),
@@ -60,13 +57,16 @@ GoRouter routes(AuthenticationBloc bloc) {
     ],
     refreshListenable: bloc,
     redirect: (_, state) {
-      final pageIndex = int.parse(state.params['page'] ?? '0');
-      print('pageIndex $pageIndex');
       final isGoingTo = state.subloc;
-      print('state.subloc: $isGoingTo');
       if (bloc.state.status == AuthenticationStatus.authenticated) {
-        return null;
+        if (isGoingTo == '/login' ||
+            isGoingTo == '/register' ||
+            isGoingTo == '/account-created' ||
+            isGoingTo == '/') {
+          return '/home/0';
+        }
       }
+      return null;
 
       //   return null;
     },

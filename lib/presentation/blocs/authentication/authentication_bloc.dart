@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/firebase/firebase_user.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/repositories/firebase_auth_repository_impl.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/infrastructure.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
@@ -36,11 +35,13 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
           ? AuthenticationState.authenticated(event.user)
           : const AuthenticationState.notauthenticated(),
     );
+    notifyListeners();
   }
 
   void _onLogoutRequested(
       LogoutRequested event, Emitter<AuthenticationState> emit) {
     unawaited(_authenticationRepository.singOut());
+    notifyListeners();
   }
 
   @override

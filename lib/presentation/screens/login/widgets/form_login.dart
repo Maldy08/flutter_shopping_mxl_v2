@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -59,7 +61,9 @@ class FormLogin extends StatelessWidget {
           width: double.infinity,
           child: CustomElevatedButton(
               func: () {
-                context.go('/home/0');
+                context
+                    .read<LoginCubit>()
+                    .loginWithEmaildAndPassword('carlos@google.com', 'Abc123');
               },
               label: 'Iniciar sesión',
               color: Colors.orange),

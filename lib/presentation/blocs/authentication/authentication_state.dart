@@ -1,6 +1,7 @@
 part of 'authentication_bloc.dart';
 
 enum AuthenticationStatus {
+  checking,
   authenticated,
   notauthenticated,
 }
@@ -10,7 +11,7 @@ class AuthenticationState extends Equatable {
   final FirebaseUser user;
 
   const AuthenticationState({
-    required this.status,
+    this.status = AuthenticationStatus.checking,
     this.user = FirebaseUser.empty,
   });
 

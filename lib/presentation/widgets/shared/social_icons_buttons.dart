@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/login/login_cubit.dart';
+import 'package:flutter_shopping_mxl_v2/config/config.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 
 class SocialIconsButtons extends StatelessWidget {
   const SocialIconsButtons({super.key});
