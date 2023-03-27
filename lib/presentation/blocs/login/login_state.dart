@@ -1,19 +1,48 @@
 part of 'login_cubit.dart';
 
 class LoginState extends Equatable {
-  final FormzStatus status;
+  final bool isPosting;
+  final bool isFormPosted;
+  final bool isValid;
+  final Email email;
+  final Password password;
+
   const LoginState({
-    this.status = FormzStatus.pure,
+    this.isPosting = false,
+    this.isFormPosted = false,
+    this.isValid = false,
+    this.email = const Email.pure(),
+    this.password = const Password.pure(),
   });
 
   LoginState copyWith({
-    FormzStatus? status,
+    bool? isPosting,
+    bool? isFormPosted,
+    bool? isValid,
+    Email? email,
+    Password? password,
   }) {
     return LoginState(
-      status: status ?? this.status,
+      isPosting: isPosting ?? this.isPosting,
+      isFormPosted: isFormPosted ?? this.isFormPosted,
+      isValid: isValid ?? this.isValid,
+      email: email ?? this.email,
+      password: password ?? this.password,
     );
   }
 
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return '''
+  LoginFormState:
+    isPosting: $isPosting
+    isFormPosted: $isFormPosted
+    isValid: $isValid
+    email: $email
+    password: $password
+''';
+  }
 }

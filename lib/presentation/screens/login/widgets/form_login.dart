@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/shared/custom_text_form_field.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
-import 'package:formz/formz.dart';
 
 class FormLogin extends StatelessWidget {
   const FormLogin({super.key});
@@ -11,9 +11,10 @@ class FormLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final status = context.watch<LoginCubit>().state.status;
 
-    return status == FormzStatus.submissionInProgress
+    final loginForm = context.watch<LoginCubit>();
+
+    return loginForm.state.isPosting
         ? const Center(
             child: CircularProgressIndicator(
               strokeWidth: 2,
@@ -38,7 +39,12 @@ class FormLogin extends StatelessWidget {
                       Radius.circular(10),
                     ),
                   ),
+                  errorText: loginForm.state.isFormPosted
+                      ? loginForm.state.email.errorMessage
+                      : null,
                 ),
+                keyboardType: TextInputType.emailAddress,
+                onChanged: loginForm.onPasswordChanged,
               ),
               const SizedBox(
                 height: 20,
@@ -69,8 +75,9 @@ class FormLogin extends StatelessWidget {
                 width: double.infinity,
                 child: CustomElevatedButton(
                     func: () {
-                      context.read<LoginCubit>().loginWithEmaildAndPassword(
-                          'carlos@google.com', 'Abc123');
+                      loginForm.onSubmit();
+                      // context.read<LoginCubit>().loginWithEmaildAndPassword(
+                      //     'carlos@google.com', 'Abc123');
                     },
                     label: 'Iniciar sesión',
                     color: Colors.orange),
