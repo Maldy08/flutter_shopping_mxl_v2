@@ -32,6 +32,8 @@ class _HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<AuthenticationBloc>().state.user;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -39,10 +41,17 @@ class _HomeView extends StatelessWidget {
           children: [
             const Spacer(),
             CircleAvatar(
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.account_circle_rounded),
-              ),
+              child: user.photoUrl != null
+                  ? ClipOval(
+                      child: Image.network(
+                        user.photoUrl!,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.account_circle_rounded),
+                    ),
             )
           ],
         ),
@@ -56,7 +65,7 @@ class _HomeView extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             Text(
-              ' Usuario.',
+              "${user.name}.",
               style: TextStyle(fontSize: 18, color: theme.primaryColor),
             ),
           ],

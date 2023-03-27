@@ -39,6 +39,7 @@ GoRouter routes(AuthenticationBloc bloc) {
         },
         redirect: (context, state) {
           final isGoingTo = state.subloc;
+
           if (bloc.state.status == AuthenticationStatus.authenticated) {
             if (isGoingTo == '/home/0' ||
                 isGoingTo == '/home/1' ||
