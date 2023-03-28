@@ -5,8 +5,9 @@ import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class FormRegister extends StatelessWidget {
-  final bgContainer = AppTheme.getBackgroundContainerColor();
   FormRegister({super.key});
+
+  final bgContainer = AppTheme.getBackgroundContainerColor();
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +43,8 @@ class FormRegister extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             decoration: const InputDecoration(labelText: 'Correo'),
           ),
+          //Falta incoporar el campo password
+
           const SizedBox(
             height: 20,
           ),
@@ -53,14 +56,41 @@ class FormRegister extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          TextFormField(
-            textInputAction: TextInputAction.done,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: 'Codigo Postal'),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
+
+          // DropdownButtonFormField(
+          //   decoration: const InputDecoration(
+          //     enabledBorder: OutlineInputBorder(
+          //       //<-- SEE HERE
+          //       borderSide: BorderSide(color: Colors.black, width: 2),
+          //     ),
+          //     focusedBorder: OutlineInputBorder(
+          //       //<-- SEE HERE
+          //       borderSide: BorderSide(color: Colors.black, width: 2),
+          //     ),
+          //     filled: true,
+          //     fillColor: Colors.greenAccent,
+          //   ),
+          //   dropdownColor: Colors.greenAccent,
+          //   value: dropdownValue,
+          //   onChanged: (String? newValue) {
+          //     setState(() {
+          //       dropdownValue = newValue!;
+          //     });
+          //   },
+          //   items: <String>['Dog', 'Cat', 'Tiger', 'Lion']
+          //       .map<DropdownMenuItem<String>>((String value) {
+          //     return DropdownMenuItem<String>(
+          //       value: value,
+          //       child: Text(
+          //         value,
+          //         style: const TextStyle(fontSize: 20),
+          //       ),
+          //     );
+          //   }).toList(),
+          // ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
           SizedBox(
             width: double.infinity,
             child: CustomElevatedButton(
