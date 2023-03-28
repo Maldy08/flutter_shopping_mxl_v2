@@ -22,7 +22,8 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  Future<void> loginWithEmaildAndPassword(String email, String password) async {
+  Future<void> _loginWithEmaildAndPassword(
+      String email, String password) async {
     emit(state.copyWith(isPosting: true));
     try {
       await _firebaseAuthRepositoryImpl.signIn(email, password);
@@ -30,6 +31,17 @@ class LoginCubit extends Cubit<LoginState> {
     } catch (_) {
       emit(state.copyWith(isPosting: false));
     }
+  }
+
+  _touchEveryField() {
+    final email = Email.dirty(state.email.value);
+    final password = Password.dirty(state.password.value);
+
+    emit(state.copyWith(
+        isFormPosted: true,
+        email: email,
+        password: password,
+        isPosting: Formz.validate([email, password])));
   }
 
   onEmailChange(String value) {
@@ -52,14 +64,9 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  void onSubmit() {
-    emit(
-      state.copyWith(
-        isPosting: true,
-        email: Email.dirty(state.email.value),
-        password: Password.dirty(state.password.value),
-        isValid: Formz.validate([state.email, state.password]),
-      ),
-    );
+  void onSubmit() async {
+    _touchEveryField();
+    if (!state.isValid) return;
+    await _loginWithEmaildAndPassword(state.email.value, state.password.value);
   }
 }

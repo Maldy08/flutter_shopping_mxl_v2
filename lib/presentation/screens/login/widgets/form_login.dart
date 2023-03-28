@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/shared/custom_text_form_field.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
 class FormLogin extends StatelessWidget {
@@ -25,26 +24,25 @@ class FormLogin extends StatelessWidget {
             children: [
               TextFormField(
                 decoration: InputDecoration(
-                  isDense: true,
-                  prefixIcon: Icon(
-                    Icons.mail_outline,
-                    color: theme.primaryColor,
-                  ),
-                  filled: true,
-                  fillColor: bgContainer,
-                  labelText: 'Correo',
-                  border: const OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
+                    isDense: true,
+                    prefixIcon: Icon(
+                      Icons.mail_outline,
+                      color: theme.primaryColor,
                     ),
-                  ),
-                  errorText: loginForm.state.isFormPosted
-                      ? loginForm.state.email.errorMessage
-                      : null,
-                ),
+                    filled: true,
+                    fillColor: bgContainer,
+                    labelText: 'Correo',
+                    border: const OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    errorText: loginForm.state.isFormPosted
+                        ? loginForm.state.email.errorMessage
+                        : null),
                 keyboardType: TextInputType.emailAddress,
-                onChanged: loginForm.onPasswordChanged,
+                onChanged: loginForm.onEmailChange,
               ),
               const SizedBox(
                 height: 20,
@@ -52,21 +50,25 @@ class FormLogin extends StatelessWidget {
               TextFormField(
                 obscureText: true,
                 decoration: InputDecoration(
-                  isDense: true,
-                  prefixIcon: Icon(
-                    Icons.lock_outline,
-                    color: theme.primaryColor,
-                  ),
-                  filled: true,
-                  fillColor: bgContainer,
-                  labelText: 'Password',
-                  border: const OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
+                    isDense: true,
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: theme.primaryColor,
                     ),
-                  ),
-                ),
+                    filled: true,
+                    fillColor: bgContainer,
+                    labelText: 'Password',
+                    border: const OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    errorText: loginForm.state.isFormPosted
+                        ? loginForm.state.password.errorMessage
+                        : null),
+                keyboardType: TextInputType.text,
+                onChanged: loginForm.onPasswordChanged,
               ),
               const SizedBox(
                 height: 20,
