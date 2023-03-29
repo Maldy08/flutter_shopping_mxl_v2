@@ -18,6 +18,7 @@ class User {
   final String password;
   final String phoneNumber;
   final List<Intereses>? intereses;
+  final String? photoUrl;
   //final Location location;
 
   User({
@@ -28,9 +29,10 @@ class User {
     required this.email,
     required this.password,
     required this.phoneNumber,
+    String? photoUrl,
     this.intereses,
     //required this.location,
-  });
+  }) : photoUrl = photoUrl ?? 'no-photo';
 }
 
 //coleccition users..

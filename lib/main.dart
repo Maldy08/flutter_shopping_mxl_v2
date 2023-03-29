@@ -35,7 +35,7 @@ void main() async {
           create: (_) => LoginCubit(firebaseRepository),
         ),
         BlocProvider(
-          create: (_) => RegisterCubit(),
+          create: (_) => RegisterCubit(firebaseRepository),
         )
       ],
       child: MainApp(

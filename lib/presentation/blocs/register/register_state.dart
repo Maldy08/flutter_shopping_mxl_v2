@@ -16,9 +16,9 @@ class RegisterState extends Equatable {
   final Username username;
   final Email email;
   final Password password;
-  final Age age;
-  final Sex sex;
-  final PhoneNumber phoneNumber;
+  // final Age age;
+  // final Sex sex;
+  // final PhoneNumber phoneNumber;
 
   const RegisterState({
     this.isPosting = false,
@@ -27,9 +27,9 @@ class RegisterState extends Equatable {
     this.username = const Username.pure(),
     this.email = const Email.pure(),
     this.password = const Password.pure(),
-    this.age = const Age.pure(),
-    this.sex = const Sex.pure(),
-    this.phoneNumber = const PhoneNumber.pure(),
+    // this.age = const Age.pure(),
+    // this.sex = const Sex.pure(),
+    // this.phoneNumber = const PhoneNumber.pure(),
   });
 
   RegisterState copyWith({
@@ -39,9 +39,9 @@ class RegisterState extends Equatable {
     Username? username,
     Email? email,
     Password? password,
-    Age? age,
-    Sex? sex,
-    PhoneNumber? phoneNumber,
+    // Age? age,
+    // Sex? sex,
+    // PhoneNumber? phoneNumber,
   }) {
     return RegisterState(
       isPosting: isPosting ?? this.isPosting,
@@ -50,9 +50,9 @@ class RegisterState extends Equatable {
       username: username ?? this.username,
       email: email ?? this.email,
       password: password ?? this.password,
-      age: age ?? this.age,
-      sex: sex ?? this.sex,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
+      // age: age ?? this.age,
+      // sex: sex ?? this.sex,
+      // phoneNumber: phoneNumber ?? this.phoneNumber,
     );
   }
 
@@ -64,9 +64,6 @@ class RegisterState extends Equatable {
         username,
         email,
         password,
-        age,
-        sex,
-        phoneNumber
       ];
 }
 

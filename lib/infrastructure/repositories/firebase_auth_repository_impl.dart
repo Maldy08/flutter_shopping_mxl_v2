@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_shopping_mxl_v2/domain/repositories/auth_repository.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/datasources/firebase_auth_datasource.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/firebase/firebase_user.dart';
+//import 'package:flutter_shopping_mxl_v2/infrastructure/models/user.dart';
 
 class FirebaseAuthRepositoryImpl extends AuthRepository {
   final FirebaseAuthDatasource datasource;
@@ -26,5 +27,10 @@ class FirebaseAuthRepositoryImpl extends AuthRepository {
 
   Stream<FirebaseUser> get user {
     return datasource.user;
+  }
+
+  @override
+  Future<void> registerUser({required String email, required String password}) {
+    return datasource.registerUser(email: email, password: password);
   }
 }
