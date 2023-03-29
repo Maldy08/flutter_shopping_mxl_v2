@@ -41,7 +41,7 @@ class _LoginView extends StatelessWidget {
               const SizedBox(height: 10),
               Container(
                 width: 350,
-                height: 350,
+                height: 300,
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -49,7 +49,7 @@ class _LoginView extends StatelessWidget {
                 child: const FormLogin(),
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 5),
                 child: Text(
                   '-o inicia sesión con-',
                   style: TextStyle(

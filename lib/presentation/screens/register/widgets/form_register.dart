@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/register/register_cubit.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
@@ -11,14 +13,17 @@ class FormRegister extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formRegister = context.watch<RegisterCubit>();
+
     return Form(
       child: Column(
         children: [
           TextFormField(
             textInputAction: TextInputAction.next,
-            decoration: const InputDecoration(
-              labelText: 'Nombre Completo',
-            ),
+            onChanged: formRegister.onUsernameChanged,
+            decoration: InputDecoration(
+                labelText: 'Nombre Completo',
+                errorText: formRegister.state.username.errorMessage),
           ),
           const SizedBox(
             height: 20,
@@ -26,14 +31,20 @@ class FormRegister extends StatelessWidget {
           TextFormField(
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: 'Edad'),
+            onChanged: formRegister.onAgeChanged,
+            decoration: InputDecoration(
+                labelText: 'Edad',
+                errorText: formRegister.state.age.errorMessage),
           ),
           const SizedBox(
             height: 20,
           ),
           TextFormField(
             textInputAction: TextInputAction.next,
-            decoration: const InputDecoration(labelText: 'Sexo'),
+            onChanged: formRegister.onSexChanged,
+            decoration: InputDecoration(
+                labelText: 'Sexo',
+                errorText: formRegister.state.sex.errorMessage),
           ),
           const SizedBox(
             height: 20,
@@ -41,7 +52,11 @@ class FormRegister extends StatelessWidget {
           TextFormField(
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(labelText: 'Correo'),
+            onChanged: formRegister.onEmailChange,
+            decoration: InputDecoration(
+              labelText: 'Correo',
+              errorText: formRegister.state.email.errorMessage,
+            ),
           ),
           //Falta incoporar el campo password
 
@@ -51,7 +66,11 @@ class FormRegister extends StatelessWidget {
           TextFormField(
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.phone,
-            decoration: const InputDecoration(labelText: 'Telefono'),
+            onChanged: formRegister.onPhoneChange,
+            decoration: InputDecoration(
+              labelText: 'Telefono',
+              errorText: formRegister.state.phoneNumber.errorMessage,
+            ),
           ),
           const SizedBox(
             height: 20,

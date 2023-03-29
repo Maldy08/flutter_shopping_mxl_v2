@@ -32,8 +32,42 @@ class RegisterState extends Equatable {
     this.phoneNumber = const PhoneNumber.pure(),
   });
 
+  RegisterState copyWith({
+    bool? isPosting,
+    bool? isFormPosted,
+    bool? isValid,
+    Username? username,
+    Email? email,
+    Password? password,
+    Age? age,
+    Sex? sex,
+    PhoneNumber? phoneNumber,
+  }) {
+    return RegisterState(
+      isPosting: isPosting ?? this.isPosting,
+      isFormPosted: isFormPosted ?? this.isFormPosted,
+      isValid: isValid ?? this.isValid,
+      username: username ?? this.username,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      age: age ?? this.age,
+      sex: sex ?? this.sex,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+    );
+  }
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        isPosting,
+        isFormPosted,
+        isValid,
+        username,
+        email,
+        password,
+        age,
+        sex,
+        phoneNumber
+      ];
 }
 
 class RegisterInitial extends RegisterState {}
