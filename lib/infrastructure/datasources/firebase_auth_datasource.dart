@@ -1,4 +1,5 @@
 import 'package:cache/cache.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_shopping_mxl_v2/domain/datasource/auth_datasource.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart'
@@ -8,14 +9,17 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthDatasource extends AuthDatasoruce {
   final FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _firebaseFirestore;
   final GoogleSignIn _googleSignIn;
   final CacheClient _cache;
 
-  FirebaseAuthDatasource({
-    CacheClient? cache,
-    FirebaseAuth? firebaseAuth,
-    GoogleSignIn? googleSignIn,
-  })  : _cache = cache ?? CacheClient(),
+  FirebaseAuthDatasource(
+      {CacheClient? cache,
+      FirebaseAuth? firebaseAuth,
+      GoogleSignIn? googleSignIn,
+      FirebaseFirestore? firebaseFirestore})
+      : _cache = cache ?? CacheClient(),
+        _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance,
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
 
@@ -89,8 +93,17 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
   Future<void> registerUser(
       {required String email, required String password}) async {
     try {
-      UserCredential result = await _firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      final credentials = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+
+      final collectionUsers = _firebaseFirestore.collection('users');
+      collectionUsers.add({
+        'uid': credentials.user!.uid,
+        'email': credentials.user!.email,
+      });
+
+      // .then((_) =>
+      //     _firebaseAuth.currentUser!.updateDisplayName("Carlos Maldonado"));
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
     }

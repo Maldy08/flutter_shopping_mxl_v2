@@ -127,10 +127,10 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> _singUp(String email, String password) async {
     emit(state.copyWith(isPosting: true));
-    await Future.delayed(const Duration(seconds: 2));
+    //await Future.delayed(const Duration(seconds: 2));
+    //emit(state.copyWith(isPosting: false));
+    await _firebaseAuthRepositoryImpl.registerUser(
+        email: email, password: password);
     emit(state.copyWith(isPosting: false));
-    // await _firebaseAuthRepositoryImpl.registerUser(
-    //     email: email, password: password);
-    // emit(state.copyWith(isPosting: false));
   }
 }
