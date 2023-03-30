@@ -4,6 +4,7 @@ class LoginState extends Equatable {
   final bool isPosting;
   final bool isFormPosted;
   final bool isValid;
+  final String errorMessage;
   final Email email;
   final Password password;
 
@@ -11,6 +12,7 @@ class LoginState extends Equatable {
     this.isPosting = false,
     this.isFormPosted = false,
     this.isValid = false,
+    this.errorMessage = '',
     this.email = const Email.pure(),
     this.password = const Password.pure(),
   });
@@ -19,6 +21,7 @@ class LoginState extends Equatable {
     bool? isPosting,
     bool? isFormPosted,
     bool? isValid,
+    String? errorMessage,
     Email? email,
     Password? password,
   }) {
@@ -26,6 +29,7 @@ class LoginState extends Equatable {
       isPosting: isPosting ?? this.isPosting,
       isFormPosted: isFormPosted ?? this.isFormPosted,
       isValid: isValid ?? this.isValid,
+      errorMessage: errorMessage ?? this.errorMessage,
       email: email ?? this.email,
       password: password ?? this.password,
     );

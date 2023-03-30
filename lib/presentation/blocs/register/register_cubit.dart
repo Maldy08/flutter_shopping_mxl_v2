@@ -109,7 +109,11 @@ class RegisterCubit extends Cubit<RegisterState> {
   void onSubmit() async {
     _touchEveryField();
     if (!state.isValid) return;
-    await _singUp(state.email.value, state.password.value);
+    await _singUp(
+      state.username.value,
+      state.email.value,
+      state.password.value,
+    );
   }
 
   _touchEveryField() {
@@ -125,12 +129,15 @@ class RegisterCubit extends Cubit<RegisterState> {
         isPosting: Formz.validate([username, email, password])));
   }
 
-  Future<void> _singUp(String email, String password) async {
+  Future<void> _singUp(String username, String email, String password) async {
     emit(state.copyWith(isPosting: true));
     //await Future.delayed(const Duration(seconds: 2));
     //emit(state.copyWith(isPosting: false));
     await _firebaseAuthRepositoryImpl.registerUser(
-        email: email, password: password);
+      username: username,
+      email: email,
+      password: password,
+    );
     emit(state.copyWith(isPosting: false));
   }
 }

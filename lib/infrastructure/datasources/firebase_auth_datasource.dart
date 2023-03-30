@@ -90,15 +90,22 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
   }
 
   @override
-  Future<void> registerUser(
-      {required String email, required String password}) async {
+  Future<void> registerUser({
+    required String username,
+    required String email,
+    required String password,
+  }) async {
     try {
       final credentials = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
 
+      await _firebaseAuth.currentUser!.updateDisplayName(username);
+
       final collectionUsers = _firebaseFirestore.collection('users');
+
       collectionUsers.add({
         'uid': credentials.user!.uid,
+        'username': username,
         'email': credentials.user!.email,
       });
 

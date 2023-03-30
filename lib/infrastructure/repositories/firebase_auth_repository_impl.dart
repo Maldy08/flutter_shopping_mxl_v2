@@ -30,7 +30,14 @@ class FirebaseAuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<void> registerUser({required String email, required String password}) {
-    return datasource.registerUser(email: email, password: password);
+  Future<void> registerUser(
+      {required String username,
+      required String email,
+      required String password}) {
+    return datasource.registerUser(
+      username: username,
+      email: email,
+      password: password,
+    );
   }
 }
