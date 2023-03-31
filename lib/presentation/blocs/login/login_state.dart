@@ -4,7 +4,7 @@ class LoginState extends Equatable {
   final bool isPosting;
   final bool isFormPosted;
   final bool isValid;
-  final String errorMessage;
+  final String? errorMessage;
   final Email email;
   final Password password;
 
@@ -12,7 +12,7 @@ class LoginState extends Equatable {
     this.isPosting = false,
     this.isFormPosted = false,
     this.isValid = false,
-    this.errorMessage = '',
+    this.errorMessage,
     this.email = const Email.pure(),
     this.password = const Password.pure(),
   });
@@ -36,7 +36,8 @@ class LoginState extends Equatable {
   }
 
   @override
-  List<Object> get props => [isPosting, isFormPosted, isValid, email, password];
+  List<Object?> get props =>
+      [isPosting, isFormPosted, isValid, errorMessage, email, password];
 
   @override
   String toString() {
@@ -45,6 +46,7 @@ class LoginState extends Equatable {
     isPosting: $isPosting
     isFormPosted: $isFormPosted
     isValid: $isValid
+    errorMessage:$errorMessage
     email: $email
     password: $password
 ''';

@@ -9,11 +9,11 @@ class FormLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void showSnackbar(BuildContext context, String message) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(message)));
-    }
+    // void showSnackbar(BuildContext context, String message) {
+    //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    //   ScaffoldMessenger.of(context)
+    //       .showSnackBar(SnackBar(content: Text(message)));
+    // }
 
     final theme = Theme.of(context);
 
@@ -25,10 +25,8 @@ class FormLogin extends StatelessWidget {
               strokeWidth: 2,
             ),
           )
-        : BlocListener<LoginCubit, LoginState>(
-            listener: (context, state) {},
-            child: Form(
-                child: SingleChildScrollView(
+        : Form(
+            child: SingleChildScrollView(
               child: Column(
                 children: [
                   TextFormField(
@@ -86,6 +84,7 @@ class FormLogin extends StatelessWidget {
                     width: double.infinity,
                     child: CustomElevatedButton(
                         func: () {
+                          // showSnackbar(context, 'Hola mundo');
                           loginForm.onSubmit();
                           // context.read<LoginCubit>().loginWithEmaildAndPassword(
                           //     'carlos@google.com', 'Abc123');
@@ -95,7 +94,7 @@ class FormLogin extends StatelessWidget {
                   )
                 ],
               ),
-            )),
+            ),
           );
   }
 }

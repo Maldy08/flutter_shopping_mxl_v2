@@ -112,7 +112,9 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
       // .then((_) =>
       //     _firebaseAuth.currentUser!.updateDisplayName("Carlos Maldonado"));
     } on FirebaseAuthException catch (e) {
-      throw Exception(e.message);
+      if (e.code == 'email-already-in-use') {
+        throw Exception('Esta email ya se encuentra en uso!');
+      }
     }
     //final user = Models.User(uid: result.user!.uid);
   }
