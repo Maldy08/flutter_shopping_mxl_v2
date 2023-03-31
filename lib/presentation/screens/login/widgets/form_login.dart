@@ -3,98 +3,116 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
+import 'package:formz/formz.dart';
 
 class FormLogin extends StatelessWidget {
   const FormLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // void showSnackbar(BuildContext context, String message) {
-    //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    //   ScaffoldMessenger.of(context)
-    //       .showSnackBar(SnackBar(content: Text(message)));
-    // }
+    void showSnackbar(BuildContext context, String message) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(message)));
+    }
 
     final theme = Theme.of(context);
 
-    final loginForm = context.watch<LoginCubit>();
+    //final loginForm = context.watch<LoginCubit>();
 
-    return loginForm.state.isPosting
-        ? const Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-            ),
-          )
-        : Form(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                        isDense: true,
-                        prefixIcon: Icon(
-                          Icons.mail_outline,
-                          color: theme.primaryColor,
-                        ),
-                        filled: true,
-                        fillColor: bgContainer,
-                        labelText: 'Correo',
-                        border: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
+    return BlocListener<LoginCubit, LoginState>(
+      listener: (context, state) {
+        if (state.status == FormzSubmissionStatus.failure) {
+          showSnackbar(context, state.errorMessage ?? 'Authentication Failed');
+        }
+      },
+      child: context.watch<LoginCubit>().state.isPosting
+          ? const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            )
+          : Form(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                          isDense: true,
+                          prefixIcon: Icon(
+                            Icons.mail_outline,
+                            color: theme.primaryColor,
                           ),
-                        ),
-                        errorText: loginForm.state.isFormPosted
-                            ? loginForm.state.email.errorMessage
-                            : null),
-                    keyboardType: TextInputType.emailAddress,
-                    onChanged: loginForm.onEmailChange,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        isDense: true,
-                        prefixIcon: Icon(
-                          Icons.lock_outline,
-                          color: theme.primaryColor,
-                        ),
-                        filled: true,
-                        fillColor: bgContainer,
-                        labelText: 'Password',
-                        border: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
+                          filled: true,
+                          fillColor: bgContainer,
+                          labelText: 'Correo',
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
                           ),
-                        ),
-                        errorText: loginForm.state.isFormPosted
-                            ? loginForm.state.password.errorMessage
-                            : null),
-                    keyboardType: TextInputType.text,
-                    onChanged: loginForm.onPasswordChanged,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: CustomElevatedButton(
-                        func: () {
-                          // showSnackbar(context, 'Hola mundo');
-                          loginForm.onSubmit();
-                          // context.read<LoginCubit>().loginWithEmaildAndPassword(
-                          //     'carlos@google.com', 'Abc123');
-                        },
-                        label: 'Iniciar sesión',
-                        color: Colors.orange),
-                  )
-                ],
+                          errorText:
+                              context.read<LoginCubit>().state.isFormPosted
+                                  ? context
+                                      .read<LoginCubit>()
+                                      .state
+                                      .email
+                                      .errorMessage
+                                  : null),
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: context.read<LoginCubit>().onEmailChange,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          isDense: true,
+                          prefixIcon: Icon(
+                            Icons.lock_outline,
+                            color: theme.primaryColor,
+                          ),
+                          filled: true,
+                          fillColor: bgContainer,
+                          labelText: 'Password',
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                          errorText:
+                              context.read<LoginCubit>().state.isFormPosted
+                                  ? context
+                                      .read<LoginCubit>()
+                                      .state
+                                      .password
+                                      .errorMessage
+                                  : null),
+                      keyboardType: TextInputType.text,
+                      onChanged: context.read<LoginCubit>().onPasswordChanged,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: CustomElevatedButton(
+                          func: () {
+                            // showSnackbar(context, 'Hola mundo');
+                            context.read<LoginCubit>().onSubmit();
+                            // context.read<LoginCubit>().loginWithEmaildAndPassword(
+                            //     'carlos@google.com', 'Abc123');
+                          },
+                          label: 'Iniciar sesión',
+                          color: Colors.orange),
+                    )
+                  ],
+                ),
               ),
             ),
-          );
+    );
   }
 }

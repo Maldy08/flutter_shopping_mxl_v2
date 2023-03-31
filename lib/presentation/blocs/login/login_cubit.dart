@@ -16,6 +16,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(isPosting: true));
     try {
       await _firebaseAuthRepositoryImpl.signInWithGoogle();
+
       emit(state.copyWith(isPosting: false));
     } catch (_) {
       emit(state.copyWith(isPosting: false));
@@ -24,16 +25,29 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> _loginWithEmaildAndPassword(
       String email, String password) async {
-    emit(state.copyWith(isPosting: true));
+    emit(state.copyWith(
+      isPosting: true,
+      status: FormzSubmissionStatus.inProgress,
+    ));
     try {
+      await Future.delayed(const Duration(seconds: 2));
       await _firebaseAuthRepositoryImpl.signIn(email, password);
-      emit(state.copyWith(isPosting: false));
-    } on Exception catch (e) {
-      emit(
-        state.copyWith(errorMessage: e.toString(), isFormPosted: true),
-      );
-    } catch (_) {
-      emit(state.copyWith(isPosting: false, errorMessage: null));
+      emit(state.copyWith(
+        isPosting: false,
+        status: FormzSubmissionStatus.success,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        isPosting: false,
+        errorMessage: e.toString(),
+        status: FormzSubmissionStatus.failure,
+      ));
+
+      emit(state.copyWith(
+        isPosting: false,
+        // errorMessage: null,
+        status: FormzSubmissionStatus.initial,
+      ));
     }
   }
 
