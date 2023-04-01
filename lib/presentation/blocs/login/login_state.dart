@@ -28,13 +28,14 @@ class LoginState extends Equatable {
       Password? password,
       FormzSubmissionStatus? status}) {
     return LoginState(
-        isPosting: isPosting ?? this.isPosting,
-        isFormPosted: isFormPosted ?? this.isFormPosted,
-        isValid: isValid ?? this.isValid,
-        errorMessage: errorMessage ?? this.errorMessage,
-        email: email ?? this.email,
-        password: password ?? this.password,
-        status: status ?? this.status);
+      isPosting: isPosting ?? this.isPosting,
+      isFormPosted: isFormPosted ?? this.isFormPosted,
+      isValid: isValid ?? this.isValid,
+      errorMessage: errorMessage ?? this.errorMessage,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      status: status ?? this.status,
+    );
   }
 
   @override

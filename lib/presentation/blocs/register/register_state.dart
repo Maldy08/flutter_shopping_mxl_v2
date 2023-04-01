@@ -16,6 +16,8 @@ class RegisterState extends Equatable {
   final Username username;
   final Email email;
   final Password password;
+  final FormzSubmissionStatus status;
+  final String? errorMessage;
   // final Age age;
   // final Sex sex;
   // final PhoneNumber phoneNumber;
@@ -27,22 +29,26 @@ class RegisterState extends Equatable {
     this.username = const Username.pure(),
     this.email = const Email.pure(),
     this.password = const Password.pure(),
+    this.status = FormzSubmissionStatus.initial,
+    this.errorMessage,
     // this.age = const Age.pure(),
     // this.sex = const Sex.pure(),
     // this.phoneNumber = const PhoneNumber.pure(),
   });
 
-  RegisterState copyWith({
-    bool? isPosting,
-    bool? isFormPosted,
-    bool? isValid,
-    Username? username,
-    Email? email,
-    Password? password,
-    // Age? age,
-    // Sex? sex,
-    // PhoneNumber? phoneNumber,
-  }) {
+  RegisterState copyWith(
+      {bool? isPosting,
+      bool? isFormPosted,
+      bool? isValid,
+      Username? username,
+      Email? email,
+      Password? password,
+      FormzSubmissionStatus? status,
+      String? errorMessage
+      // Age? age,
+      // Sex? sex,
+      // PhoneNumber? phoneNumber,
+      }) {
     return RegisterState(
       isPosting: isPosting ?? this.isPosting,
       isFormPosted: isFormPosted ?? this.isFormPosted,
@@ -50,6 +56,8 @@ class RegisterState extends Equatable {
       username: username ?? this.username,
       email: email ?? this.email,
       password: password ?? this.password,
+      status: status ?? this.status,
+      errorMessage: errorMessage ?? this.errorMessage,
       // age: age ?? this.age,
       // sex: sex ?? this.sex,
       // phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -57,13 +65,15 @@ class RegisterState extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         isPosting,
         isFormPosted,
         isValid,
         username,
         email,
         password,
+        status,
+        errorMessage
       ];
 }
 

@@ -9,7 +9,8 @@ part 'register_state.dart';
 class RegisterCubit extends Cubit<RegisterState> {
   final FirebaseAuthRepositoryImpl _firebaseAuthRepositoryImpl;
 
-  RegisterCubit(this._firebaseAuthRepositoryImpl) : super(RegisterInitial());
+  RegisterCubit(this._firebaseAuthRepositoryImpl)
+      : super(const RegisterState());
 
   onUsernameChanged(String value) {
     final newUsername = Username.dirty(value);
@@ -126,18 +127,31 @@ class RegisterCubit extends Cubit<RegisterState> {
         username: username,
         email: email,
         password: password,
+        status: FormzSubmissionStatus.inProgress,
         isPosting: Formz.validate([username, email, password])));
   }
 
   Future<void> _singUp(String username, String email, String password) async {
-    emit(state.copyWith(isPosting: true));
+    emit(state.copyWith(
+        isPosting: true, status: FormzSubmissionStatus.inProgress));
     //await Future.delayed(const Duration(seconds: 2));
     //emit(state.copyWith(isPosting: false));
-    await _firebaseAuthRepositoryImpl.registerUser(
-      username: username,
-      email: email,
-      password: password,
-    );
-    emit(state.copyWith(isPosting: false));
+    try {
+      await _firebaseAuthRepositoryImpl.registerUser(
+        username: username,
+        email: email,
+        password: password,
+      );
+    } catch (e) {
+      emit(state.copyWith(
+        isPosting: false,
+        status: FormzSubmissionStatus.failure,
+        errorMessage: e.toString(),
+      ));
+    }
+    emit(state.copyWith(
+      isPosting: false,
+      status: FormzSubmissionStatus.initial,
+    ));
   }
 }
