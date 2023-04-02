@@ -115,6 +115,8 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
       if (e.code == 'email-already-in-use') {
         throw Exception('Esta email ya se encuentra en uso!');
       }
+    } catch (e) {
+      throw Exception(e.toString());
     }
     //final user = Models.User(uid: result.user!.uid);
   }

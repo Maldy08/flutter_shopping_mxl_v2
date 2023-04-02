@@ -1,165 +1,199 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/register/register_cubit.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
+import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 
-class FormRegister extends StatelessWidget {
+class FormRegister extends StatefulWidget {
   FormRegister({super.key});
 
+  @override
+  State<FormRegister> createState() => _FormRegisterState();
+}
+
+class _FormRegisterState extends State<FormRegister> {
   final bgContainer = AppTheme.getBackgroundContainerColor();
+  final usernameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<RegisterCubit>().initializeState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final formRegister = context.watch<RegisterCubit>();
+    //final formRegister = context.watch<RegisterCubit>();
 
-    return formRegister.state.isPosting
-        ? const Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
+    void showSnackbar(BuildContext context, String message) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(message)));
+    }
+
+    return BlocListener<RegisterCubit, RegisterState>(
+      listener: (context, state) {
+        if (state.status == FormzSubmissionStatus.failure) {
+          showSnackbar(context, state.errorMessage ?? 'Registration Failed');
+        }
+      },
+      child: Form(
+        child: Column(
+          children: [
+            TextFormField(
+              textInputAction: TextInputAction.next,
+              onChanged: context.watch<RegisterCubit>().onUsernameChanged,
+              decoration: InputDecoration(
+                labelText: 'Nombre Completo',
+                errorText: context.watch<RegisterCubit>().state.isFormPosted
+                    ? context.watch<RegisterCubit>().state.username.errorMessage
+                    : null,
+              ),
             ),
-          )
-        : Form(
-            child: Column(
+            const SizedBox(
+              height: 20,
+            ),
+            // TextFormField(
+            //   textInputAction: TextInputAction.next,
+            //   keyboardType: TextInputType.number,
+            //   onChanged: formRegister.onAgeChanged,
+            //   decoration: InputDecoration(
+            //       labelText: 'Edad',
+            //       errorText: formRegister.state.age.errorMessage),
+            // ),
+            // const SizedBox(
+            //   height: 20,
+            // ),
+            // TextFormField(
+            //   textInputAction: TextInputAction.next,
+            //   onChanged: formRegister.onSexChanged,
+            //   decoration: InputDecoration(
+            //       labelText: 'Sexo',
+            //       errorText: formRegister.state.sex.errorMessage),
+            // ),
+            TextFormField(
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.emailAddress,
+              onChanged: context.watch<RegisterCubit>().onEmailChange,
+              decoration: InputDecoration(
+                labelText: 'Correo',
+                errorText: context.watch<RegisterCubit>().state.isFormPosted
+                    ? context.watch<RegisterCubit>().state.email.errorMessage
+                    : null,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+
+            TextFormField(
+              textInputAction: TextInputAction.done,
+              obscureText: true,
+              onChanged: context.watch<RegisterCubit>().onPasswordChanged,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                errorText: context.watch<RegisterCubit>().state.isFormPosted
+                    ? context.watch<RegisterCubit>().state.password.errorMessage
+                    : null,
+              ),
+            ),
+            //Falta incoporar el campo password
+
+            const SizedBox(
+              height: 20,
+            ),
+            // TextFormField(
+            //   textInputAction: TextInputAction.next,
+            //   keyboardType: TextInputType.phone,
+            //   onChanged: formRegister.onPhoneChange,
+            //   decoration: InputDecoration(
+            //     labelText: 'Telefono',
+            //     errorText: formRegister.state.phoneNumber.errorMessage,
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 20,
+            // ),
+
+            // DropdownButtonFormField(
+            //   decoration: const InputDecoration(
+            //     enabledBorder: OutlineInputBorder(
+            //       //<-- SEE HERE
+            //       borderSide: BorderSide(color: Colors.black, width: 2),
+            //     ),
+            //     focusedBorder: OutlineInputBorder(
+            //       //<-- SEE HERE
+            //       borderSide: BorderSide(color: Colors.black, width: 2),
+            //     ),
+            //     filled: true,
+            //     fillColor: Colors.greenAccent,
+            //   ),
+            //   dropdownColor: Colors.greenAccent,
+            //   value: dropdownValue,
+            //   onChanged: (String? newValue) {
+            //     setState(() {
+            //       dropdownValue = newValue!;
+            //     });
+            //   },
+            //   items: <String>['Dog', 'Cat', 'Tiger', 'Lion']
+            //       .map<DropdownMenuItem<String>>((String value) {
+            //     return DropdownMenuItem<String>(
+            //       value: value,
+            //       child: Text(
+            //         value,
+            //         style: const TextStyle(fontSize: 20),
+            //       ),
+            //     );
+            //   }).toList(),
+            // ),
+            // const SizedBox(
+            //   height: 20,
+            // ),
+            SizedBox(
+              width: double.infinity,
+              child: context.watch<RegisterCubit>().state.isPosting
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                      ),
+                    )
+                  : CustomElevatedButton(
+                      func: () {
+                        // showSnackbar(context, 'message');
+                        context.read<RegisterCubit>().onSubmit();
+                        //formRegister.onSubmit();
+                        //context.pushReplacementNamed(AccountCreatedScreen.name);
+                      },
+                      label: 'Crear Cuenta',
+                    ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
               children: [
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  onChanged: formRegister.onUsernameChanged,
-                  decoration: InputDecoration(
-                    labelText: 'Nombre Completo',
-                    errorText: formRegister.state.isFormPosted
-                        ? formRegister.state.username.errorMessage
-                        : null,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                // TextFormField(
-                //   textInputAction: TextInputAction.next,
-                //   keyboardType: TextInputType.number,
-                //   onChanged: formRegister.onAgeChanged,
-                //   decoration: InputDecoration(
-                //       labelText: 'Edad',
-                //       errorText: formRegister.state.age.errorMessage),
-                // ),
-                // const SizedBox(
-                //   height: 20,
-                // ),
-                // TextFormField(
-                //   textInputAction: TextInputAction.next,
-                //   onChanged: formRegister.onSexChanged,
-                //   decoration: InputDecoration(
-                //       labelText: 'Sexo',
-                //       errorText: formRegister.state.sex.errorMessage),
-                // ),
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.emailAddress,
-                  onChanged: formRegister.onEmailChange,
-                  decoration: InputDecoration(
-                    labelText: 'Correo',
-                    errorText: formRegister.state.isFormPosted
-                        ? formRegister.state.email.errorMessage
-                        : null,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-
-                TextFormField(
-                  textInputAction: TextInputAction.done,
-                  obscureText: true,
-                  onChanged: formRegister.onPasswordChanged,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    errorText: formRegister.state.isFormPosted
-                        ? formRegister.state.password.errorMessage
-                        : null,
-                  ),
-                ),
-                //Falta incoporar el campo password
-
-                const SizedBox(
-                  height: 20,
-                ),
-                // TextFormField(
-                //   textInputAction: TextInputAction.next,
-                //   keyboardType: TextInputType.phone,
-                //   onChanged: formRegister.onPhoneChange,
-                //   decoration: InputDecoration(
-                //     labelText: 'Telefono',
-                //     errorText: formRegister.state.phoneNumber.errorMessage,
-                //   ),
-                // ),
-                // const SizedBox(
-                //   height: 20,
-                // ),
-
-                // DropdownButtonFormField(
-                //   decoration: const InputDecoration(
-                //     enabledBorder: OutlineInputBorder(
-                //       //<-- SEE HERE
-                //       borderSide: BorderSide(color: Colors.black, width: 2),
-                //     ),
-                //     focusedBorder: OutlineInputBorder(
-                //       //<-- SEE HERE
-                //       borderSide: BorderSide(color: Colors.black, width: 2),
-                //     ),
-                //     filled: true,
-                //     fillColor: Colors.greenAccent,
-                //   ),
-                //   dropdownColor: Colors.greenAccent,
-                //   value: dropdownValue,
-                //   onChanged: (String? newValue) {
-                //     setState(() {
-                //       dropdownValue = newValue!;
-                //     });
-                //   },
-                //   items: <String>['Dog', 'Cat', 'Tiger', 'Lion']
-                //       .map<DropdownMenuItem<String>>((String value) {
-                //     return DropdownMenuItem<String>(
-                //       value: value,
-                //       child: Text(
-                //         value,
-                //         style: const TextStyle(fontSize: 20),
-                //       ),
-                //     );
-                //   }).toList(),
-                // ),
-                // const SizedBox(
-                //   height: 20,
-                // ),
-                SizedBox(
-                  width: double.infinity,
-                  child: CustomElevatedButton(
-                    func: () {
-                      formRegister.onSubmit();
-                      //context.pushReplacementNamed(AccountCreatedScreen.name);
+                const Text('Ya tienes cuenta?'),
+                TextButton(
+                    onPressed: () {
+                      context.pushNamed(LoginScreen.name);
                     },
-                    label: 'Crear Cuenta',
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Row(
-                  children: [
-                    const Text('Ya tienes cuenta?'),
-                    TextButton(
-                        onPressed: () {
-                          context.pushNamed(LoginScreen.name);
-                        },
-                        child: const Text(
-                          'Inicia sesión',
-                        ))
-                  ],
-                )
+                    child: const Text(
+                      'Inicia sesión',
+                    ))
               ],
-            ),
-          );
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

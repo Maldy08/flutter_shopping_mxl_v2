@@ -59,7 +59,7 @@ class LoginCubit extends Cubit<LoginState> {
         isFormPosted: true,
         email: email,
         password: password,
-        isPosting: Formz.validate([email, password])));
+        isValid: Formz.validate([email, password])));
   }
 
   onEmailChange(String value) {
@@ -86,5 +86,24 @@ class LoginCubit extends Cubit<LoginState> {
     _touchEveryField();
     if (!state.isValid) return;
     await _loginWithEmaildAndPassword(state.email.value, state.password.value);
+  }
+
+  void initializeState() {
+    emit(state.copyWith(
+      isPosting: false,
+      isFormPosted: false,
+      isValid: false,
+      errorMessage: '',
+      email: const Email.pure(),
+      password: const Password.pure(),
+      status: FormzSubmissionStatus.initial,
+    ));
+    //     this.isPosting = false,
+    // this.isFormPosted = false,
+    // this.isValid = false,
+    // this.errorMessage,
+    // this.email = const Email.pure(),
+    // this.password = const Password.pure(),
+    // this.status = FormzSubmissionStatus.initial,
   }
 }

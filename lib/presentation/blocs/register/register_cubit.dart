@@ -117,6 +117,17 @@ class RegisterCubit extends Cubit<RegisterState> {
     );
   }
 
+  void initializeState() {
+    emit(state.copyWith(
+        username: const Username.pure(),
+        email: const Email.pure(),
+        password: const Password.pure(),
+        isFormPosted: false,
+        isPosting: false,
+        isValid: false,
+        errorMessage: ''));
+  }
+
   _touchEveryField() {
     final username = Username.dirty(state.username.value);
     final email = Email.dirty(state.email.value);
@@ -127,8 +138,8 @@ class RegisterCubit extends Cubit<RegisterState> {
         username: username,
         email: email,
         password: password,
-        status: FormzSubmissionStatus.inProgress,
-        isPosting: Formz.validate([username, email, password])));
+        // status: FormzSubmissionStatus.inProgress,
+        isValid: Formz.validate([username, email, password])));
   }
 
   Future<void> _singUp(String username, String email, String password) async {
@@ -148,10 +159,17 @@ class RegisterCubit extends Cubit<RegisterState> {
         status: FormzSubmissionStatus.failure,
         errorMessage: e.toString(),
       ));
+
+      emit(state.copyWith(
+        isPosting: false,
+        // isFormPosted: true,
+        status: FormzSubmissionStatus.initial,
+      ));
+      // initializeState();
     }
-    emit(state.copyWith(
-      isPosting: false,
-      status: FormzSubmissionStatus.initial,
-    ));
+    // emit(state.copyWith(
+    //   isPosting: false,
+    //   status: FormzSubmissionStatus.initial,
+    // ));
   }
 }
