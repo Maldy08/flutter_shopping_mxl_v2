@@ -52,6 +52,16 @@ class AppTheme {
         backgroundColor: Colors.white);
   }
 
+  static ButtonStyle iconButtonSettings() {
+    return IconButton.styleFrom(
+        padding: const EdgeInsets.all(20),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7),
+        ),
+        elevation: 20,
+        backgroundColor: const Color(0xffF0F3F8));
+  }
+
   ThemeData getTheme() => ThemeData(
       useMaterial3: true,
       fontFamily: 'Poppins',

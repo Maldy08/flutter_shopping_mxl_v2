@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -38,7 +39,7 @@ class AccountCreatedScreen extends StatelessWidget {
                       children: [
                         const Text(
                           'Cuenta Creada!',
-                          style: TextStyle(fontSize: 30, color: Colors.orange),
+                          style: TextStyle(fontSize: 30, color: Colors.blue),
                         ),
                         const SizedBox(
                           height: 10,
@@ -56,12 +57,15 @@ class AccountCreatedScreen extends StatelessWidget {
                         ),
                         SizedBox(
                           width: double.infinity,
-                          child: CustomElevatedButton(
-                            label: 'Iniciar sesion',
-                            color: Colors.orange,
-                            func: () {
-                              context.pushReplacementNamed(LoginScreen.name);
-                            },
+                          child: FadeIn(
+                            delay: const Duration(milliseconds: 1500),
+                            child: CustomElevatedButton(
+                              label: 'Iniciar sesion',
+                              color: Colors.orange,
+                              func: () {
+                                context.go('/home/0');
+                              },
+                            ),
                           ),
                         )
                       ],

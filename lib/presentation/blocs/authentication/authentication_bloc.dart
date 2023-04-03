@@ -41,6 +41,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
   void _onLogoutRequested(
       LogoutRequested event, Emitter<AuthenticationState> emit) {
     unawaited(_authenticationRepository.singOut());
+    // close();
     notifyListeners();
   }
 

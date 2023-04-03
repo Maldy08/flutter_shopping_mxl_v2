@@ -50,6 +50,15 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
       );
 
       await _firebaseAuth.signInWithCredential(credential);
+      await _firebaseFirestore.collection('users').doc().set({
+        'uid': _firebaseAuth.currentUser!.uid,
+        'username': _firebaseAuth.currentUser!.displayName,
+        'email': _firebaseAuth.currentUser!.email,
+        'age': 0,
+        'sex': '',
+        'phoneNumber': '',
+        'photoUrl': _firebaseAuth.currentUser!.photoURL
+      });
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -96,7 +105,7 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
     required String password,
   }) async {
     try {
-      final credentials = await _firebaseAuth.createUserWithEmailAndPassword(
+      await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
 
       //  .whenComplete(() {
@@ -106,15 +115,16 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
       //   });
 
       await _firebaseAuth.currentUser!.updateDisplayName(username);
+      await _firebaseAuth.currentUser!.updatePhotoURL(
+          'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg');
 
-      // await _firebaseAuth.currentUser!.updatePhotoURL(
-      // 'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg');
+      _firebaseAuth.currentUser!.reload();
 
-      //await _firebaseFirestore.collection('users');
+      // await _firebaseFirestore.collection('users');
       await _firebaseFirestore.collection('users').doc().set({
-        'uid': credentials.user!.uid,
+        'uid': _firebaseAuth.currentUser!.uid,
         'username': username,
-        'email': credentials.user!.email,
+        'email': _firebaseAuth.currentUser!.email,
         'age': 0,
         'sex': '',
         'phoneNumber': '',

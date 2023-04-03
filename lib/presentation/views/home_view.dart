@@ -111,14 +111,6 @@ class _HomeView extends StatelessWidget {
         ),
         const HomeSearchButtons(),
         const SizedBox(height: 20),
-        Center(
-          child: CustomElevatedButton(
-            label: 'Sing out',
-            func: () {
-              context.read<AuthenticationBloc>().add(const LogoutRequested());
-            },
-          ),
-        )
       ],
     );
   }

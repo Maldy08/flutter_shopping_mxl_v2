@@ -36,7 +36,7 @@ class RegisterScreen extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   padding: const EdgeInsets.all(30),
-                  child: FormRegister(),
+                  child: const FormRegister(),
                 ),
               ],
             ),
