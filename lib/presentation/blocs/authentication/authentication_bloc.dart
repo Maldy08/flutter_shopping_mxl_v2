@@ -44,6 +44,10 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
     notifyListeners();
   }
 
+  void onUserChange() {
+    _authenticationRepository.onUserChange();
+  }
+
   @override
   Future<void> close() {
     _userSubscription.cancel();

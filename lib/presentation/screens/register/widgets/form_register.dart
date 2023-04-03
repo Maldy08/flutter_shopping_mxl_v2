@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/register/register_cubit.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
@@ -9,7 +9,7 @@ import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 
 class FormRegister extends StatefulWidget {
-  FormRegister({super.key});
+  const FormRegister({super.key});
 
   @override
   State<FormRegister> createState() => _FormRegisterState();
@@ -167,9 +167,9 @@ class _FormRegisterState extends State<FormRegister> {
                       ),
                     )
                   : CustomElevatedButton(
-                      func: () {
+                      func: () async {
                         // showSnackbar(context, 'message');
-                        context.read<RegisterCubit>().onSubmit();
+                        await context.read<RegisterCubit>().onSubmit();
                         //formRegister.onSubmit();
                         //context.pushReplacementNamed(AccountCreatedScreen.name);
                       },

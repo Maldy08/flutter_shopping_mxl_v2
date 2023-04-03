@@ -40,4 +40,9 @@ class FirebaseAuthRepositoryImpl extends AuthRepository {
       password: password,
     );
   }
+
+  @override
+  Future<void> onUserChange() {
+    return datasource.onUserChange();
+  }
 }

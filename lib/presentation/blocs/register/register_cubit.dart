@@ -9,8 +9,10 @@ part 'register_state.dart';
 class RegisterCubit extends Cubit<RegisterState> {
   final FirebaseAuthRepositoryImpl _firebaseAuthRepositoryImpl;
 
-  RegisterCubit(this._firebaseAuthRepositoryImpl)
-      : super(const RegisterState());
+  RegisterCubit({FirebaseAuthRepositoryImpl? firebaseAuthRepositoryImpl})
+      : _firebaseAuthRepositoryImpl =
+            firebaseAuthRepositoryImpl ?? FirebaseAuthRepositoryImpl(),
+        super(const RegisterState());
 
   onUsernameChanged(String value) {
     final newUsername = Username.dirty(value);
@@ -107,7 +109,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   //   ));
   // }
 
-  void onSubmit() async {
+  Future<void> onSubmit() async {
     _touchEveryField();
     if (!state.isValid) return;
     await _singUp(

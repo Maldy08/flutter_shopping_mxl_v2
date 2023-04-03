@@ -32,10 +32,10 @@ void main() async {
               AuthenticationBloc(authenticationRepository: firebaseRepository),
         ),
         BlocProvider(
-          create: (_) => LoginCubit(firebaseRepository),
+          create: (_) => LoginCubit(),
         ),
         BlocProvider(
-          create: (_) => RegisterCubit(firebaseRepository),
+          create: (_) => RegisterCubit(),
         )
       ],
       child: MainApp(

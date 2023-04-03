@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_shopping_mxl_v2/domain/datasource/auth_datasource.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart'
-    as Models;
+    as models;
 
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -69,16 +69,16 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
 
   static const userCacheKey = '__user_cache_key__';
 
-  Models.FirebaseUser get currentUser {
-    return _cache.read<Models.FirebaseUser>(key: userCacheKey) ??
-        Models.FirebaseUser.empty;
+  models.FirebaseUser get currentUser {
+    return _cache.read<models.FirebaseUser>(key: userCacheKey) ??
+        models.FirebaseUser.empty;
   }
 
-  Stream<Models.FirebaseUser> get user {
+  Stream<models.FirebaseUser> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
       final user = firebaseUser == null
-          ? Models.FirebaseUser.empty
-          : Models.FirebaseUser(
+          ? models.FirebaseUser.empty
+          : models.FirebaseUser(
               id: firebaseUser.uid,
               email: firebaseUser.email,
               name: firebaseUser.displayName,
@@ -99,15 +99,39 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
       final credentials = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
 
+      //  .whenComplete(() {
+      //_firebaseAuth.currentUser!.updateDisplayName(username);
+      //_firebaseAuth.currentUser!.updatePhotoURL(
+      //  'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg');
+      //   });
+
       await _firebaseAuth.currentUser!.updateDisplayName(username);
 
-      final collectionUsers = _firebaseFirestore.collection('users');
+      // await _firebaseAuth.currentUser!.updatePhotoURL(
+      // 'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg');
 
-      collectionUsers.add({
+      //await _firebaseFirestore.collection('users');
+      await _firebaseFirestore.collection('users').doc().set({
         'uid': credentials.user!.uid,
         'username': username,
         'email': credentials.user!.email,
+        'age': 0,
+        'sex': '',
+        'phoneNumber': '',
+        'photoUrl':
+            'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg'
       });
+
+      // collectionUsers.add({
+      //   'uid': credentials.user!.uid,
+      //   'username': username,
+      //   'email': credentials.user!.email,
+      //   'age': 0,
+      //   'sex': '',
+      //   'phoneNumber': '',
+      //   'photoUrl':
+      //       'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg'
+      // });
 
       // .then((_) =>
       //     _firebaseAuth.currentUser!.updateDisplayName("Carlos Maldonado"));
@@ -119,5 +143,10 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
       throw Exception(e.toString());
     }
     //final user = Models.User(uid: result.user!.uid);
+  }
+
+  @override
+  Future<void> onUserChange() async {
+    _firebaseAuth.currentUser?.reload();
   }
 }

@@ -8,4 +8,6 @@ abstract class AuthDatasoruce {
     required String email,
     required String password,
   });
+
+  Future<void> onUserChange();
 }

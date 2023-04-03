@@ -9,7 +9,11 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   final FirebaseAuthRepositoryImpl _firebaseAuthRepositoryImpl;
 
-  LoginCubit(this._firebaseAuthRepositoryImpl) : super(const LoginState());
+  LoginCubit({FirebaseAuthRepositoryImpl? firebaseAuthRepositoryImpl})
+      : _firebaseAuthRepositoryImpl =
+            firebaseAuthRepositoryImpl ?? FirebaseAuthRepositoryImpl(),
+        super(const LoginState());
+  // super(const LoginState());
 
   Future<void> logInWithGoogle() async {
     await Future.delayed(const Duration(seconds: 2));

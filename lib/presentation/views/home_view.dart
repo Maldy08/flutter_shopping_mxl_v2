@@ -6,8 +6,19 @@ import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
 import '../screens/home/widgets/home_search_buttons.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    super.initState();
+    //context.read<AuthenticationBloc>().onUserChange();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -61,12 +61,15 @@ GoRouter routes(AuthenticationBloc bloc) {
       final isGoingTo = state.subloc;
       if (bloc.state.status == AuthenticationStatus.authenticated) {
         if (isGoingTo == '/login' ||
-            isGoingTo == '/register' ||
-            isGoingTo == '/account-created' ||
+            //isGoingTo == '/register' ||
+            //isGoingTo == '/account-created' ||
             isGoingTo == '/') {
           return '/home/0';
+        } else if (isGoingTo == '/register') {
+          return '/account-created';
         }
       }
+
       return null;
 
       //   return null;
