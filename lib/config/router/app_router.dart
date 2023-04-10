@@ -48,7 +48,18 @@ GoRouter routes(AuthenticationBloc bloc) {
           }
           return '/';
         },
-        routes: const [],
+        routes: [
+          GoRoute(
+            path: 'notifications',
+            name: NotificationsScreen.name,
+            builder: (context, state) => const NotificationsScreen(),
+          ),
+          GoRoute(
+            path: 'aviso-privacidad',
+            name: AvisoPrivacidadScreen.name,
+            builder: (context, state) => const AvisoPrivacidadScreen(),
+          )
+        ],
       ),
       GoRoute(
         path: '/theme',

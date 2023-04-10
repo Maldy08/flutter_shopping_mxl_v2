@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/firebase/firebase_user.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authentication_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/shared/custom_elevated_button.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -18,9 +19,22 @@ class _SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    //final theme = Theme.of(context);
     final user = context.watch<AuthenticationBloc>().state.user;
 
+    return _SettingsViewDetails(user: user);
+  }
+}
+
+class _SettingsViewDetails extends StatelessWidget {
+  const _SettingsViewDetails({
+    required this.user,
+  });
+
+  final FirebaseUser user;
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(top: 30),
@@ -51,13 +65,13 @@ class _SettingsView extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    user.name!,
+                    user.name ?? '',
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    user.email!,
+                    user.email ?? '',
                     style: TextStyle(color: Colors.grey.shade500),
                   )
                 ],
@@ -74,10 +88,18 @@ class _SettingsView extends StatelessWidget {
                     color: Colors.white,
                     elevation: 0,
                     child: ListTile(
+                      trailing: IconButton(
+                        icon: const Icon(Icons.arrow_forward_ios_rounded),
+                        onPressed: () {
+                          context.push('/home/3/notifications');
+                        },
+                      ),
                       leading: IconButton(
                         iconSize: 20,
-                        color: Colors.black45,
-                        onPressed: () {},
+                        color: Colors.white,
+                        onPressed: () {
+                          context.push('/home/3/notifications');
+                        },
                         icon: const Icon(Icons.notifications),
                         style: AppTheme.iconButtonSettings(),
                       ),
@@ -85,25 +107,61 @@ class _SettingsView extends StatelessWidget {
                         'Notificaciones',
                         style: TextStyle(fontSize: 14),
                       ),
-                      onTap: () {},
+                      // onTap: () => context.push('/home/3/notifications'),
                     ),
                   ),
                   Card(
                     color: Colors.white,
                     elevation: 0,
                     child: ListTile(
+                      trailing: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                        ),
+                        onPressed: () {
+                          context.push('/home/3/aviso-privacidad');
+                        },
+                      ),
                       leading: IconButton(
                         iconSize: 20,
-                        color: Colors.black45,
-                        onPressed: () {},
+                        color: Colors.white,
+                        onPressed: () {
+                          context.push('/home/3/aviso-privacidad');
+                        },
                         icon: const Icon(Icons.card_travel_rounded),
                         style: AppTheme.iconButtonSettings(),
                       ),
                       title: const Text(
-                        'Terminos y condiciones',
+                        'Aviso de Privacidad',
                         style: TextStyle(fontSize: 14),
                       ),
-                      onTap: () {},
+                    ),
+                  ),
+                  Card(
+                    color: Colors.white,
+                    elevation: 0,
+                    child: ListTile(
+                      trailing: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                        ),
+                        onPressed: () {
+                          context.push('/home/3/configuracion');
+                        },
+                      ),
+                      leading: IconButton(
+                        iconSize: 20,
+                        color: Colors.white,
+                        onPressed: () {
+                          context.push('/home/3/configuracion');
+                        },
+                        icon: const Icon(Icons.settings),
+                        style: AppTheme.iconButtonSettings(),
+                      ),
+                      title: const Text(
+                        'Configuración',
+                        style: TextStyle(fontSize: 14),
+                      ),
                     ),
                   ),
                   const Divider(
@@ -118,8 +176,12 @@ class _SettingsView extends StatelessWidget {
                     child: ListTile(
                       leading: IconButton(
                         iconSize: 20,
-                        color: Colors.black45,
-                        onPressed: () {},
+                        color: Colors.white,
+                        onPressed: () {
+                          context
+                              .read<AuthenticationBloc>()
+                              .add(const LogoutRequested());
+                        },
                         icon: const Icon(Icons.logout),
                         style: AppTheme.iconButtonSettings(),
                       ),
@@ -127,11 +189,6 @@ class _SettingsView extends StatelessWidget {
                         'Cerrar sesión',
                         style: TextStyle(fontSize: 14),
                       ),
-                      onTap: () {
-                        context
-                            .read<AuthenticationBloc>()
-                            .add(const LogoutRequested());
-                      },
                     ),
                   ),
                 ],

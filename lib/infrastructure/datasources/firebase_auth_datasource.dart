@@ -50,6 +50,15 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
       );
 
       await _firebaseAuth.signInWithCredential(credential);
+
+      final isEmpty = await _firebaseFirestore
+          .collection('users')
+          .where('email', isEqualTo: _firebaseAuth.currentUser!.email)
+          .snapshots()
+          .isEmpty;
+
+      if (isEmpty == false) return;
+
       await _firebaseFirestore.collection('users').doc().set({
         'uid': _firebaseAuth.currentUser!.uid,
         'username': _firebaseAuth.currentUser!.displayName,

@@ -54,12 +54,12 @@ class AppTheme {
 
   static ButtonStyle iconButtonSettings() {
     return IconButton.styleFrom(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(12),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(7),
+          borderRadius: BorderRadius.circular(6),
         ),
         elevation: 20,
-        backgroundColor: const Color(0xffF0F3F8));
+        backgroundColor: colorList[0]);
   }
 
   ThemeData getTheme() => ThemeData(

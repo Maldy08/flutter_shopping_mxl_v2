@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/infrastructure.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/register/register_cubit.dart';
 
 final firebaseRepository = FirebaseAuthRepositoryImpl();
 void main() async {
