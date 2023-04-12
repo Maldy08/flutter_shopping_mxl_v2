@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/negocios/negocios_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
 import '../screens/home/widgets/home_search_buttons.dart';
 
@@ -110,6 +112,12 @@ class _HomeView extends StatelessWidget {
         ),
         const HomeSearchButtons(),
         const SizedBox(height: 20),
+        CustomElevatedButton(
+          label: 'fetch',
+          func: () {
+            context.read<NegociosBloc>().add(NegociosFetched());
+          },
+        )
       ],
     );
   }

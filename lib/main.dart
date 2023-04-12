@@ -7,6 +7,8 @@ import 'package:flutter_shopping_mxl_v2/infrastructure/infrastructure.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 
 final firebaseRepository = FirebaseAuthRepositoryImpl();
+final firebaseNegociosRepository = FirebaseNegociosRepositoryImpl();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
@@ -35,6 +37,10 @@ void main() async {
         ),
         BlocProvider(
           create: (_) => RegisterCubit(),
+        ),
+        BlocProvider(
+          create: (_) => NegociosBloc(
+              firebaseNegociosRepositoryImpl: firebaseNegociosRepository),
         )
       ],
       child: MainApp(

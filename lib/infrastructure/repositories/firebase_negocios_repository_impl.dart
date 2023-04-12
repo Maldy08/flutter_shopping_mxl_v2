@@ -6,7 +6,7 @@ import '../datasources/firebase_negocios_datasource.dart';
 class FirebaseNegociosRepositoryImpl extends NegociosRepository {
   final FirebaseNegociosDataSource dataSource;
 
-  FirebaseNegociosRepositoryImpl(FirebaseNegociosDataSource? dataSource)
+  FirebaseNegociosRepositoryImpl({FirebaseNegociosDataSource? dataSource})
       : dataSource = dataSource ?? FirebaseNegociosDataSource();
 
   @override

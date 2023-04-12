@@ -1,17 +1,10 @@
 part of 'negocios_bloc.dart';
 
-class NegociosEvent extends Equatable {
+class NegociosEvent {
   const NegociosEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
 class NegociosFetched extends NegociosEvent {
-  final List<Negocios> negocios;
-
-  const NegociosFetched(this.negocios);
-
-  @override
-  List<Object> get props => [negocios];
+  //final List<Negocios> negocios;
+  //const NegociosFetched(this.negocios);
 }
