@@ -18,6 +18,7 @@ class NegociosBloc extends Bloc<NegociosEvent, NegociosState> {
   }
 
   _fetchNegocios(NegociosFetched event, Emitter<NegociosState> emit) async {
+    await Future.delayed(const Duration(seconds: 2));
     final negocios = await _firebaseNegociosRepositoryImpl.getNegocios();
     emit(state.copyWith(
       negocios: negocios,
