@@ -117,7 +117,7 @@ class _HomeView extends StatelessWidget {
           func: () {
             context.read<NegociosBloc>().add(NegociosFetched());
           },
-        )
+        ),
       ],
     );
   }
