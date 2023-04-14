@@ -1,3 +1,5 @@
+export 'package:flutter_shopping_mxl_v2/presentation/screens/negocios/negocio_screen.dart';
+
 export 'package:flutter_shopping_mxl_v2/presentation/screens/aviso_privacidad/aviso_privacidad_screen.dart';
 
 export 'package:flutter_shopping_mxl_v2/presentation/screens/notifications/notifications_screen.dart';

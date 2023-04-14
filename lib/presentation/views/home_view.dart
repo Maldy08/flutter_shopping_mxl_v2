@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:go_router/go_router.dart';
 import '../screens/home/widgets/home_search_buttons.dart';
 
 class HomeView extends StatefulWidget {
@@ -159,9 +160,11 @@ class _Negocios extends StatelessWidget {
                                 .negocios[index];
                             return GestureDetector(
                               onTap: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('Hola mundo')));
+                                context.push('/home/0/negocio/${negocio.id}');
+                                // ScaffoldMessenger.of(context)
+                                //     .hideCurrentSnackBar();
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //     SnackBar(content: Text(negocio.id)));
                               },
                               child: Container(
                                 decoration: BoxDecoration(
