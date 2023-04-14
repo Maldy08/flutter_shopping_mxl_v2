@@ -1,9 +1,8 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
-
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-
 import '../screens/home/widgets/home_search_buttons.dart';
 
 class HomeView extends StatefulWidget {
@@ -47,7 +46,6 @@ class _HomeView extends StatelessWidget {
     final user = context.watch<AuthenticationBloc>().state.user;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
@@ -110,9 +108,9 @@ class _HomeView extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const HomeSearchButtons(),
-        const SizedBox(height: 20),
-        const SizedBox(height: 400, child: _Negocios()),
+        FadeIn(child: const HomeSearchButtons()),
+        const SizedBox(height: 10),
+        const _Negocios(),
         // const SizedBox(height: 20),
       ],
     );
@@ -133,47 +131,93 @@ class _Negocios extends StatelessWidget {
                   strokeWidth: 2,
                 ),
               )
-            : SizedBox(
-                height: 350,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 200),
-                        itemCount:
-                            context.watch<NegociosBloc>().state.negocios.length,
-                        itemBuilder: (context, index) {
-                          final negocio = context
+            : FadeIn(
+                delay: const Duration(milliseconds: 200),
+                child: SizedBox(
+                  height: 400,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisExtent: 185,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemCount: context
                               .watch<NegociosBloc>()
                               .state
-                              .negocios[index];
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
+                              .negocios
+                              .length,
+                          itemBuilder: (context, index) {
+                            final negocio = context
+                                .watch<NegociosBloc>()
+                                .state
+                                .negocios[index];
+                            return GestureDetector(
+                              onTap: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Hola mundo')));
+                              },
+                              child: Container(
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: Colors.red),
-                                padding: const EdgeInsets.all(10),
-                                child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    negocio.photoUrl,
-                                    height: 80,
-                                    width: 80,
-                                    fit: BoxFit.fill,
-                                  ),
+                                  color: Colors.grey.shade100,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: Image.network(
+                                              negocio.photoUrl,
+                                              height: 100,
+                                              width: 120,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: Text(
+                                          maxLines: 2,
+                                          negocio.nombreEmpresa,
+                                          textAlign: TextAlign.start,
+                                          style: const TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
-                              Text(negocio.nombreEmpresa)
-                            ],
-                          );
-                        },
-                      ),
-                    )
-                  ],
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ));
   }
