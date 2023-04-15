@@ -10,8 +10,12 @@ class FirebaseNegociosDataSource extends NegociosDataSource {
       : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
   @override
-  Future<Negocios> getNegocioById({required String id}) {
-    throw UnimplementedError();
+  Future<Negocios> getNegocioById({required String id}) async {
+    try {
+      final response = await _firebaseFirestore.collection('negocios');
+    } on FirebaseException catch (e) {
+      throw e.message.toString();
+    }
   }
 
   @override

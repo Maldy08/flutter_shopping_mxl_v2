@@ -30,6 +30,7 @@ class NegociosBloc extends Bloc<NegociosEvent, NegociosState> {
   Future<void> _loadNegocio(
       LoadNegocio event, Emitter<NegociosState> emit) async {
     await Future.delayed(const Duration(seconds: 1));
+
     //final negocio = await _firebaseNegociosRepositoryImpl.getNegocioById(id: '1');
   }
 }
