@@ -13,7 +13,8 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -23,6 +24,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     // final scaffoldKey = GlobalKey<ScaffoldState>();
     final theme = Theme.of(context);
 
@@ -33,6 +35,9 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class _HomeView extends StatelessWidget {

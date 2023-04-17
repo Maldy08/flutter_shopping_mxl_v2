@@ -66,13 +66,12 @@ GoRouter routes(AuthenticationBloc bloc) {
               final id = int.parse(state.params['id'] ?? '0 ');
               return NegocioScreen(id: id);
             },
-          )
+          ),
         ],
       ),
       GoRoute(
-        path: '/theme',
-        name: ThemeChangerScreen.name,
-        builder: (context, state) => const ThemeChangerScreen(),
+        path: '/',
+        redirect: (_, __) => '/home/0',
       ),
     ],
     refreshListenable: bloc,

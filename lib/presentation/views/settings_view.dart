@@ -12,11 +12,16 @@ class SettingsView extends StatefulWidget {
   State<SettingsView> createState() => _SettingsViewState();
 }
 
-class _SettingsViewState extends State<SettingsView> {
+class _SettingsViewState extends State<SettingsView>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return const _SettingsView();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class _SettingsView extends StatelessWidget {
