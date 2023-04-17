@@ -9,8 +9,8 @@ class NegociosFetched extends NegociosEvent {
   //const NegociosFetched(this.negocios);
 }
 
-class LoadNegocio extends NegociosEvent {
+class NegocioFetchedById extends NegociosEvent {
   final String id;
 
-  LoadNegocio(this.id);
+  NegocioFetchedById(this.id);
 }

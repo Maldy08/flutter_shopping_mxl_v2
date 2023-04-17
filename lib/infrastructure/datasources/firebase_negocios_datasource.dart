@@ -10,17 +10,9 @@ class FirebaseNegociosDataSource extends NegociosDataSource {
       : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
   @override
-  Future<Negocios> getNegocioById({required String id}) async {
-    try {
-      final response = await _firebaseFirestore.collection('negocios');
-    } on FirebaseException catch (e) {
-      throw e.message.toString();
-    }
-  }
-
-  @override
   Future<List<Negocios>> getNegocios() async {
     List<Negocios> list = [];
+
     try {
       final response = await _firebaseFirestore.collection('negocios').get();
       for (var element in response.docs) {
@@ -34,5 +26,24 @@ class FirebaseNegociosDataSource extends NegociosDataSource {
     } on FirebaseException catch (e) {
       throw e.message.toString();
     }
+  }
+
+  @override
+  Future<Negocios> getNegocioById({required String id}) async {
+    Negocios? negocios;
+    await _firebaseFirestore
+        .collection('negocios')
+        .where('id', isEqualTo: id)
+        .get()
+        .then((value) {
+      final docs = value.docs.first;
+      negocios = Negocios.fromJson(docs.data());
+
+      // for (var element in docs) {
+      //   negocios = Negocios.fromJson(element.data());
+      // }
+    });
+
+    return NegociosMapper.negociosToEntity(negocios!);
   }
 }

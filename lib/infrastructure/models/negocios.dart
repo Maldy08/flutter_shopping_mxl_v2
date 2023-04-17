@@ -1,5 +1,5 @@
 class Negocios {
-  Negocios({
+  const Negocios({
     required this.ciudad,
     required this.correo,
     required this.direccion,
@@ -43,6 +43,22 @@ class Negocios {
         pais: json["pais"],
         photoUrl: json["photoUrl"],
         telefono: json["telefono"],
+      );
+
+  factory Negocios.empty() => const Negocios(
+        ciudad: '',
+        correo: '',
+        direccion: '',
+        estado: '',
+        giroEmpresa: '',
+        horario: '',
+        id: '',
+        nombreEmpresa: '',
+        nombreEncargado: '',
+        numeroEmpleados: 0,
+        pais: '',
+        photoUrl: '',
+        telefono: '',
       );
 
   Map<String, dynamic> toJson() => {

@@ -5,9 +5,14 @@ import 'package:flutter_shopping_mxl_v2/infrastructure/models/firebase/firebase_
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authentication_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class SettingsView extends StatelessWidget {
+class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
 
+  @override
+  State<SettingsView> createState() => _SettingsViewState();
+}
+
+class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return const _SettingsView();

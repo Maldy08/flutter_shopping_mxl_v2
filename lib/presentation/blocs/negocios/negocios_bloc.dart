@@ -15,6 +15,7 @@ class NegociosBloc extends Bloc<NegociosEvent, NegociosState> {
         super(const NegociosState()) {
     //on<NegociosEvent>((event, emit) {});
     on<NegociosFetched>(_fetchNegocios);
+    on<NegocioFetchedById>(_fetchNegocioById);
   }
 
   Future<void> _fetchNegocios(
@@ -27,9 +28,29 @@ class NegociosBloc extends Bloc<NegociosEvent, NegociosState> {
     ));
   }
 
-  Future<void> _loadNegocio(
-      LoadNegocio event, Emitter<NegociosState> emit) async {
-    await Future.delayed(const Duration(seconds: 1));
+  Future<void> _fetchNegocioById(
+      NegocioFetchedById event, Emitter<NegociosState> emit) async {
+    emit(state.copyWith(status: NegociosStatus.fetching));
+
+    //verifico si en mi listado de negocios del estado lo tengo.
+    final neg = state.negocios.where((element) => element.id == event.id);
+    if (neg.isNotEmpty) {
+      final negocio = neg.first;
+      emit(state.copyWith(
+        negocio: negocio,
+        status: NegociosStatus.completed,
+      ));
+
+      return;
+    }
+
+    // si no, voy y lo busco en la base de datos.
+    final negocio =
+        await _firebaseNegociosRepositoryImpl.getNegocioById(id: event.id);
+    emit(state.copyWith(
+      negocio: negocio,
+      status: NegociosStatus.completed,
+    ));
 
     //final negocio = await _firebaseNegociosRepositoryImpl.getNegocioById(id: '1');
   }
