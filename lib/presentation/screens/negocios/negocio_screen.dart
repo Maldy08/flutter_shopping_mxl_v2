@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/negocios/negocios_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
 class NegocioScreen extends StatefulWidget {
   final int id;
@@ -30,16 +30,20 @@ class _NegocioScreenState extends State<NegocioScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar(
-          title: context.watch<NegociosBloc>().state.status ==
-                  NegociosStatus.fetching
-              ? ''
-              : empresa.nombreEmpresa),
-      body: SafeArea(
-          child: Container(
-        color: Colors.amber,
-        child: Center(child: Text(empresa.nombreEmpresa)),
-      )),
+      body: CustomScrollView(
+        physics: const ClampingScrollPhysics(),
+        slivers: [],
+      ),
     );
+  }
+}
+
+class _CustomSliverAppBar extends StatelessWidget {
+  final Negocios negocio;
+
+  const _CustomSliverAppBar({required this.negocio});
+  @override
+  Widget build(BuildContext context) {
+    throw UnimplementedError();
   }
 }

@@ -149,9 +149,9 @@ class _Negocios extends StatelessWidget {
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            mainAxisExtent: 185,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
+                            mainAxisExtent: 200,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
                           ),
                           itemCount: context
                               .watch<NegociosBloc>()
@@ -173,8 +173,8 @@ class _Negocios extends StatelessWidget {
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.grey.shade100,
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: bgContainer,
                                 ),
                                 child: Column(
                                   children: [
@@ -186,29 +186,16 @@ class _Negocios extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: Stack(
-                                            alignment:
-                                                AlignmentDirectional.topEnd,
-                                            children: [
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: Image.network(
-                                                  negocio.photoUrl,
-                                                  height: 100,
-                                                  width: 120,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                              const Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 10,
-                                                    vertical: 10),
-                                                child: Icon(Icons
-                                                    .favorite_border_outlined),
-                                              ),
-                                            ],
+                                          padding: const EdgeInsets.all(1),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: Image.network(
+                                              negocio.photoUrl,
+                                              height: 120,
+                                              width: 120,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
                                       ),
