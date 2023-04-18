@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
@@ -32,7 +33,9 @@ class _NegocioScreenState extends State<NegocioScreen> {
       backgroundColor: Colors.white,
       body: CustomScrollView(
         physics: const ClampingScrollPhysics(),
-        slivers: [],
+        slivers: [
+          _CustomSliverAppBar(negocio: empresa),
+        ],
       ),
     );
   }
@@ -44,6 +47,38 @@ class _CustomSliverAppBar extends StatelessWidget {
   const _CustomSliverAppBar({required this.negocio});
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError();
+    final size = MediaQuery.of(context).size;
+    return SliverAppBar(
+      backgroundColor: Colors.black,
+      foregroundColor: Colors.white,
+      expandedHeight: size.height * 0.3,
+      flexibleSpace: FlexibleSpaceBar(
+        titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        background: Stack(
+          children: [
+            SizedBox.expand(
+              child: Image.network(
+                negocio.photoUrl,
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress != null) return const SizedBox();
+                  return FadeIn(child: child);
+                },
+              ),
+            ),
+            const SizedBox.expand(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: [0.75, 1.0],
+                        colors: [Colors.transparent, Colors.black87])),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
