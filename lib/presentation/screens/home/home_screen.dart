@@ -19,7 +19,10 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
-    pageController = PageController(keepPage: true);
+    pageController = PageController(
+      keepPage: true,
+      viewportFraction: 1,
+    );
   }
 
   @override
@@ -41,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen>
     if (pageController.hasClients) {
       pageController.animateToPage(
         widget.pageIndex,
-        duration: const Duration(microseconds: 250),
+        duration: const Duration(milliseconds: 250),
         curve: Curves.easeInOut,
       );
     }
@@ -49,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen>
     // final theme = Theme.of(context);
     return Scaffold(
         backgroundColor: Colors.white,
+        extendBody: true,
         // key: scaffoldKey,
         body: SafeArea(
           child: PageView(
@@ -57,8 +61,13 @@ class _HomeScreenState extends State<HomeScreen>
             children: viewRoutes,
           ),
         ),
-        bottomNavigationBar:
-            CustomBottomNavigation(currentIndex: widget.pageIndex));
+        bottomNavigationBar: Container(
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12.0),
+                    topRight: Radius.circular(12.0)),
+                color: Colors.blue),
+            child: CustomBottomNavigation(currentIndex: widget.pageIndex)));
   }
 
   @override

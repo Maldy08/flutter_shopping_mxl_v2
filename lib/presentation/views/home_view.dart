@@ -187,15 +187,28 @@ class _Negocios extends StatelessWidget {
                                                 BorderRadius.circular(10)),
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Image.network(
-                                              negocio.photoUrl,
-                                              height: 100,
-                                              width: 120,
-                                              fit: BoxFit.cover,
-                                            ),
+                                          child: Stack(
+                                            alignment:
+                                                AlignmentDirectional.topEnd,
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.network(
+                                                  negocio.photoUrl,
+                                                  height: 100,
+                                                  width: 120,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                              const Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 10,
+                                                    vertical: 10),
+                                                child: Icon(Icons
+                                                    .favorite_border_outlined),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),

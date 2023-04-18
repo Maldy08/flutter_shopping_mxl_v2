@@ -12,7 +12,7 @@ class _SearchViewState extends State<SearchView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return const Text('Search');
+    return const Placeholder();
   }
 
   @override

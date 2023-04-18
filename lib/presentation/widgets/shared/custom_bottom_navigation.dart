@@ -25,54 +25,55 @@ class CustomBottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     const double size = 28;
     //final theme = Theme.of(context);
-    return SizedBox(
-      height: 70,
-      width: double.infinity,
-      child: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        //backgroundColor: Colors.blue,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        selectedFontSize: 0.0,
-        unselectedFontSize: 0.0,
-        currentIndex: currentIndex,
-        onTap: (index) => onItemTapped(context, index),
-        //surfaceTintColor: Colors.white,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home_outlined,
-              size: size,
-            ),
-            label: 'Home',
-            // activeIcon: Icon(Icons.home_filled),
+    return BottomNavigationBar(
+      enableFeedback: true,
+
+      elevation: 0,
+      type: BottomNavigationBarType.fixed,
+      //backgroundColor: Colors.blue,
+
+      currentIndex: currentIndex,
+      onTap: (index) => onItemTapped(context, index),
+      //surfaceTintColor: Colors.white,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(
+            // color: Colors.white,
+            Icons.home_max,
+            size: size,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-              size: size,
-            ),
-            label: 'Search',
-            // activeIcon: Icon(Icons.search),
+          label: 'Inicio',
+          // activeIcon: Icon(Icons.home_filled),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            // color: Colors.white,
+            Icons.search,
+            size: size,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite_outline,
-              size: size,
-            ),
-            label: 'Favorites',
-            // activeIcon: Icon(Icons.favorite),
+          label: 'Buscar',
+          // activeIcon: Icon(Icons.search),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            //color: Colors.white,
+            Icons.favorite_outline,
+            size: size,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_circle_outlined,
-              size: size,
-            ),
-            label: 'Settings',
-            // activeIcon: Icon(Icons.settings),
+          label: 'Favoritos',
+          // activeIcon: Icon(Icons.favorite),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            //  color: Colors.white,
+            Icons.account_circle_outlined,
+            size: size,
           ),
-        ],
-      ),
+          label: 'Usuario',
+
+          // activeIcon: Icon(Icons.settings),
+        ),
+      ],
     );
   }
 }

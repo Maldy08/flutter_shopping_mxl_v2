@@ -69,10 +69,6 @@ GoRouter routes(AuthenticationBloc bloc) {
           ),
         ],
       ),
-      GoRoute(
-        path: '/',
-        redirect: (_, __) => '/home/0',
-      ),
     ],
     refreshListenable: bloc,
     redirect: (_, state) {

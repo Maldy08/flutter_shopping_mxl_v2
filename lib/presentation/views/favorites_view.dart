@@ -12,7 +12,7 @@ class _FavoritesViewState extends State<FavoritesView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return const Text('Favorites');
+    return const Placeholder();
   }
 
   @override
