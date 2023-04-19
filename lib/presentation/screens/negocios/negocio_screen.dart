@@ -62,7 +62,12 @@ class _CustomSliverAppBar extends StatelessWidget {
         )
       ],
       flexibleSpace: FlexibleSpaceBar(
+        centerTitle: true,
         titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        title: Text(
+          negocio.nombreEmpresa,
+          style: const TextStyle(fontSize: 16, fontFamily: 'Poppins'),
+        ),
         background: Stack(
           children: [
             SizedBox.expand(
@@ -81,8 +86,18 @@ class _CustomSliverAppBar extends StatelessWidget {
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        stops: [0.75, 1.0],
+                        stops: [0.7, 1.0],
                         colors: [Colors.transparent, Colors.black87])),
+              ),
+            ),
+            const SizedBox.expand(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        //end: Alignment.bottomCenter,
+                        stops: [0.0, 0.3],
+                        colors: [Colors.black87, Colors.transparent])),
               ),
             ),
           ],
