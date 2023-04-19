@@ -149,7 +149,7 @@ class _Negocios extends StatelessWidget {
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            mainAxisExtent: 200,
+                            mainAxisExtent: 210,
                             crossAxisSpacing: 8,
                             mainAxisSpacing: 8,
                           ),
@@ -192,7 +192,7 @@ class _Negocios extends StatelessWidget {
                                                 BorderRadius.circular(10),
                                             child: Image.network(
                                               negocio.photoUrl,
-                                              height: 120,
+                                              height: 140,
                                               width: 120,
                                               fit: BoxFit.cover,
                                             ),
@@ -211,7 +211,7 @@ class _Negocios extends StatelessWidget {
                                           negocio.nombreEmpresa,
                                           textAlign: TextAlign.start,
                                           style: const TextStyle(
-                                              fontSize: 14,
+                                              fontSize: 13,
                                               fontFamily: 'Poppins',
                                               fontWeight: FontWeight.bold),
                                         ),
