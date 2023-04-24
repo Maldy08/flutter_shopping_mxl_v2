@@ -39,92 +39,168 @@ class _NegocioScreenState extends State<NegocioScreen> {
           _CustomSliverAppBar(negocio: negocio),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-                (context, index) => Container(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: Flexible(
-                                child: Text(
-                                  negocio.nombreEmpresa,
-                                  style: const TextStyle(
-                                      fontFamily: fontFamily,
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.location_pin,
-                                  size: 16,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Flexible(
-                                  child: Text(
-                                    negocio.direccion,
-                                    style:
-                                        const TextStyle(fontFamily: fontFamily),
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.schedule,
-                                  size: 16,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Flexible(
-                                  child: Text(
-                                    negocio.horario,
-                                    style:
-                                        const TextStyle(fontFamily: fontFamily),
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.phone,
-                                  size: 16,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Flexible(
-                                  child: Text(
-                                    negocio.telefono,
-                                    style: const TextStyle(
-                                        fontFamily: fontFamily, fontSize: 12),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                (context, index) =>
+                    _NegocioDetails(negocio: negocio, fontFamily: fontFamily),
                 childCount: 1),
           )
         ],
+      ),
+    );
+  }
+}
+
+class _NegocioDetails extends StatelessWidget {
+  const _NegocioDetails({
+    required this.negocio,
+    required this.fontFamily,
+  });
+
+  final Negocios negocio;
+  final String fontFamily;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Flexible(
+                child: Text(
+                  negocio.nombreEmpresa,
+                  style: TextStyle(
+                      fontFamily: fontFamily,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                const Icon(
+                  Icons.location_pin,
+                  size: 16,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Flexible(
+                  child: Text(
+                    negocio.direccion,
+                    style: TextStyle(fontFamily: fontFamily),
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                const Icon(
+                  Icons.schedule,
+                  size: 16,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Flexible(
+                  child: Text(
+                    negocio.horario,
+                    style: TextStyle(fontFamily: fontFamily),
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                const Icon(
+                  Icons.phone,
+                  size: 16,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Flexible(
+                  child: Text(
+                    negocio.telefono,
+                    style: TextStyle(fontFamily: fontFamily, fontSize: 12),
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Productos',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: fontFamily,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 200,
+              child: ListView.builder(
+                itemCount: 30,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: 150,
+                    child: FadeInRight(
+                        child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: Placeholder(),
+                    )),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Promociones',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: fontFamily,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 200,
+              child: ListView.builder(
+                itemCount: 10,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: 150,
+                    child: FadeInRight(
+                        child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: Placeholder(),
+                    )),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 100,
+            ),
+          ],
+        ),
       ),
     );
   }
