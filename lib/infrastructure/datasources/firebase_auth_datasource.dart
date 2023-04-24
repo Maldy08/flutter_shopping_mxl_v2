@@ -51,13 +51,20 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
 
       await _firebaseAuth.signInWithCredential(credential);
 
-      final isEmpty = await _firebaseFirestore
+      final collection = await _firebaseFirestore
           .collection('users')
           .where('email', isEqualTo: _firebaseAuth.currentUser!.email)
           .snapshots()
-          .isEmpty;
+          .first;
 
-      if (isEmpty == false) return;
+      final doc = collection.docs.first;
+
+      // .snapshots()
+      // .isEmpty;
+
+      // if (isEmpty == false) return;
+
+      return;
 
       await _firebaseFirestore.collection('users').doc().set({
         'uid': _firebaseAuth.currentUser!.uid,
@@ -66,7 +73,11 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'age': 0,
         'sex': '',
         'phoneNumber': '',
-        'photoUrl': _firebaseAuth.currentUser!.photoURL
+        'photoUrl': _firebaseAuth.currentUser!.photoURL,
+        'favorites': {
+          "negocios": {},
+          "productos": {},
+        }
       });
     } catch (e) {
       throw Exception(e.toString());

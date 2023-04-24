@@ -196,6 +196,33 @@ class _NegocioDetails extends StatelessWidget {
                 },
               ),
             ),
+            Text(
+              'Cupones',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: fontFamily,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 200,
+              child: ListView.builder(
+                itemCount: 50,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: 150,
+                    child: FadeInRight(
+                        child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: Placeholder(),
+                    )),
+                  );
+                },
+              ),
+            ),
             const SizedBox(
               height: 100,
             ),
