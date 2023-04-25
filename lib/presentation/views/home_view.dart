@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/user/user_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../screens/home/widgets/home_search_buttons.dart';
 
@@ -19,6 +20,8 @@ class _HomeViewState extends State<HomeView>
   void initState() {
     super.initState();
     context.read<NegociosBloc>().add(NegociosFetched());
+    final email = context.read<AuthenticationBloc>().state.user.email;
+    context.read<UserBloc>().add(UserLogged(email!));
     //context.read<AuthenticationBloc>().onUserChange();
   }
 

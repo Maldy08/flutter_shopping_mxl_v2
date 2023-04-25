@@ -68,8 +68,8 @@ class Favorites {
     required this.productos,
   });
 
-  UserFavoritesNegocios negocios;
-  UserFavoritesProductos productos;
+  List<UserFavoritesNegocios> negocios;
+  List<UserFavoritesProductos> productos;
 
   factory Favorites.fromJson(Map<String, dynamic> json) => Favorites(
         negocios: UserFavoritesNegocios.fromJson(json["negocios"]),

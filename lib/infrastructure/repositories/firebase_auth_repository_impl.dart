@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_shopping_mxl_v2/domain/repositories/auth_repository.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/datasources/firebase_auth_datasource.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/firebase/firebase_user.dart';
+
 //import 'package:flutter_shopping_mxl_v2/infrastructure/models/user.dart';
 
 class FirebaseAuthRepositoryImpl extends AuthRepository {
@@ -45,4 +46,14 @@ class FirebaseAuthRepositoryImpl extends AuthRepository {
   Future<void> onUserChange() {
     return datasource.onUserChange();
   }
+
+  // @override
+  // Future<User?> getCurrentAppUser({required String email}) {
+  //   return datasource.getCurrentAppUser(email: email);
+  // }
+
+  // @override
+  // Future<bool> isUserExists({required String email}) {
+  //   return datasource.isUserExists(email: email);
+  // }
 }

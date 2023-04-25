@@ -2,6 +2,7 @@ import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_shopping_mxl_v2/domain/datasource/auth_datasource.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/mappers/user_mapper.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart'
     as models;
 
@@ -37,7 +38,7 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
     }
   }
 
-  Future<bool> isUserExists(String? email) async {
+  Future<bool> isUserExists({required String email}) async {
     bool exists = false;
     try {
       await _firebaseFirestore
@@ -65,7 +66,8 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
       );
 
       await _firebaseAuth.signInWithCredential(credential);
-      final exists = await isUserExists(_firebaseAuth.currentUser!.email);
+      final exists =
+          await isUserExists(email: _firebaseAuth.currentUser!.email!);
 
       if (exists) return;
 
@@ -100,11 +102,16 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
   }
 
   static const userCacheKey = '__user_cache_key__';
+  //static const userAppCacheKey = '__user_app_cache_key';
 
   models.FirebaseUser get currentUser {
     return _cache.read<models.FirebaseUser>(key: userCacheKey) ??
         models.FirebaseUser.empty;
   }
+
+  // models.User get currentUserApp {
+  //   return _cache.read<models.User>(key: userAppCacheKey) ?? models.User.empty;
+  // }
 
   Stream<models.FirebaseUser> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
@@ -120,6 +127,31 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
       return user;
     });
   }
+
+  // Future<models.User> get userApp async {
+  //   final user =
+  //       await getCurrentAppUser(email: _firebaseAuth.currentUser!.email!);
+
+  //   if (user == null) {
+  //     return models.User.empty;
+  //   } else {
+  //     _cache.write(key: userAppCacheKey, value: user);
+  //     return models.User(
+  //       age: user.age,
+  //       email: user.email,
+  //       favorites: user.favorites,
+  //       phoneNumber: user.phoneNumber,
+  //       photoUrl: user.photoUrl,
+  //       sex: user.sex,
+  //       uid: user.uid,
+  //       username: user.username,
+  //     );
+  //   }
+
+  //   //return await getCurrentAppUser(email: _firebaseAuth.currentUser!.email!);
+
+  //   //return models.User.empty;
+  // }
 
   @override
   Future<void> registerUser({
@@ -182,4 +214,19 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
   Future<void> onUserChange() async {
     _firebaseAuth.currentUser?.reload();
   }
+
+  // @override
+  // Future<models.User?> getCurrentAppUser({required String email}) async {
+  //   models.User? usuario;
+  //   await _firebaseFirestore
+  //       .collection('users')
+  //       .where('email', isEqualTo: email)
+  //       .get()
+  //       .then((value) {
+  //     final docs = value.docs.first;
+  //     usuario = models.User.fromJson(docs.data());
+  //   });
+
+  //   return UserMapper.userToEntity(usuario!);
+  // }
 }

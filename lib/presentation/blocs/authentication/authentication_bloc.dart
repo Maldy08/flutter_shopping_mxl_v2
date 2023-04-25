@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/infrastructure.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/user.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
@@ -17,14 +16,15 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
         super(
           authenticationRepository!.datasource.currentUser.isNotEmpty
               ? AuthenticationState.authenticated(
-                  authenticationRepository.datasource.currentUser, User.empty)
+                  authenticationRepository.datasource.currentUser,
+                )
               : const AuthenticationState.notauthenticated(),
         ) {
     on<_UserChanged>(_onUserChanged);
     on<LogoutRequested>(_onLogoutRequested);
 
     _userSubscription = _authenticationRepository.user.listen(
-      (user) => add(_UserChanged(user, User.empty)),
+      (user) => add(_UserChanged(user)),
     );
   }
 
@@ -34,7 +34,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
   void _onUserChanged(_UserChanged event, Emitter<AuthenticationState> emit) {
     emit(
       event.user.isNotEmpty
-          ? AuthenticationState.authenticated(event.user, User.empty)
+          ? AuthenticationState.authenticated(event.user)
           : const AuthenticationState.notauthenticated(),
     );
     notifyListeners();

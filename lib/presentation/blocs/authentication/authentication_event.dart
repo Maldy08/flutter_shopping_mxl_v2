@@ -9,7 +9,6 @@ class LogoutRequested extends AuthenticationEvent {
 }
 
 class _UserChanged extends AuthenticationEvent {
-  const _UserChanged(this.user, this.userApp);
+  const _UserChanged(this.user);
   final FirebaseUser user;
-  final User userApp;
 }
