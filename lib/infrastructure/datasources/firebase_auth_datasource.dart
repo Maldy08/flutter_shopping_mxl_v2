@@ -37,6 +37,21 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
     }
   }
 
+  Future<bool> isUserExists(String? email) async {
+    bool exists = false;
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .get()
+          .then((value) => value.size > 0 ? exists = true : exists = false);
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+
+    return exists;
+  }
+
   Future<void> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -50,21 +65,9 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
       );
 
       await _firebaseAuth.signInWithCredential(credential);
+      final exists = await isUserExists(_firebaseAuth.currentUser!.email);
 
-      final collection = await _firebaseFirestore
-          .collection('users')
-          .where('email', isEqualTo: _firebaseAuth.currentUser!.email)
-          .snapshots()
-          .first;
-
-      final doc = collection.docs.first;
-
-      // .snapshots()
-      // .isEmpty;
-
-      // if (isEmpty == false) return;
-
-      return;
+      if (exists) return;
 
       await _firebaseFirestore.collection('users').doc().set({
         'uid': _firebaseAuth.currentUser!.uid,

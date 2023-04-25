@@ -1,44 +1,48 @@
-// enum Genre { male, female, other }
+import 'dart:convert';
 
-// enum Intereses {
-//   tiendasDeRopa,
-//   esteticas,
-//   barberias,
-//   supermercados,
-//   restaurantes,
-// }
+User userFromJson(String str) => User.fromJson(json.decode(str));
+
+String userToJson(User data) => json.encode(data.toJson());
 
 class User {
-  final String uid;
-  final String username;
-
-  final int age;
-  //final Genre genre;
-  final String email;
-  // final String password;
-  final String phoneNumber;
-  final String sex;
-  //final List<Intereses>? intereses;
-  final String? photoUrl;
-  //final Location location;
-
-  User({
+  const User({
+    required this.age,
+    required this.email,
+    required this.favorites,
+    required this.phoneNumber,
+    required this.photoUrl,
+    required this.sex,
     required this.uid,
     required this.username,
-    required this.age,
-    // required this.genre,
-    required this.email,
-    // required this.password,
-    required this.phoneNumber,
-    required this.sex,
-    String? photoUrl,
-    // this.intereses,
-    //required this.location,
-  }) : photoUrl = photoUrl ?? 'no-photo';
+  });
+
+  final int? age;
+  final String email;
+  final Favorites? favorites;
+  final String? phoneNumber;
+  final String? photoUrl;
+  final String uid;
+  final String? sex;
+  final String username;
+
+  static const empty = User(
+    age: 0,
+    email: '',
+    favorites: null,
+    phoneNumber: '',
+    photoUrl: '',
+    sex: '',
+    uid: '',
+    username: '',
+  );
+
+  bool get isEmpty => this == User.empty;
+  bool get isNotEmpty => this != User.empty;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         age: json["age"],
         email: json["email"],
+        favorites: Favorites.fromJson(json["favorites"]),
         phoneNumber: json["phoneNumber"],
         photoUrl: json["photoUrl"],
         sex: json["sex"],
@@ -49,6 +53,7 @@ class User {
   Map<String, dynamic> toJson() => {
         "age": age,
         "email": email,
+        "favorites": favorites!.toJson(),
         "phoneNumber": phoneNumber,
         "photoUrl": photoUrl,
         "sex": sex,
@@ -57,4 +62,39 @@ class User {
       };
 }
 
-//coleccition users..
+class Favorites {
+  Favorites({
+    required this.negocios,
+    required this.productos,
+  });
+
+  UserFavoritesNegocios negocios;
+  UserFavoritesProductos productos;
+
+  factory Favorites.fromJson(Map<String, dynamic> json) => Favorites(
+        negocios: UserFavoritesNegocios.fromJson(json["negocios"]),
+        productos: UserFavoritesProductos.fromJson(json["productos"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "negocios": negocios.toJson(),
+        "productos": productos.toJson(),
+      };
+}
+
+class UserFavoritesNegocios {
+  UserFavoritesNegocios();
+
+  factory UserFavoritesNegocios.fromJson(Map<String, dynamic> json) =>
+      UserFavoritesNegocios();
+
+  Map<String, dynamic> toJson() => {};
+}
+
+class UserFavoritesProductos {
+  UserFavoritesProductos();
+
+  factory UserFavoritesProductos.fromJson(Map<String, dynamic> json) =>
+      UserFavoritesProductos();
+  Map<String, dynamic> toJson() => {};
+}

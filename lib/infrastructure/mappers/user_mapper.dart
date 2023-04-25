@@ -8,5 +8,7 @@ class UserMapper {
         email: user.email,
         phoneNumber: user.phoneNumber,
         sex: user.sex,
+        favorites: user.favorites,
+        photoUrl: user.photoUrl,
       );
 }

@@ -9,10 +9,12 @@ enum AuthenticationStatus {
 class AuthenticationState extends Equatable {
   final AuthenticationStatus status;
   final FirebaseUser user;
+  final User userApp;
 
   const AuthenticationState({
     this.status = AuthenticationStatus.checking,
     this.user = FirebaseUser.empty,
+    this.userApp = User.empty,
   });
 
   // AuthenticationState copyWith({
@@ -25,12 +27,15 @@ class AuthenticationState extends Equatable {
   //   );
   // }
 
-  const AuthenticationState.authenticated(FirebaseUser user)
-      : this(status: AuthenticationStatus.authenticated, user: user);
+  const AuthenticationState.authenticated(FirebaseUser user, User userApp)
+      : this(
+            status: AuthenticationStatus.authenticated,
+            user: user,
+            userApp: userApp);
 
   const AuthenticationState.notauthenticated()
       : this(status: AuthenticationStatus.notauthenticated);
 
   @override
-  List<Object> get props => [status, user];
+  List<Object> get props => [status, user, userApp];
 }

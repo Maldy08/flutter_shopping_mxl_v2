@@ -18,6 +18,5 @@ class FirebaseUser extends Equatable {
   bool get isNotEmpty => this != FirebaseUser.empty;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [id, email, name, photoUrl];
 }
