@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
@@ -30,21 +28,20 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     ));
   }
 
-  bool isFavoriteNegocio(int id) {
-    // dynamic elemento;
+  bool isFavoriteNegocio(String id) {
     bool isFavorite = false;
-    // return true;
-    // final algo =
-    //     state.user.favoritesNegocios.where((element) => element == id);
     if (state.user.favoritesNegocios != null) {
       for (var i = 0; i < state.user.favoritesNegocios!.length; i++) {
-        if (state.user.favoritesNegocios![i] == id) {
-          // elemento = state.user.favoritesNegocios![i];
+        if (state.user.favoritesNegocios![i].toString() == id) {
           isFavorite = true;
         }
       }
     }
 
     return isFavorite;
+  }
+
+  Future<void> toogleFavorite(String email, String id) async {
+    await _firebaseUserRepositoryImpl.toogleFavorite(email: email, id: id);
   }
 }

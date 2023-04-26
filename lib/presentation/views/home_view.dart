@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/user/user_bloc.dart';
+
 import 'package:go_router/go_router.dart';
 import '../screens/home/widgets/home_search_buttons.dart';
 

@@ -16,4 +16,9 @@ class FirebaseUserRepositoryImpl extends UserRepository {
   Future<bool> isUserExists({required String email}) {
     return dataSource.isUserExists(email: email);
   }
+
+  @override
+  Future<void> toogleFavorite({required String email, required String id}) {
+    return dataSource.toogleFavorite(email: email, id: id);
+  }
 }

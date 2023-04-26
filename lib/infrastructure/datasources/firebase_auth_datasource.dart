@@ -2,7 +2,6 @@ import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_shopping_mxl_v2/domain/datasource/auth_datasource.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/mappers/user_mapper.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart'
     as models;
 
