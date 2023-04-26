@@ -18,7 +18,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   Future<void> _userLogged(UserLogged event, Emitter<UserState> emit) async {
     // return await Future.delayed(const Duration(milliseconds: 200));
-    if (state.user.isNotEmpty) return;
+    // if (state.user.isNotEmpty) return;
     emit(state.copyWith(status: UserStatus.fetching));
     final user =
         await _firebaseUserRepositoryImpl.getCurrentAppUser(email: event.email);

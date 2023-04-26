@@ -8,7 +8,8 @@ class User {
   const User({
     required this.age,
     required this.email,
-    required this.favorites,
+    required this.favoritesNegocios,
+    required this.favoritesProducts,
     required this.phoneNumber,
     required this.photoUrl,
     required this.sex,
@@ -18,17 +19,19 @@ class User {
 
   final int? age;
   final String email;
-  final Favorites? favorites;
+  final List<int>? favoritesNegocios;
+  final List<int>? favoritesProducts;
   final String? phoneNumber;
   final String? photoUrl;
-  final String uid;
   final String? sex;
+  final String uid;
   final String username;
 
   static const empty = User(
     age: 0,
     email: '',
-    favorites: null,
+    favoritesNegocios: null,
+    favoritesProducts: null,
     phoneNumber: '',
     photoUrl: '',
     sex: '',
@@ -42,7 +45,10 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => User(
         age: json["age"],
         email: json["email"],
-        favorites: Favorites.fromJson(json["favorites"]),
+        favoritesNegocios:
+            List<int>.from(json["favorites_negocios"].map((x) => x)),
+        favoritesProducts:
+            List<int>.from(json["favorites_products"].map((x) => x)),
         phoneNumber: json["phoneNumber"],
         photoUrl: json["photoUrl"],
         sex: json["sex"],
@@ -53,48 +59,14 @@ class User {
   Map<String, dynamic> toJson() => {
         "age": age,
         "email": email,
-        "favorites": favorites!.toJson(),
+        "favorites_negocios":
+            List<dynamic>.from(favoritesNegocios!.map((x) => x)),
+        "favorites_products":
+            List<dynamic>.from(favoritesProducts!.map((x) => x)),
         "phoneNumber": phoneNumber,
         "photoUrl": photoUrl,
         "sex": sex,
         "uid": uid,
         "username": username,
       };
-}
-
-class Favorites {
-  Favorites({
-    required this.negocios,
-    required this.productos,
-  });
-
-  List<UserFavoritesNegocios> negocios;
-  List<UserFavoritesProductos> productos;
-
-  factory Favorites.fromJson(Map<String, dynamic> json) => Favorites(
-        negocios: UserFavoritesNegocios.fromJson(json["negocios"]),
-        productos: UserFavoritesProductos.fromJson(json["productos"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "negocios": negocios.toJson(),
-        "productos": productos.toJson(),
-      };
-}
-
-class UserFavoritesNegocios {
-  UserFavoritesNegocios();
-
-  factory UserFavoritesNegocios.fromJson(Map<String, dynamic> json) =>
-      UserFavoritesNegocios();
-
-  Map<String, dynamic> toJson() => {};
-}
-
-class UserFavoritesProductos {
-  UserFavoritesProductos();
-
-  factory UserFavoritesProductos.fromJson(Map<String, dynamic> json) =>
-      UserFavoritesProductos();
-  Map<String, dynamic> toJson() => {};
 }
