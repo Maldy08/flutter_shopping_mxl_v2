@@ -22,6 +22,7 @@ class _HomeViewState extends State<HomeView>
     context.read<NegociosBloc>().add(NegociosFetched());
     final email = context.read<AuthenticationBloc>().state.user.email;
     context.read<UserBloc>().add(UserLogged(email!));
+
     //context.read<AuthenticationBloc>().onUserChange();
   }
 

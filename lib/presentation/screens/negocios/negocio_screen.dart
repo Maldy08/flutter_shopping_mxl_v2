@@ -1,9 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
+
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/negocios/negocios_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 
 class NegocioScreen extends StatefulWidget {
   final int id;
@@ -240,6 +240,9 @@ class _CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isfavorite =
+        context.read<UserBloc>().isFavoriteNegocio(int.parse(negocio.id));
+
     return SliverAppBar(
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
@@ -247,10 +250,12 @@ class _CustomSliverAppBar extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {},
-          icon: const Icon(
-            Icons.favorite_rounded,
-            color: Colors.red,
-          ),
+          icon: isfavorite
+              ? const Icon(
+                  Icons.favorite_rounded,
+                  color: Colors.red,
+                )
+              : const Icon(Icons.favorite_border),
         )
       ],
       flexibleSpace: FlexibleSpaceBar(
