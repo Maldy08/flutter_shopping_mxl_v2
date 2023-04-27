@@ -43,16 +43,23 @@ class FirebaseUserDatasource extends UserDataSource {
   @override
   Future<void> toogleFavorite(
       {required String email, required String id}) async {
-    await _firebaseFirestore
+    final query = await _firebaseFirestore
         .collection('users')
         .where('email', isEqualTo: email)
         .get()
-        .then((value) {
-      //  value.docs.
-      // for (var i = 0; i < value.docs.length; i++) {
-      //   //value.docs[0].get('favorites_negocios')
-      //   value.docs[0].get(field)
-      // }
-    });
+        .asStream()
+        .toList();
+
+    query.map((e) => print(e.docs[0].data()));
+    // .then((value) {
+    // final negocios = value.docs[0].data()['favorites_negocios'];
+
+    //  value.docs.
+    // for (var i = 0; i < value.docs.length; i++) {
+    //   //value.docs[0].get('favorites_negocios')
+    //   print(value.docs[0].data());
+    //   print(id);
+    // }
+    // });
   }
 }
