@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/favorites/favorites_bloc.dart';
 
 class NegocioScreen extends StatefulWidget {
   final int id;
@@ -19,6 +20,8 @@ class _NegocioScreenState extends State<NegocioScreen> {
   void initState() {
     super.initState();
     context.read<NegociosBloc>().add(NegocioFetchedById(widget.id.toString()));
+    final user = context.read<UserBloc>().state.user;
+    context.read<FavoritesBloc>().add(LoadFavorites(user));
   }
 
   @override

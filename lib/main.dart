@@ -7,6 +7,7 @@ import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/infrastructure.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/repositories/firebase_user_repository_impl.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/favorites/favorites_bloc.dart';
 
 final firebaseRepository = FirebaseAuthRepositoryImpl();
 final firebaseNegociosRepository = FirebaseNegociosRepositoryImpl();
@@ -55,6 +56,9 @@ void main() async {
         BlocProvider(
           create: (_) =>
               UserBloc(firebaseUserRepositoryImpl: firebaseUserRepository),
+        ),
+        BlocProvider(
+          create: (_) => FavoritesBloc(),
         )
       ],
       child: MainApp(

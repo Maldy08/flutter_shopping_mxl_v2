@@ -2,7 +2,9 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/favorites/favorites_bloc.dart';
 
 import 'package:go_router/go_router.dart';
 import '../screens/home/widgets/home_search_buttons.dart';
@@ -16,12 +18,18 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView>
     with AutomaticKeepAliveClientMixin {
+  late User user;
   @override
   void initState() {
     super.initState();
     context.read<NegociosBloc>().add(NegociosFetched());
-    final email = context.read<AuthenticationBloc>().state.user.email;
-    context.read<UserBloc>().add(UserLogged(email!));
+
+    //  final email = context.read<AuthenticationBloc>().state.user.email;
+    // if (context.read<UserBloc>().state.status == UserStatus.completed) {
+    //   user = context.read<UserBloc>().state.user;
+    // }
+
+    // context.read<UserBloc>().add(UserLogged(email!));
 
     //context.read<AuthenticationBloc>().onUserChange();
   }
@@ -55,6 +63,9 @@ class _HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = context.watch<AuthenticationBloc>().state.user;
 
+    // context
+    //     .read<FavoritesBloc>()
+    //     .add(LoadFavorites(context.read<UserBloc>().state.user));
     return Column(
       children: [
         Row(

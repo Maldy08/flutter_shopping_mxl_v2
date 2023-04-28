@@ -73,9 +73,9 @@ class User {
 }
 
 class FavoritesNegocio {
-  int idnegocio;
+  final int idnegocio;
 
-  FavoritesNegocio({
+  const FavoritesNegocio({
     required this.idnegocio,
   });
 

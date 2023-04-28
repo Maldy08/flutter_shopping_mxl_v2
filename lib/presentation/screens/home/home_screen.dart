@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/views/views.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
@@ -19,6 +21,9 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
+    context
+        .read<UserBloc>()
+        .add(UserLogged(context.read<AuthenticationBloc>().state.user.email!));
     pageController = PageController(
       keepPage: true,
       viewportFraction: 1,
