@@ -18,7 +18,8 @@ class FirebaseUserRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<void> toogleFavorite({required String email, required String id}) {
-    return dataSource.toogleFavorite(email: email, id: id);
+  Future<void> toogleFavorite(
+      {required String email, required String id, required User user}) {
+    return dataSource.toogleFavorite(email: email, id: id, user: user);
   }
 }

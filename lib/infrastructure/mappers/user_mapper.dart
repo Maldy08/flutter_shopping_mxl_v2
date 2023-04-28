@@ -8,10 +8,8 @@ class UserMapper {
         email: user.email,
         phoneNumber: user.phoneNumber,
         sex: user.sex,
-        favoritesNegocios:
-            user.favoritesNegocios!.map((e) => e.toInt()).toList(),
-        favoritesProducts:
-            user.favoritesProducts!.map((e) => e.toInt()).toList(),
+        favoritesNegocios: user.favoritesNegocios!.map((e) => e).toList(),
+        favoritesProducts: user.favoritesProducts!.map((e) => e).toList(),
         photoUrl: user.photoUrl,
       );
 }

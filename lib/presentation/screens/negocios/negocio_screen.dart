@@ -240,7 +240,7 @@ class _CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final isfavorite = context.read<UserBloc>().isFavoriteNegocio(negocio.id);
+    final isfavorite = context.watch<UserBloc>().isFavoriteNegocio(negocio.id);
 
     return SliverAppBar(
       backgroundColor: Colors.black,
@@ -249,8 +249,9 @@ class _CustomSliverAppBar extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
-            final email = context.read<AuthenticationBloc>().state.user.email!;
-            context.read<UserBloc>().toogleFavorite(email, negocio.id);
+            final user = context.read<UserBloc>().state.user;
+            // context.read<UserBloc>().toogleFavorite(email, negocio.id);
+            context.read<UserBloc>().add(UserToogleFavorites(user, negocio.id));
           },
           icon: isfavorite
               ? const Icon(

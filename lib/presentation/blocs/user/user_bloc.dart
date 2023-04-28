@@ -14,6 +14,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             firebaseUserRepositoryImpl ?? FirebaseUserRepositoryImpl(),
         super(const UserState()) {
     on<UserLogged>(_userLogged);
+    on<UserToogleFavorites>(_toogleFavorite);
   }
 
   Future<void> _userLogged(UserLogged event, Emitter<UserState> emit) async {
@@ -32,7 +33,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     bool isFavorite = false;
     if (state.user.favoritesNegocios != null) {
       for (var i = 0; i < state.user.favoritesNegocios!.length; i++) {
-        if (state.user.favoritesNegocios![i].toString() == id) {
+        if (state.user.favoritesNegocios![i].idnegocio.toString() == id) {
           isFavorite = true;
         }
       }
@@ -41,7 +42,24 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     return isFavorite;
   }
 
-  Future<void> toogleFavorite(String email, String id) async {
-    await _firebaseUserRepositoryImpl.toogleFavorite(email: email, id: id);
+  Future<void> _toogleFavorite(
+      UserToogleFavorites event, Emitter<UserState> emit) async {
+    final user = state.user;
+    if (user.favoritesNegocios != null) {
+      final favorite = user.favoritesNegocios!
+          .where((element) => element.idnegocio.toString() == event.id)
+          .first;
+      state.user.favoritesNegocios!.remove(favorite);
+      // emit(state.copyWith(user: user));
+      // for (var i = 0; i < user.favoritesNegocios!.length; i++) {
+      //   if (user.favoritesNegocios![i].idnegocio.toString() == id) {
+      //     user.favoritesNegocios!.remove(id);
+      //   }
+      // }
+
+      emit(state.copyWith(user: user));
+    }
+    await _firebaseUserRepositoryImpl.toogleFavorite(
+        email: state.user.email, id: event.id, user: state.user);
   }
 }

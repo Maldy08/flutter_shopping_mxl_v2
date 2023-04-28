@@ -78,8 +78,12 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'sex': '',
         'phoneNumber': '',
         'photoUrl': _firebaseAuth.currentUser!.photoURL,
-        'favorites_negocios': [],
-        'favorites_products': [],
+        'favorites_negocios': [
+          {"idnegocio": 0}
+        ],
+        'favorites_products': [
+          {"idproducto": 0}
+        ],
       });
     } catch (e) {
       throw Exception(e.toString());
