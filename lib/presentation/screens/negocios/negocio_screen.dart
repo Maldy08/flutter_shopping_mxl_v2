@@ -240,7 +240,8 @@ class _CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final isfavorite = context.watch<UserBloc>().isFavoriteNegocio(negocio.id);
+    //final isfavorite = context.watch<UserBloc>().isFavoriteNegocio(negocio.id);
+    final isfavorite = context.watch<UserBloc>().state.isFavorite;
 
     return SliverAppBar(
       backgroundColor: Colors.black,

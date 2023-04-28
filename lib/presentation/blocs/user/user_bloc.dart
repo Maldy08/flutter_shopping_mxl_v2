@@ -42,24 +42,28 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     return isFavorite;
   }
 
-  Future<void> _toogleFavorite(
+  void _toogleFavorite(
       UserToogleFavorites event, Emitter<UserState> emit) async {
-    final user = state.user;
-    if (user.favoritesNegocios != null) {
-      final favorite = user.favoritesNegocios!
-          .where((element) => element.idnegocio.toString() == event.id)
-          .first;
-      state.user.favoritesNegocios!.remove(favorite);
-      // emit(state.copyWith(user: user));
-      // for (var i = 0; i < user.favoritesNegocios!.length; i++) {
-      //   if (user.favoritesNegocios![i].idnegocio.toString() == id) {
-      //     user.favoritesNegocios!.remove(id);
-      //   }
-      // }
-
-      emit(state.copyWith(user: user));
-    }
-    await _firebaseUserRepositoryImpl.toogleFavorite(
-        email: state.user.email, id: event.id, user: state.user);
+    emit(state.copyWith(isFavorite: !state.isFavorite));
   }
+  // Future<void> _toogleFavorite(
+  //     UserToogleFavorites event, Emitter<UserState> emit) async {
+  //   final user = state.user;
+  //   if (user.favoritesNegocios != null) {
+  //     final favorite = user.favoritesNegocios!
+  //         .where((element) => element.idnegocio.toString() == event.id)
+  //         .first;
+  //     state.user.favoritesNegocios!.remove(favorite);
+  //     // emit(state.copyWith(user: user));
+  //     // for (var i = 0; i < user.favoritesNegocios!.length; i++) {
+  //     //   if (user.favoritesNegocios![i].idnegocio.toString() == id) {
+  //     //     user.favoritesNegocios!.remove(id);
+  //     //   }
+  //     // }
+
+  //     emit(state.copyWith(user: user));
+  //   }
+  //   await _firebaseUserRepositoryImpl.toogleFavorite(
+  //       email: state.user.email, id: event.id, user: state.user);
+  // }
 }
