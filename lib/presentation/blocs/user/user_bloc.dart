@@ -63,6 +63,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   void _toogleFavorite(ToogleFavorites event, Emitter<UserState> emit) async {
+    emit(state.copyWith(status: UserStatus.fetching));
+
     final result = state.user.favoritesNegocios!
         .where((element) => element.idnegocio.toString() == event.id);
 
@@ -77,7 +79,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     final user = state.user;
     await _firebaseUserRepositoryImpl.toogleFavorite(user: user).then(
       (_) {
-        emit(state.copyWith(user: user));
+        emit(state.copyWith(status: UserStatus.completed, user: user));
         add(IsFavorite(event.id));
       },
     );

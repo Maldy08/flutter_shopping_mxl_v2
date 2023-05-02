@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
 import 'package:go_router/go_router.dart';
 
@@ -90,11 +89,21 @@ class _FavoritesViewState extends State<FavoritesView>
                               Padding(
                                 padding:
                                     const EdgeInsets.only(top: 10, left: 5),
-                                child: Text(
-                                  negocio.nombreEmpresa,
-                                  style: const TextStyle(
-                                    fontFamily: 'Poppins',
-                                  ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      negocio.nombreEmpresa,
+                                      style: const TextStyle(
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                    Text(
+                                      negocio.telefono,
+                                      style: const TextStyle(
+                                          fontFamily: 'Poppins', fontSize: 12),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],

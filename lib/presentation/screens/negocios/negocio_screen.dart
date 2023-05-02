@@ -20,8 +20,8 @@ class _NegocioScreenState extends State<NegocioScreen> {
   void initState() {
     super.initState();
     context.read<NegociosBloc>().add(NegocioFetchedById(widget.id.toString()));
-    final user = context.read<UserBloc>().state.user;
-    context.read<FavoritesBloc>().add(LoadFavorites(user));
+    //final user = context.read<UserBloc>().state.user;
+    // context.read<FavoritesBloc>().add(LoadFavorites(user));
   }
 
   @override
@@ -253,17 +253,27 @@ class _CustomSliverAppBar extends StatelessWidget {
       actions: [
         BlocBuilder<UserBloc, UserState>(
           builder: (context, state) {
+            if (state.status == UserStatus.fetching) {
+              return IconButton(
+                onPressed: () {},
+                icon: CircleAvatar(
+                  child: SpinPerfect(
+                    infinite: true,
+                    child: const Icon(Icons.refresh_outlined),
+                  ),
+                ),
+              );
+            }
+
             return IconButton(
               onPressed: () {
-                // final user = context.read<UserBloc>().state.user;
-                // context.read<UserBloc>().toogleFavorite(email, negocio.id);
                 context.read<UserBloc>().add(ToogleFavorites(negocio.id));
               },
               icon: context.read<UserBloc>().isFavorite(negocio.id)
-                  ? const CircleAvatar(
+                  ? CircleAvatar(
                       child: Icon(
                         Icons.favorite_rounded,
-                        color: Colors.red,
+                        color: Theme.of(context).primaryColor,
                       ),
                     )
                   : const CircleAvatar(
