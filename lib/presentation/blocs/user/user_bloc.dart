@@ -14,7 +14,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             firebaseUserRepositoryImpl ?? FirebaseUserRepositoryImpl(),
         super(const UserState()) {
     on<UserLogged>(_userLogged);
-    on<UserToogleFavorites>(_toogleFavorite);
+    on<ToogleFavorites>(_toogleFavorite);
+    on<IsFavorite>(_isFavorite);
   }
 
   Future<void> _userLogged(UserLogged event, Emitter<UserState> emit) async {
@@ -31,22 +32,55 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     });
   }
 
-  bool isFavoriteNegocio(String id) {
-    bool isFavorite = false;
-    if (state.user.favoritesNegocios != null) {
-      for (var i = 0; i < state.user.favoritesNegocios!.length; i++) {
-        if (state.user.favoritesNegocios![i].idnegocio.toString() == id) {
-          isFavorite = true;
-        }
-      }
-    }
+  // bool isFavoriteNegocio(String id) {
+  //   bool isFavorite = false;
+  //   if (state.user.favoritesNegocios != null) {
+  //     for (var i = 0; i < state.user.favoritesNegocios!.length; i++) {
+  //       if (state.user.favoritesNegocios![i].idnegocio.toString() == id) {
+  //         isFavorite = true;
+  //       }
+  //     }
+  //   }
 
+  //   return isFavorite;
+  // }
+
+  bool isFavorite(String id) {
+    bool isFavorite = false;
+    final negocio = state.user.favoritesNegocios!
+        .where((element) => element.idnegocio.toString() == id);
+    negocio.isNotEmpty ? isFavorite = true : isFavorite = false;
+    add(IsFavorite(id));
     return isFavorite;
   }
 
-  void _toogleFavorite(
-      UserToogleFavorites event, Emitter<UserState> emit) async {
-    emit(state.copyWith(isFavorite: !state.isFavorite));
+  void _isFavorite(IsFavorite event, Emitter<UserState> emit) {
+    final negocio = state.user.favoritesNegocios!
+        .where((element) => element.idnegocio.toString() == event.id);
+    negocio.isNotEmpty
+        ? emit(state.copyWith(isFavorite: true))
+        : emit(state.copyWith(isFavorite: false));
+  }
+
+  void _toogleFavorite(ToogleFavorites event, Emitter<UserState> emit) async {
+    final result = state.user.favoritesNegocios!
+        .where((element) => element.idnegocio.toString() == event.id);
+
+    final negocio = result.isNotEmpty ? result.first : null;
+    negocio == null
+        ? state.user.favoritesNegocios!
+            .add(FavoritesNegocio(idnegocio: int.parse(event.id)))
+        : state.user.favoritesNegocios!.remove(negocio);
+
+    //final favorites = state.user.favoritesNegocios!;
+    //favorites.map((e) => state.user.favoritesNegocios!.add(e));
+    final user = state.user;
+    await _firebaseUserRepositoryImpl.toogleFavorite(user: user).then(
+      (_) {
+        emit(state.copyWith(user: user));
+        add(IsFavorite(event.id));
+      },
+    );
   }
   // Future<void> _toogleFavorite(
   //     UserToogleFavorites event, Emitter<UserState> emit) async {

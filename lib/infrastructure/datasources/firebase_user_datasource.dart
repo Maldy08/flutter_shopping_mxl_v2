@@ -41,34 +41,22 @@ class FirebaseUserDatasource extends UserDataSource {
   }
 
   @override
-  Future<void> toogleFavorite(
-      {required String email, required String id, required User user}) async {
-    // User? usuario;
-    // await _firebaseFirestore
-    //     .collection('users')
-    //     .where('email', isEqualTo: email)
-    //     .get()
-    //     .then((value) {
-    //   //final docs = value.docs.first;
-    //   //usuario = User.fromJson(docs.data());
-    // });
-    // final usuario = UserMapper.userToEntity(user);
+  Future<void> toogleFavorite({required User user}) async {
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .where('email', isEqualTo: user.email)
+          .get()
+          .then((value) {
+        //_firebaseFirestore.collection('users').doc(value.docs[0].id);
+        final doc =
+            _firebaseFirestore.collection('users').doc(value.docs[0].id);
 
-    // final element = user.favoritesNegocios!
-    //     .where((element) => element.idnegocio.toString() == id)
-    //     .first;
-
-    // user.favoritesNegocios!.remove(element);
-    await _firebaseFirestore
-        .collection('users')
-        .where('email', isEqualTo: email)
-        .get()
-        .then((value) {
-      //_firebaseFirestore.collection('users').doc(value.docs[0].id);
-      final doc = _firebaseFirestore.collection('users').doc(value.docs[0].id);
-
-      doc.update(user.toJson());
-    });
+        doc.update(user.toJson());
+      });
+    } catch (e) {
+      throw Exception(e.toString());
+    }
 
     //  print(doc);
 

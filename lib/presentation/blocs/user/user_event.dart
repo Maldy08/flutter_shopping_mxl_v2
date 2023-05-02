@@ -9,8 +9,18 @@ class UserLogged extends UserEvent {
   const UserLogged(this.email);
 }
 
-class UserToogleFavorites extends UserEvent {
-  final User user;
+class ToogleFavorites extends UserEvent {
+  //final User user;
   final String id;
-  const UserToogleFavorites(this.user, this.id);
+  const ToogleFavorites(this.id);
+}
+
+class IsFavorite extends UserEvent {
+  final String id;
+  const IsFavorite(this.id);
+}
+
+class SaveUserInfo extends UserEvent {
+  final User user;
+  SaveUserInfo(this.user);
 }

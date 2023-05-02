@@ -244,25 +244,35 @@ class _CustomSliverAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     //final isfavorite = context.watch<UserBloc>().isFavoriteNegocio(negocio.id);
-    final isfavorite = context.watch<UserBloc>().state.isFavorite;
+    // final isfavorite = context.watch<UserBloc>().state.isFavorite;
 
     return SliverAppBar(
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
       expandedHeight: size.height * 0.25,
       actions: [
-        IconButton(
-          onPressed: () {
-            final user = context.read<UserBloc>().state.user;
-            // context.read<UserBloc>().toogleFavorite(email, negocio.id);
-            context.read<UserBloc>().add(UserToogleFavorites(user, negocio.id));
+        BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) {
+            return IconButton(
+              onPressed: () {
+                // final user = context.read<UserBloc>().state.user;
+                // context.read<UserBloc>().toogleFavorite(email, negocio.id);
+                context.read<UserBloc>().add(ToogleFavorites(negocio.id));
+              },
+              icon: context.read<UserBloc>().isFavorite(negocio.id)
+                  ? const CircleAvatar(
+                      child: Icon(
+                        Icons.favorite_rounded,
+                        color: Colors.red,
+                      ),
+                    )
+                  : const CircleAvatar(
+                      child: Icon(
+                        Icons.favorite_border,
+                      ),
+                    ),
+            );
           },
-          icon: isfavorite
-              ? const Icon(
-                  Icons.favorite_rounded,
-                  color: Colors.red,
-                )
-              : const Icon(Icons.favorite_border),
         )
       ],
       flexibleSpace: FlexibleSpaceBar(
