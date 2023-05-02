@@ -57,9 +57,9 @@ void main() async {
           create: (_) =>
               UserBloc(firebaseUserRepositoryImpl: firebaseUserRepository),
         ),
-        BlocProvider(
-          create: (_) => FavoritesBloc(),
-        )
+        // BlocProvider(
+        //   create: (_) => FavoritesBloc(),
+        // )
       ],
       child: MainApp(
         bloc: AuthenticationBloc(authenticationRepository: firebaseRepository),
