@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/favorites/favorites_bloc.dart';
 
 import 'package:go_router/go_router.dart';
 import '../screens/home/widgets/home_search_buttons.dart';
