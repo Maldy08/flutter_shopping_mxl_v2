@@ -4,6 +4,11 @@ class ProductosEvent {
   const ProductosEvent();
 }
 
+class ProductosFetched extends ProductosEvent {
+  final String uid;
+  ProductosFetched(this.uid);
+}
+
 class ProductosFetchedById extends ProductosEvent {
   final String id;
   final String uid;

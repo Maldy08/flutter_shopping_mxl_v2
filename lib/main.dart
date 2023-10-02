@@ -10,6 +10,7 @@ import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 
 final firebaseRepository = FirebaseAuthRepositoryImpl();
 final firebaseNegociosRepository = FirebaseNegociosRepositoryImpl();
+final firebaseProductosRepository = FirebaseProductosRepositoryImpl();
 final firebaseUserRepository = FirebaseUserRepositoryImpl();
 
 void main() async {
@@ -51,6 +52,10 @@ void main() async {
         BlocProvider(
           create: (_) => NegociosBloc(
               firebaseNegociosRepositoryImpl: firebaseNegociosRepository),
+        ),
+        BlocProvider(
+          create: (_) => ProductosBloc(
+              firebaseProductosRepositoryImpl: firebaseProductosRepository),
         ),
         BlocProvider(
           create: (_) =>

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/favorites/favorites_bloc.dart';
 
 class NegocioScreen extends StatefulWidget {
   final int id;
