@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/views/views.dart';
 
-import 'package:go_router/go_router.dart';
+// import 'package:go_router/go_router.dart';
 
 class FavoritesView extends StatefulWidget {
   const FavoritesView({super.key, required this.pageIndex});
@@ -15,23 +15,6 @@ class FavoritesView extends StatefulWidget {
 
 class _FavoritesViewState extends State<FavoritesView>
     with AutomaticKeepAliveClientMixin {
-  //late PageController pageController;
-
-  @override
-  void initState() {
-    super.initState();
-    // pageController = PageController(
-    //   keepPage: true,
-    //   viewportFraction: 0.8,
-    // );
-  }
-
-  @override
-  void dispose() {
-    // pageController.dispose();
-    super.dispose();
-  }
-
   final viewRoutes = const <Widget>[
     FavoritesViewNegocios(),
     FavoritesViewProducts(),
@@ -40,13 +23,6 @@ class _FavoritesViewState extends State<FavoritesView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    // if (pageController.hasClients) {
-    //   pageController.animateToPage(
-    //     widget.pageIndex,
-    //     duration: const Duration(milliseconds: 250),
-    //     curve: Curves.easeInOut,
-    //   );
-    // }
 
     return DefaultTabController(
       length: 2,
@@ -70,12 +46,6 @@ class _FavoritesViewState extends State<FavoritesView>
         body: TabBarView(
           children: viewRoutes,
         ),
-        // body: SafeArea(
-        //   child: PageView(
-        //     controller: pageController,
-        //     children: viewRoutes,
-        //   ),
-        // ),
       ),
     );
     // final favorites = context.read<UserBloc>().state.user.favoritesNegocios!;

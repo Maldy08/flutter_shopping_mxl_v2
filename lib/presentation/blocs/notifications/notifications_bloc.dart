@@ -34,6 +34,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       : super(const NotificationsState()) {
     on<NotificationStatusChanged>(_notificationStatusChanged);
     on<NotificationReceived>(_onPushMessageReceived);
+    on<NotificationToken>(_setNotificationToken);
 
     // Verificar estado de las notificaciones
     _initialStatusCheck();
@@ -54,6 +55,16 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     _getFCMToken();
   }
 
+  void _setNotificationToken(
+      NotificationToken event, Emitter<NotificationsState> emit) {
+    emit(state.copyWith(messageToken: event.messageToken));
+  }
+
+  void setNotificationToken() async {
+    final token = await _getFCMToken();
+    add(NotificationToken(token));
+  }
+
   void _onPushMessageReceived(
       NotificationReceived event, Emitter<NotificationsState> emit) {
     emit(state
@@ -65,11 +76,12 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     add(NotificationStatusChanged(settings.authorizationStatus));
   }
 
-  void _getFCMToken() async {
-    if (state.status != AuthorizationStatus.authorized) return;
+  Future<String> _getFCMToken() async {
+    if (state.status != AuthorizationStatus.authorized) return '';
 
     final token = await messaging.getToken();
     print(token);
+    return token!;
   }
 
   void handleRemoteMessage(RemoteMessage message) {

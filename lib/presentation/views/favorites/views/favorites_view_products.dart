@@ -1,12 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:go_router/go_router.dart';
 
 class FavoritesViewProducts extends StatelessWidget {
   const FavoritesViewProducts({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Favorites Products'),
+    final colors = Theme.of(context).colorScheme;
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(Icons.favorite_outline_sharp, size: 60, color: colors.primary),
+          Text('Ohhh no!',
+              style: TextStyle(fontSize: 30, color: colors.primary)),
+          const Text('No tienes favoritos', style: TextStyle(fontSize: 20)),
+          const SizedBox(height: 20),
+          FilledButton.tonal(
+              onPressed: () => context.go('/home/0'),
+              child: const Text('Empieza a buscar'))
+        ],
+      ),
     );
   }
 }

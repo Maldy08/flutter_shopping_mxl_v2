@@ -13,3 +13,8 @@ class NotificationReceived extends NotificationsEvent {
   final PushMessage pushMessage;
   NotificationReceived(this.pushMessage);
 }
+
+class NotificationToken extends NotificationsEvent {
+  final String messageToken;
+  NotificationToken(this.messageToken);
+}
