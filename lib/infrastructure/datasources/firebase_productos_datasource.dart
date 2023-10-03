@@ -14,7 +14,7 @@ class FirebaseProductosDataSource extends ProductosDataSource {
     List<Productos> list = [];
     final response = await _firebaseFirestore
         .collection('productos')
-        .where('uid', isEqualTo: uid)
+        .where('id_negocio', isEqualTo: uid)
         .get();
 
     for (var element in response.docs) {

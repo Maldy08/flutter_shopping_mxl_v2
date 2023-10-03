@@ -19,7 +19,7 @@ class ProductosState extends Equatable {
         idCategoria: '',
         idNegocio: '',
         nombreNegocio: '',
-        precio: 0,
+        precio: '',
         photoUrl: '',
         uid: '',
       )});

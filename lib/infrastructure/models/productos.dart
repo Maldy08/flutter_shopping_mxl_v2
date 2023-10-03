@@ -15,7 +15,7 @@ class Productos {
   final String idCategoria;
   final String idNegocio;
   final String nombreNegocio;
-  final double precio;
+  final String precio;
   final String photoUrl;
   final String uid;
 
@@ -36,7 +36,7 @@ class Productos {
       idCategoria: '',
       idNegocio: '',
       nombreNegocio: '',
-      precio: 0,
+      precio: '',
       photoUrl: '',
       uid: '');
 
@@ -46,8 +46,7 @@ class Productos {
         "id_categoria": idCategoria,
         "id_negocio": idNegocio,
         "nombreNegocio": nombreNegocio,
-        "horario": precio,
-        "precio": id,
+        "precio": precio,
         "photoUrl": photoUrl,
         "uid": uid,
       };

@@ -21,7 +21,7 @@ class ProductosBloc extends Bloc<ProductosEvent, ProductosState> {
   Future<void> _fetchProductos(
       ProductosFetched event, Emitter<ProductosState> emit) async {
     emit(state.copyWith(status: ProductosStatus.fetching));
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
     final productos =
         await _firebaseNegociosRepositoryImpl.getProductos(uid: event.uid);
     emit(state.copyWith(
@@ -32,8 +32,7 @@ class ProductosBloc extends Bloc<ProductosEvent, ProductosState> {
       ProductosFetchedById event, Emitter<ProductosState> emit) async {
     emit(state.copyWith(status: ProductosStatus.fetching));
 
-    final producto = state.productos
-        .where((element) => element.id == event.id && element.uid == event.uid);
+    final producto = state.productos.where((element) => element.id == event.id);
     if (producto.isEmpty) return;
 
     emit(state.copyWith(
