@@ -1,18 +1,22 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/productos/widgets/widgets.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens/promociones/widgets/promociones_list.dart';
 
 class NegocioDetails extends StatelessWidget {
   final Negocios negocio;
   final String fontFamily;
   final List<Productos> productos;
+  final List<Promociones> promociones;
 
   const NegocioDetails({
     super.key,
     required this.negocio,
     required this.fontFamily,
     required this.productos,
+    required this.promociones,
   });
 
   @override
@@ -27,14 +31,12 @@ class NegocioDetails extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(5),
-              child: Flexible(
-                child: Text(
-                  negocio.nombreEmpresa,
-                  style: TextStyle(
-                      fontFamily: fontFamily,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold),
-                ),
+              child: Text(
+                negocio.nombreEmpresa,
+                style: TextStyle(
+                    fontFamily: fontFamily,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold),
               ),
             ),
             Row(
@@ -104,15 +106,12 @@ class NegocioDetails extends StatelessWidget {
                   fontFamily: fontFamily,
                   fontWeight: FontWeight.bold),
             ),
-            const SizedBox(
-              height: 10,
-            ),
             SizedBox(
-              height: 200,
+              height: 250,
               child: ProductosList(productos: productos, negocio: negocio),
             ),
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
             Text(
               'Promociones',
@@ -121,12 +120,12 @@ class NegocioDetails extends StatelessWidget {
                   fontFamily: fontFamily,
                   fontWeight: FontWeight.bold),
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: 150,
+              child: PromocionesList(promociones: promociones),
             ),
             const SizedBox(
-              height: 200,
-              child: _PromocionesList(),
+              height: 40,
             ),
             Text(
               'Cupones',
@@ -139,7 +138,7 @@ class NegocioDetails extends StatelessWidget {
               height: 10,
             ),
             const SizedBox(
-              height: 200,
+              height: 150,
               child: _CuponesList(),
             ),
             const SizedBox(

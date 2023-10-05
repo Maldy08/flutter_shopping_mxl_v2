@@ -13,7 +13,7 @@ class ProductosBloc extends Bloc<ProductosEvent, ProductosState> {
       {FirebaseProductosRepositoryImpl? firebaseProductosRepositoryImpl})
       : _firebaseNegociosRepositoryImpl = firebaseProductosRepositoryImpl ??
             FirebaseProductosRepositoryImpl(),
-        super(ProductosInitial()) {
+        super(const ProductosState()) {
     on<ProductosFetched>(_fetchProductos);
     on<ProductosFetchedById>(_fetchProductoById);
   }

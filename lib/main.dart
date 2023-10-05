@@ -12,6 +12,7 @@ final firebaseRepository = FirebaseAuthRepositoryImpl();
 final firebaseNegociosRepository = FirebaseNegociosRepositoryImpl();
 final firebaseProductosRepository = FirebaseProductosRepositoryImpl();
 final firebaseUserRepository = FirebaseUserRepositoryImpl();
+final firebasePromocionesRepository = FirebasePromocionesRepositoryImpl();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +57,10 @@ void main() async {
         BlocProvider(
           create: (_) => ProductosBloc(
               firebaseProductosRepositoryImpl: firebaseProductosRepository),
+        ),
+        BlocProvider(
+          create: (_) => PromocionesBloc(
+              firebasePromocionesRepositoryImpl: firebasePromocionesRepository),
         ),
         BlocProvider(
           create: (_) =>

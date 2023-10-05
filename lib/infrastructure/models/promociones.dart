@@ -30,9 +30,9 @@ class Promociones {
         categorias: List<Categorias>.from(json["categorias"].map((x) => x)),
         productos: List<Productos>.from(json["productos"].map((x) => x)),
         descuento: json['descuento'],
-        fechaCreacion: json['fecha_creacion'],
+        fechaCreacion: json['fecha_creacion'].toDate().toString(),
         photoUrl: json['photoUrl'],
-        vigencia: json['vigencia'],
+        vigencia: json['vigencia'].toDate().toString(),
         uid: json['uid'],
       );
 

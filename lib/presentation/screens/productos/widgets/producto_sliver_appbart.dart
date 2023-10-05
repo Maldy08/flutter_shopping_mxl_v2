@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
 class ProductoSliveAppBar extends StatelessWidget {
   final Productos producto;
@@ -17,7 +18,7 @@ class ProductoSliveAppBar extends StatelessWidget {
     return SliverAppBar(
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
-      expandedHeight: size.height * 0.25,
+      expandedHeight: size.height * 0.50,
       actions: [
         BlocBuilder<ProductosBloc, ProductosState>(
           builder: (context, state) {
@@ -50,15 +51,16 @@ class ProductoSliveAppBar extends StatelessWidget {
         background: Stack(
           children: [
             SizedBox.expand(
-              child: Image.network(
-                producto.photoUrl,
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress != null) return const SizedBox();
-                  return FadeIn(child: child);
-                },
-              ),
-            ),
+                child: producto.photoUrl.isNotEmpty
+                    ? Image.network(
+                        producto.photoUrl,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress != null) return const SizedBox();
+                          return FadeIn(child: child);
+                        },
+                      )
+                    : const NoImage()),
             const SizedBox.expand(
               child: DecoratedBox(
                 decoration: BoxDecoration(

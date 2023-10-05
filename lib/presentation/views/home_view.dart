@@ -162,7 +162,7 @@ class _Negocios extends StatelessWidget {
                         child: GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
+                            crossAxisCount: 3,
                             mainAxisExtent: 210,
                             crossAxisSpacing: 8,
                             mainAxisSpacing: 8,
@@ -188,7 +188,7 @@ class _Negocios extends StatelessWidget {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
-                                  color: bgContainer,
+                                  // color: bgContainer,
                                 ),
                                 child: Column(
                                   children: [
@@ -206,8 +206,8 @@ class _Negocios extends StatelessWidget {
                                                 BorderRadius.circular(10),
                                             child: Image.network(
                                               negocio.photoUrl,
-                                              height: 140,
-                                              width: 120,
+                                              height: 120,
+                                              width: 110,
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -223,9 +223,9 @@ class _Negocios extends StatelessWidget {
                                         child: Text(
                                           maxLines: 2,
                                           negocio.nombreEmpresa,
-                                          textAlign: TextAlign.start,
+                                          textAlign: TextAlign.center,
                                           style: const TextStyle(
-                                              fontSize: 13,
+                                              fontSize: 12,
                                               fontFamily: 'Poppins',
                                               fontWeight: FontWeight.bold),
                                         ),

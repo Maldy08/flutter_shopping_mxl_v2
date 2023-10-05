@@ -1,27 +1,26 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 
-class NegocioSliveAppBar extends StatelessWidget {
-  final Negocios negocio;
+class PromocionesSliverAppBar extends StatelessWidget {
+  final Promociones promocion;
 
-  const NegocioSliveAppBar({super.key, required this.negocio});
+  const PromocionesSliverAppBar({super.key, required this.promocion});
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    //final isfavorite = context.watch<UserBloc>().isFavoriteNegocio(negocio.id);
-    // final isfavorite = context.watch<UserBloc>().state.isFavorite;
 
     return SliverAppBar(
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
       expandedHeight: size.height * 0.50,
       actions: [
-        BlocBuilder<UserBloc, UserState>(
+        BlocBuilder<PromocionesBloc, PromocionesState>(
           builder: (context, state) {
-            if (state.status == UserStatus.fetching) {
+            if (state.status == PromocionesStatus.fetching) {
               return IconButton(
                 onPressed: () {},
                 icon: CircleAvatar(
@@ -34,21 +33,12 @@ class NegocioSliveAppBar extends StatelessWidget {
             }
 
             return IconButton(
-              onPressed: () {
-                context.read<UserBloc>().add(ToogleFavorites(negocio.id));
-              },
-              icon: context.read<UserBloc>().isFavorite(negocio.id)
-                  ? CircleAvatar(
-                      child: Icon(
-                        Icons.favorite_rounded,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    )
-                  : const CircleAvatar(
-                      child: Icon(
-                        Icons.favorite_border,
-                      ),
-                    ),
+              onPressed: () {},
+              icon: const CircleAvatar(
+                child: Icon(
+                  Icons.favorite_border,
+                ),
+              ),
             );
           },
         )
@@ -60,7 +50,7 @@ class NegocioSliveAppBar extends StatelessWidget {
           children: [
             SizedBox.expand(
               child: Image.network(
-                negocio.photoUrl,
+                promocion.photoUrl,
                 fit: BoxFit.cover,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress != null) return const SizedBox();

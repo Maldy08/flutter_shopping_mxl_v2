@@ -5,3 +5,4 @@ export 'register/register_cubit.dart';
 export 'negocios/negocios_bloc.dart';
 export 'user/user_bloc.dart';
 export 'productos/productos_bloc.dart';
+export 'promociones/promociones_bloc.dart';
