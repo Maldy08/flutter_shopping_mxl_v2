@@ -37,5 +37,3 @@ class ProductosState extends Equatable {
   @override
   List<Object> get props => [status, productos, producto];
 }
-
-final class ProductosInitial extends ProductosState {}
