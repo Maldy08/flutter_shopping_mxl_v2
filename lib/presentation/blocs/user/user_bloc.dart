@@ -54,6 +54,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     return isFavorite;
   }
 
+  bool isFavoriteProduct(String uid) {
+    bool isFavorite = false;
+    final product = state.user.favoritesProducts!
+        .where((element) => element.idproducto == uid);
+    product.isNotEmpty ? isFavorite = true : false;
+    add(IsFavoriteProduct(uid));
+    return isFavorite;
+  }
+
   void _isFavorite(IsFavorite event, Emitter<UserState> emit) {
     final negocio = state.user.favoritesNegocios!
         .where((element) => element.idnegocio.toString() == event.id);
@@ -71,7 +80,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     final negocio = result.isNotEmpty ? result.first : null;
     negocio == null
         ? state.user.favoritesNegocios!
-            .add(FavoritesNegocio(idnegocio: int.parse(event.id)))
+            .add(FavoritesNegocio(idnegocio: event.id))
         : state.user.favoritesNegocios!.remove(negocio);
 
     //final favorites = state.user.favoritesNegocios!;

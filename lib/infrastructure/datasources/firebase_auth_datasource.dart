@@ -79,10 +79,10 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'phoneNumber': '',
         'photoUrl': _firebaseAuth.currentUser!.photoURL,
         'favorites_negocios': [
-          {"idnegocio": 0}
+          {"idnegocio": ""}
         ],
         'favorites_products': [
-          {"idproducto": 0}
+          {"idproducto": ""}
         ],
       });
     } catch (e) {
@@ -185,7 +185,13 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'sex': '',
         'phoneNumber': '',
         'photoUrl':
-            'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg'
+            'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg',
+        'favorites_negocios': [
+          {"idnegocio": ""}
+        ],
+        'favorites_products': [
+          {"idproducto": ""}
+        ],
       });
 
       // collectionUsers.add({

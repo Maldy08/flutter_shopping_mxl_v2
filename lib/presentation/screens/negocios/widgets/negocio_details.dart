@@ -106,10 +106,13 @@ class NegocioDetails extends StatelessWidget {
                   fontFamily: fontFamily,
                   fontWeight: FontWeight.bold),
             ),
-            SizedBox(
-              height: 250,
-              child: ProductosList(productos: productos, negocio: negocio),
-            ),
+            productos.isNotEmpty
+                ? SizedBox(
+                    height: 250,
+                    child:
+                        ProductosList(productos: productos, negocio: negocio),
+                  )
+                : const Text('Sin productos a mostrar'),
             const SizedBox(
               height: 40,
             ),
@@ -120,10 +123,12 @@ class NegocioDetails extends StatelessWidget {
                   fontFamily: fontFamily,
                   fontWeight: FontWeight.bold),
             ),
-            SizedBox(
-              height: 150,
-              child: PromocionesList(promociones: promociones),
-            ),
+            promociones.isNotEmpty
+                ? SizedBox(
+                    height: 250,
+                    child: PromocionesList(promociones: promociones),
+                  )
+                : const Text('Sin promociones a mostrar'),
             const SizedBox(
               height: 40,
             ),
@@ -137,10 +142,10 @@ class NegocioDetails extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const SizedBox(
-              height: 150,
-              child: _CuponesList(),
-            ),
+            // const SizedBox(
+            //   height: 150,
+            //   child: _CuponesList(),
+            // ),
             const SizedBox(
               height: 100,
             ),

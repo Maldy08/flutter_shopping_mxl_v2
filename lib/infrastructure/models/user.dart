@@ -73,7 +73,7 @@ class User {
 }
 
 class FavoritesNegocio {
-  final int idnegocio;
+  final String idnegocio;
 
   const FavoritesNegocio({
     required this.idnegocio,
@@ -90,7 +90,7 @@ class FavoritesNegocio {
 }
 
 class FavoritesProduct {
-  int idproducto;
+  String idproducto;
 
   FavoritesProduct({
     required this.idproducto,

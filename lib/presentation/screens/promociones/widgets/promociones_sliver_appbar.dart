@@ -49,13 +49,9 @@ class PromocionesSliverAppBar extends StatelessWidget {
         background: Stack(
           children: [
             SizedBox.expand(
-              child: Image.network(
-                promocion.photoUrl,
+              child: Image.asset(
+                'assets/images/discount.png',
                 fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress != null) return const SizedBox();
-                  return FadeIn(child: child);
-                },
               ),
             ),
             const SizedBox.expand(

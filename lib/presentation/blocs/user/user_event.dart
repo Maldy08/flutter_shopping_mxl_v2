@@ -20,6 +20,11 @@ class IsFavorite extends UserEvent {
   const IsFavorite(this.id);
 }
 
+class IsFavoriteProduct extends UserEvent {
+  final String uid;
+  const IsFavoriteProduct(this.uid);
+}
+
 class SaveUserInfo extends UserEvent {
   final User user;
   SaveUserInfo(this.user);

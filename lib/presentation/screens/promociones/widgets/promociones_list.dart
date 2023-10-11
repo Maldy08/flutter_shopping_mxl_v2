@@ -32,22 +32,41 @@ class PromocionesList extends StatelessWidget {
                           strokeWidth: 2,
                         ),
                       )
-                    : Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(1),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              promociones[index].photoUrl,
-                              height: 140,
-                              width: 120,
-                              fit: BoxFit.cover,
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(1),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.asset(
+                                    'assets/images/discount.png',
+                                    height: 120,
+                                    width: 120,
+                                    fit: BoxFit.cover,
+                                  )),
                             ),
                           ),
-                        ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            promociones[index].descripcion,
+                            maxLines: 3,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          // Text(
+                          //   promociones[index].vigencia,
+                          //   style: const TextStyle(fontWeight: FontWeight.bold),
+                          // )
+                        ],
                       ),
               ),
               onTap: () {

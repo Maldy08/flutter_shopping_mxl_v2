@@ -64,7 +64,7 @@ GoRouter routes(AuthenticationBloc bloc) {
             path: 'negocio/:id',
             name: NegocioScreen.name,
             builder: (context, state) {
-              final id = int.parse(state.params['id'] ?? '0 ');
+              final id = state.params['id'] ?? '0 ';
               return NegocioScreen(id: id);
             },
           ),

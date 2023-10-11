@@ -6,7 +6,7 @@ import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/negocios/widgets/widgets.dart';
 
 class NegocioScreen extends StatefulWidget {
-  final int id;
+  final String id;
   static const String name = "negocio_screen";
   const NegocioScreen({super.key, required this.id});
 
