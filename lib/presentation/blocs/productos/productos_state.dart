@@ -8,12 +8,14 @@ enum ProductosStatus {
 class ProductosState extends Equatable {
   final ProductosStatus status;
   final List<Productos> productos;
+  final List<Productos> productosByNegocio;
   final Productos producto;
   final List<Productos> favoritos;
 
   const ProductosState(
       {this.status = ProductosStatus.fetching,
       this.productos = const [],
+      this.productosByNegocio = const [],
       this.favoritos = const [],
       this.producto = const Productos(
         id: '',
@@ -28,16 +30,19 @@ class ProductosState extends Equatable {
 
   ProductosState copyWith({
     ProductosStatus? status,
+    List<Productos>? productosByNegocio,
     List<Productos>? productos,
     List<Productos>? favoritos,
     Productos? producto,
   }) =>
       ProductosState(
           status: status ?? this.status,
+          productosByNegocio: productosByNegocio ?? this.productosByNegocio,
           productos: productos ?? this.productos,
           favoritos: favoritos ?? this.favoritos,
           producto: producto ?? this.producto);
 
   @override
-  List<Object> get props => [status, productos, producto, favoritos];
+  List<Object> get props =>
+      [status, productosByNegocio, productos, producto, favoritos];
 }

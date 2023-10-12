@@ -9,6 +9,11 @@ class FirebaseProductosRepositoryImpl extends ProductosRepository {
       : dataSource = dataSource ?? FirebaseProductosDataSource();
 
   @override
+  Future<List<Productos>> getAllProduct() {
+    return dataSource.getAllProduct();
+  }
+
+  @override
   Future<Productos> getProductoById({required String id, required String uid}) {
     return dataSource.getProductoById(id: id, uid: uid);
   }

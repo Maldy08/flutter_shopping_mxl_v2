@@ -10,6 +10,21 @@ class FirebaseProductosDataSource extends ProductosDataSource {
       : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
   @override
+  Future<List<Productos>> getAllProduct() async {
+    List<Productos> list = [];
+    final response = await _firebaseFirestore.collection('productos').get();
+
+    for (var element in response.docs) {
+      list.add(Productos.fromJson(element.data()));
+    }
+
+    final productos =
+        list.map((e) => ProdcutosMapper.productosToEntity(e)).toList();
+
+    return productos;
+  }
+
+  @override
   Future<List<Productos>> getProductos({required String uid}) async {
     List<Productos> list = [];
     final response = await _firebaseFirestore

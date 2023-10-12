@@ -66,7 +66,7 @@ class _NegocioDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productos = context.watch<ProductosBloc>().state.productos;
+    final productos = context.watch<ProductosBloc>().state.productosByNegocio;
     final promociones = context.watch<PromocionesBloc>().state.promociones;
 
     return NegocioDetails(

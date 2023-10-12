@@ -21,3 +21,7 @@ class FavoritosFetched extends ProductosEvent {
 
   FavoritosFetched(this.favoritos);
 }
+
+class ProductosFetchedAll extends ProductosEvent {
+  const ProductosFetchedAll();
+}

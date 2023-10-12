@@ -22,6 +22,7 @@ class _HomeViewState extends State<HomeView>
   void initState() {
     super.initState();
     context.read<NegociosBloc>().add(NegociosFetched());
+    context.read<ProductosBloc>().add(const ProductosFetchedAll());
 
     //context.read<ProductosBloc>().add(FavoritosFetched(favoritos));
   }

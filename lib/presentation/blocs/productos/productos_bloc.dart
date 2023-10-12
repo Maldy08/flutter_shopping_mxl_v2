@@ -17,6 +17,7 @@ class ProductosBloc extends Bloc<ProductosEvent, ProductosState> {
     on<ProductosFetched>(_fetchProductos);
     on<ProductosFetchedById>(_fetchProductoById);
     on<FavoritosFetched>(_fetchFavorites);
+    on<ProductosFetchedAll>(_fetchAll);
   }
 
   Future<void> _fetchProductos(
@@ -26,12 +27,12 @@ class ProductosBloc extends Bloc<ProductosEvent, ProductosState> {
     final productos =
         await _firebaseNegociosRepositoryImpl.getProductos(uid: event.uid);
     emit(state.copyWith(
-        productos: productos, status: ProductosStatus.completed));
+        productosByNegocio: productos, status: ProductosStatus.completed));
   }
 
   Future<void> _fetchProductoById(
       ProductosFetchedById event, Emitter<ProductosState> emit) async {
-    emit(state.copyWith(status: ProductosStatus.fetching));
+    emit(state.copyWith(status: ProductosStatus.fetching, producto: null));
 
     final producto = state.productos.where((element) => element.id == event.id);
     if (producto.isEmpty) return;
@@ -52,5 +53,13 @@ class ProductosBloc extends Bloc<ProductosEvent, ProductosState> {
         status: ProductosStatus.completed, favoritos: productos));
 
     //emit(state.copyWith(favoritos: favoritos));
+  }
+
+  Future<void> _fetchAll(
+      ProductosFetchedAll event, Emitter<ProductosState> emit) async {
+    emit(state.copyWith(status: ProductosStatus.fetching));
+    final productos = await _firebaseNegociosRepositoryImpl.getAllProduct();
+    emit(state.copyWith(
+        status: ProductosStatus.completed, productos: productos));
   }
 }
