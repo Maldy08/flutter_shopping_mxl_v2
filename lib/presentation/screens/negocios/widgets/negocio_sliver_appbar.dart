@@ -18,6 +18,7 @@ class NegocioSliveAppBar extends StatelessWidget {
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
       expandedHeight: size.height * 0.50,
+      pinned: true,
       actions: [
         BlocBuilder<UserBloc, UserState>(
           builder: (context, state) {
@@ -84,11 +85,13 @@ class NegocioSliveAppBar extends StatelessWidget {
             const SizedBox.expand(
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        //end: Alignment.bottomCenter,
-                        stops: [0.0, 0.3],
-                        colors: [Colors.black87, Colors.transparent])),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    //end: Alignment.bottomCenter,
+                    stops: [0.0, 0.3],
+                    colors: [Colors.black87, Colors.transparent],
+                  ),
+                ),
               ),
             ),
           ],

@@ -52,7 +52,7 @@ class FavoritesViewProducts extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                   child: Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(10),
                         color: bgContainer),
                     child: Column(
                       children: [
@@ -78,6 +78,10 @@ class FavoritesViewProducts extends StatelessWidget {
                                         child: Image.network(
                                           producto.photoUrl,
                                           fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, exception, stackTrace) {
+                                            return const Text('Error');
+                                          },
                                         ),
                                       ),
                                     ),

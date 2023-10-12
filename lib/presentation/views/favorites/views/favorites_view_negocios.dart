@@ -50,7 +50,7 @@ class FavoritesViewNegocios extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                   child: Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(10),
                         color: bgContainer),
                     child: Column(
                       children: [
@@ -66,11 +66,18 @@ class FavoritesViewNegocios extends StatelessWidget {
                                 child: SizedBox(
                                   height: 100,
                                   width: 100,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      negocio.photoUrl,
-                                      fit: BoxFit.cover,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(
+                                        negocio.photoUrl,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, exception, stackTrace) {
+                                          return const Text('Error');
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -88,6 +95,7 @@ class FavoritesViewNegocios extends StatelessWidget {
                                       negocio.nombreEmpresa,
                                       style: const TextStyle(
                                         fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Text(

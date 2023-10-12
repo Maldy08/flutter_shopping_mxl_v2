@@ -147,105 +147,103 @@ class _Negocios extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        child: context.watch<NegociosBloc>().state.status ==
-                NegociosStatus.fetching
-            ? const Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                ),
-              )
-            : FadeIn(
-                delay: const Duration(milliseconds: 200),
-                child: SizedBox(
-                  height: 400,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            mainAxisExtent: 210,
-                            crossAxisSpacing: 8,
-                            mainAxisSpacing: 8,
-                          ),
-                          itemCount: context
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: context.watch<NegociosBloc>().state.status ==
+              NegociosStatus.fetching
+          ? const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            )
+          : FadeIn(
+              delay: const Duration(milliseconds: 200),
+              child: SizedBox(
+                height: 400,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisExtent: 210,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                        ),
+                        itemCount:
+                            context.watch<NegociosBloc>().state.negocios.length,
+                        itemBuilder: (context, index) {
+                          final negocio = context
                               .watch<NegociosBloc>()
                               .state
-                              .negocios
-                              .length,
-                          itemBuilder: (context, index) {
-                            final negocio = context
-                                .watch<NegociosBloc>()
-                                .state
-                                .negocios[index];
-                            return GestureDetector(
-                              onTap: () {
-                                context.push('/home/0/negocio/${negocio.id}');
-                                // ScaffoldMessenger.of(context)
-                                //     .hideCurrentSnackBar();
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                //     SnackBar(content: Text(negocio.id)));
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  // color: bgContainer,
-                                ),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(1),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Image.network(
-                                              negocio.photoUrl,
-                                              height: 120,
-                                              width: 110,
-                                              fit: BoxFit.cover,
-                                            ),
+                              .negocios[index];
+                          return GestureDetector(
+                            onTap: () {
+                              context.push('/home/0/negocio/${negocio.id}');
+                              // ScaffoldMessenger.of(context)
+                              //     .hideCurrentSnackBar();
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //     SnackBar(content: Text(negocio.id)));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                // color: bgContainer,
+                              ),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(1),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.network(
+                                            negocio.photoUrl,
+                                            height: 120,
+                                            width: 110,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text(
-                                          maxLines: 2,
-                                          negocio.nombreEmpresa,
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5),
+                                      child: Text(
+                                        maxLines: 2,
+                                        negocio.nombreEmpresa,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                            fontSize: 12,
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    )
-                                  ],
-                                ),
+                                    ),
+                                  )
+                                ],
                               ),
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
                 ),
-              ));
+              ),
+            ),
+    );
   }
 }
 

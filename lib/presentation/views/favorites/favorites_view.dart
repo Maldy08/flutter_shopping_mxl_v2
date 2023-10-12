@@ -33,15 +33,17 @@ class _FavoritesViewState extends State<FavoritesView>
             enableFeedback: true,
             tabs: [
               Tab(
+                icon: Icon(Icons.business_center_outlined),
                 text: 'Negocios',
               ),
               Tab(
+                icon: Icon(Icons.shopping_bag_outlined),
                 text: 'Productos',
               )
             ],
           ),
           centerTitle: true,
-          title: const Text('Listado de Favoritos'),
+          title: const Text('Favoritos'),
         ),
         body: TabBarView(
           children: viewRoutes,
