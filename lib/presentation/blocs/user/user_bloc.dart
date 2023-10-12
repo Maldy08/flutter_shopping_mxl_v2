@@ -15,12 +15,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         super(const UserState()) {
     on<UserLogged>(_userLogged);
     on<ToogleFavorites>(_toogleFavorite);
+    on<ToogleFavoritesProducts>(_toogleFavoriteProduct);
     on<IsFavorite>(_isFavorite);
+    on<IsFavoriteProduct>(_isFavoriteProduct);
   }
 
   Future<void> _userLogged(UserLogged event, Emitter<UserState> emit) async {
-    // return await Future.delayed(const Duration(milliseconds: 200));
-    // if (state.user.isNotEmpty) return;
     emit(state.copyWith(status: UserStatus.fetching));
     await _firebaseUserRepositoryImpl
         .getCurrentAppUser(email: event.email)
@@ -32,22 +32,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     });
   }
 
-  // bool isFavoriteNegocio(String id) {
-  //   bool isFavorite = false;
-  //   if (state.user.favoritesNegocios != null) {
-  //     for (var i = 0; i < state.user.favoritesNegocios!.length; i++) {
-  //       if (state.user.favoritesNegocios![i].idnegocio.toString() == id) {
-  //         isFavorite = true;
-  //       }
-  //     }
-  //   }
-
-  //   return isFavorite;
-  // }
-
   bool isFavorite(String id) {
     bool isFavorite = false;
-    final negocio = state.user.favoritesNegocios!
+    final negocio = state.user.favoritesNegocios
         .where((element) => element.idnegocio.toString() == id);
     negocio.isNotEmpty ? isFavorite = true : isFavorite = false;
     add(IsFavorite(id));
@@ -56,7 +43,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   bool isFavoriteProduct(String uid) {
     bool isFavorite = false;
-    final product = state.user.favoritesProducts!
+    final product = state.user.favoritesProducts
         .where((element) => element.idproducto == uid);
     product.isNotEmpty ? isFavorite = true : false;
     add(IsFavoriteProduct(uid));
@@ -64,27 +51,33 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   void _isFavorite(IsFavorite event, Emitter<UserState> emit) {
-    final negocio = state.user.favoritesNegocios!
+    final negocio = state.user.favoritesNegocios
         .where((element) => element.idnegocio.toString() == event.id);
     negocio.isNotEmpty
         ? emit(state.copyWith(isFavorite: true))
         : emit(state.copyWith(isFavorite: false));
   }
 
+  void _isFavoriteProduct(IsFavoriteProduct event, Emitter<UserState> emit) {
+    final product = state.user.favoritesProducts
+        .where((element) => element.idproducto == event.uid);
+    product.isNotEmpty
+        ? emit(state.copyWith(isFavoriteProduct: true))
+        : emit(state.copyWith(isFavoriteProduct: false));
+  }
+
   void _toogleFavorite(ToogleFavorites event, Emitter<UserState> emit) async {
     emit(state.copyWith(status: UserStatus.fetching));
 
-    final result = state.user.favoritesNegocios!
+    final result = state.user.favoritesNegocios
         .where((element) => element.idnegocio.toString() == event.id);
 
     final negocio = result.isNotEmpty ? result.first : null;
     negocio == null
-        ? state.user.favoritesNegocios!
+        ? state.user.favoritesNegocios
             .add(FavoritesNegocio(idnegocio: event.id))
-        : state.user.favoritesNegocios!.remove(negocio);
+        : state.user.favoritesNegocios.remove(negocio);
 
-    //final favorites = state.user.favoritesNegocios!;
-    //favorites.map((e) => state.user.favoritesNegocios!.add(e));
     final user = state.user;
     await _firebaseUserRepositoryImpl.toogleFavorite(user: user).then(
       (_) {
@@ -93,24 +86,24 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       },
     );
   }
-  // Future<void> _toogleFavorite(
-  //     UserToogleFavorites event, Emitter<UserState> emit) async {
-  //   final user = state.user;
-  //   if (user.favoritesNegocios != null) {
-  //     final favorite = user.favoritesNegocios!
-  //         .where((element) => element.idnegocio.toString() == event.id)
-  //         .first;
-  //     state.user.favoritesNegocios!.remove(favorite);
-  //     // emit(state.copyWith(user: user));
-  //     // for (var i = 0; i < user.favoritesNegocios!.length; i++) {
-  //     //   if (user.favoritesNegocios![i].idnegocio.toString() == id) {
-  //     //     user.favoritesNegocios!.remove(id);
-  //     //   }
-  //     // }
 
-  //     emit(state.copyWith(user: user));
-  //   }
-  //   await _firebaseUserRepositoryImpl.toogleFavorite(
-  //       email: state.user.email, id: event.id, user: state.user);
-  // }
+  void _toogleFavoriteProduct(
+      ToogleFavoritesProducts event, Emitter<UserState> emit) async {
+    emit(state.copyWith(status: UserStatus.fetching));
+
+    final result = state.user.favoritesProducts
+        .where((element) => element.idproducto == event.uid);
+
+    final product = result.isNotEmpty ? result.first : null;
+    product == null
+        ? state.user.favoritesProducts
+            .add(FavoritesProduct(idproducto: event.uid))
+        : state.user.favoritesProducts.remove(product);
+
+    final user = state.user;
+    await _firebaseUserRepositoryImpl.toogleFavorite(user: user).then((_) {
+      emit(state.copyWith(status: UserStatus.completed, user: user));
+      add(IsFavoriteProduct(event.uid));
+    });
+  }
 }

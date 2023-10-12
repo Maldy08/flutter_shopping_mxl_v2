@@ -17,4 +17,10 @@ class FirebaseProductosRepositoryImpl extends ProductosRepository {
   Future<List<Productos>> getProductos({required String uid}) {
     return dataSource.getProductos(uid: uid);
   }
+
+  @override
+  Future<List<Productos>> getUserFavoritesProducts(
+      {required List<String> favoritos}) {
+    return dataSource.getUserFavoritesProducts(favoritos: favoritos);
+  }
 }

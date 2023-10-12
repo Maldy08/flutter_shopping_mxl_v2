@@ -8,7 +8,7 @@ class FavoritesViewNegocios extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favorites = context.read<UserBloc>().state.user.favoritesNegocios!;
+    final favorites = context.read<UserBloc>().state.user.favoritesNegocios;
     final colors = Theme.of(context).colorScheme;
     if (favorites.isEmpty) {
       return Center(

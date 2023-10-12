@@ -23,14 +23,7 @@ class _HomeViewState extends State<HomeView>
     super.initState();
     context.read<NegociosBloc>().add(NegociosFetched());
 
-    //  final email = context.read<AuthenticationBloc>().state.user.email;
-    // if (context.read<UserBloc>().state.status == UserStatus.completed) {
-    //   user = context.read<UserBloc>().state.user;
-    // }
-
-    // context.read<UserBloc>().add(UserLogged(email!));
-
-    //context.read<AuthenticationBloc>().onUserChange();
+    //context.read<ProductosBloc>().add(FavoritosFetched(favoritos));
   }
 
   @override
@@ -61,6 +54,16 @@ class _HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<AuthenticationBloc>().state.user;
+    final favoritos = context
+        .watch<UserBloc>()
+        .state
+        .user
+        .favoritesProducts
+        .map((e) => e.idproducto)
+        .toList();
+    if (favoritos.isNotEmpty) {
+      context.read<ProductosBloc>().add(FavoritosFetched(favoritos));
+    }
 
     // context
     //     .read<FavoritesBloc>()

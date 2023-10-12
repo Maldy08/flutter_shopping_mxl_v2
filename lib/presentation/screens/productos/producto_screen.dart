@@ -5,7 +5,7 @@ import 'package:flutter_shopping_mxl_v2/presentation/blocs/productos/productos_b
 import 'package:flutter_shopping_mxl_v2/presentation/screens/productos/widgets/widgets.dart';
 
 class ProductoScreen extends StatefulWidget {
-  final int id;
+  final String id;
   //final String uid;
 
   static const String name = "producto_screen";
@@ -19,9 +19,7 @@ class _ProductoScreenState extends State<ProductoScreen> {
   @override
   void initState() {
     super.initState();
-    context
-        .read<ProductosBloc>()
-        .add(ProductosFetchedById(widget.id.toString(), ''));
+    context.read<ProductosBloc>().add(ProductosFetchedById(widget.id, ''));
     //context.read<ProductosBloc>().add(ProductosFetchedById(id, ui))
   }
 

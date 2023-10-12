@@ -42,4 +42,24 @@ class FirebaseProductosDataSource extends ProductosDataSource {
 
     return ProdcutosMapper.productosToEntity(productos!);
   }
+
+  @override
+  Future<List<Productos>> getUserFavoritesProducts(
+      {required List<String> favoritos}) async {
+    List<Productos> list = [];
+
+    final response = await _firebaseFirestore
+        .collection('productos')
+        .where('id', whereIn: favoritos)
+        .get();
+
+    for (var element in response.docs) {
+      list.add(Productos.fromJson(element.data()));
+    }
+
+    final productos =
+        list.map((e) => ProdcutosMapper.productosToEntity(e)).toList();
+
+    return productos;
+  }
 }

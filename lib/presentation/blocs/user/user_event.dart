@@ -15,6 +15,11 @@ class ToogleFavorites extends UserEvent {
   const ToogleFavorites(this.id);
 }
 
+class ToogleFavoritesProducts extends UserEvent {
+  final String uid;
+  const ToogleFavoritesProducts(this.uid);
+}
+
 class IsFavorite extends UserEvent {
   final String id;
   const IsFavorite(this.id);

@@ -16,6 +16,7 @@ class ProductosBloc extends Bloc<ProductosEvent, ProductosState> {
         super(const ProductosState()) {
     on<ProductosFetched>(_fetchProductos);
     on<ProductosFetchedById>(_fetchProductoById);
+    on<FavoritosFetched>(_fetchFavorites);
   }
 
   Future<void> _fetchProductos(
@@ -37,5 +38,19 @@ class ProductosBloc extends Bloc<ProductosEvent, ProductosState> {
 
     emit(state.copyWith(
         producto: producto.first, status: ProductosStatus.completed));
+  }
+
+  Future<void> _fetchFavorites(
+      FavoritosFetched event, Emitter<ProductosState> emit) async {
+    if (event.favoritos.isEmpty) return;
+    emit(state.copyWith(status: ProductosStatus.fetching));
+
+    final favoritos = event.favoritos.map((e) => e).toList();
+    final productos = await _firebaseNegociosRepositoryImpl
+        .getUserFavoritesProducts(favoritos: favoritos);
+    emit(state.copyWith(
+        status: ProductosStatus.completed, favoritos: productos));
+
+    //emit(state.copyWith(favoritos: favoritos));
   }
 }

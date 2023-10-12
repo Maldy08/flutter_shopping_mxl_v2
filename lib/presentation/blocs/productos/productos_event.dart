@@ -15,3 +15,9 @@ class ProductosFetchedById extends ProductosEvent {
 
   ProductosFetchedById(this.id, this.uid);
 }
+
+class FavoritosFetched extends ProductosEvent {
+  final List<String> favoritos;
+
+  FavoritosFetched(this.favoritos);
+}

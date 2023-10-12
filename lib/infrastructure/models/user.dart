@@ -19,8 +19,8 @@ class User {
 
   final int? age;
   final String email;
-  final List<FavoritesNegocio>? favoritesNegocios;
-  final List<FavoritesProduct>? favoritesProducts;
+  final List<FavoritesNegocio> favoritesNegocios;
+  final List<FavoritesProduct> favoritesProducts;
   final String? phoneNumber;
   final String? photoUrl;
   final String? sex;
@@ -30,8 +30,8 @@ class User {
   static const empty = User(
     age: 0,
     email: '',
-    favoritesNegocios: null,
-    favoritesProducts: null,
+    favoritesNegocios: [],
+    favoritesProducts: [],
     phoneNumber: '',
     photoUrl: '',
     sex: '',
@@ -61,9 +61,9 @@ class User {
         "age": age,
         "email": email,
         "favorites_negocios":
-            List<dynamic>.from(favoritesNegocios!.map((x) => x.toJson())),
+            List<dynamic>.from(favoritesNegocios.map((x) => x.toJson())),
         "favorites_products":
-            List<dynamic>.from(favoritesProducts!.map((x) => x.toJson())),
+            List<dynamic>.from(favoritesProducts.map((x) => x.toJson())),
         "phoneNumber": phoneNumber,
         "photoUrl": photoUrl,
         "sex": sex,

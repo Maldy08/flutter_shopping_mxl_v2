@@ -20,9 +20,9 @@ class ProductoSliveAppBar extends StatelessWidget {
       foregroundColor: Colors.white,
       expandedHeight: size.height * 0.50,
       actions: [
-        BlocBuilder<ProductosBloc, ProductosState>(
+        BlocBuilder<UserBloc, UserState>(
           builder: (context, state) {
-            if (state.status == ProductosStatus.fetching) {
+            if (state.status == UserStatus.fetching) {
               return IconButton(
                 onPressed: () {},
                 icon: CircleAvatar(
@@ -35,12 +35,23 @@ class ProductoSliveAppBar extends StatelessWidget {
             }
 
             return IconButton(
-              onPressed: () {},
-              icon: const CircleAvatar(
-                child: Icon(
-                  Icons.favorite_border,
-                ),
-              ),
+              onPressed: () {
+                context
+                    .read<UserBloc>()
+                    .add(ToogleFavoritesProducts(producto.id));
+              },
+              icon: context.read<UserBloc>().isFavoriteProduct(producto.id)
+                  ? CircleAvatar(
+                      child: Icon(
+                        Icons.favorite_rounded,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    )
+                  : const CircleAvatar(
+                      child: Icon(
+                        Icons.favorite_border,
+                      ),
+                    ),
             );
           },
         )
@@ -58,6 +69,9 @@ class ProductoSliveAppBar extends StatelessWidget {
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress != null) return const SizedBox();
                           return FadeIn(child: child);
+                        },
+                        errorBuilder: (context, exception, stackTrace) {
+                          return const Text('Error');
                         },
                       )
                     : const NoImage()),

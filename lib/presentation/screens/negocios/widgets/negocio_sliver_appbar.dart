@@ -66,6 +66,9 @@ class NegocioSliveAppBar extends StatelessWidget {
                   if (loadingProgress != null) return const SizedBox();
                   return FadeIn(child: child);
                 },
+                errorBuilder: (context, exception, stackTrace) {
+                  return const Text('Error');
+                },
               ),
             ),
             const SizedBox.expand(
