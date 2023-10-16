@@ -4,7 +4,7 @@ import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/promociones/widgets/widgets.dart';
 
 class PromocionesScreen extends StatefulWidget {
-  final int id;
+  final String id;
 
   static const String name = "promocion_screen";
   const PromocionesScreen({super.key, required this.id});

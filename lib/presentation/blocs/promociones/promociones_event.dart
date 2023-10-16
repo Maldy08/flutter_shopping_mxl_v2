@@ -15,3 +15,7 @@ class PromocionesFetchedById extends PromocionesEvent {
 
   PromocionesFetchedById(this.id, this.uid);
 }
+
+class PromocionesFetchAll extends PromocionesEvent {
+  const PromocionesFetchAll();
+}

@@ -1,12 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
+import 'package:flutter_shopping_mxl_v2/config/config.dart';
+
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 
 import 'package:go_router/go_router.dart';
-import '../screens/home/widgets/home_search_buttons.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -18,13 +18,14 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView>
     with AutomaticKeepAliveClientMixin {
   late User user;
+
   @override
   void initState() {
     super.initState();
     context.read<NegociosBloc>().add(NegociosFetched());
     context.read<ProductosBloc>().add(const ProductosFetchedAll());
-
-    //context.read<ProductosBloc>().add(FavoritosFetched(favoritos));
+    context.read<PromocionesBloc>().add(const PromocionesFetchAll());
+    context.read<CuponesBloc>().add(const CuponesFetchAll());
   }
 
   @override
@@ -55,6 +56,7 @@ class _HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<AuthenticationBloc>().state.user;
+
     final favoritos = context
         .watch<UserBloc>()
         .state
@@ -66,29 +68,26 @@ class _HomeView extends StatelessWidget {
       context.read<ProductosBloc>().add(FavoritosFetched(favoritos));
     }
 
-    // context
-    //     .read<FavoritesBloc>()
-    //     .add(LoadFavorites(context.read<UserBloc>().state.user));
     return Column(
       children: [
-        Row(
-          children: [
-            const Spacer(),
-            CircleAvatar(
-              child: user.photoUrl != null
-                  ? ClipOval(
-                      child: Image.network(
-                        user.photoUrl!,
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                  : IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.account_circle_rounded),
-                    ),
-            )
-          ],
-        ),
+        // Row(
+        //   children: [
+        //     const Spacer(),
+        //     CircleAvatar(
+        //       child: user.photoUrl != null
+        //           ? ClipOval(
+        //               child: Image.network(
+        //                 user.photoUrl!,
+        //                 fit: BoxFit.cover,
+        //               ),
+        //             )
+        //           : IconButton(
+        //               onPressed: () {},
+        //               icon: const Icon(Icons.account_circle_rounded),
+        //             ),
+        //     )
+        //   ],
+        // ),
         const SizedBox(
           height: 10,
         ),
@@ -107,32 +106,32 @@ class _HomeView extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: SizedBox(
-                height: 50,
-                child: OutlinedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.search,
-                    color: Color(0xffB9C1CC),
-                  ),
-                  label: const Text(
-                    'Buscar Negocio o Producto',
-                    style: TextStyle(color: Color(0xffB9C1CC), fontSize: 16),
-                  ),
-                  style: AppTheme.outlinedButtonStyleAlignCenterLeft(),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        FadeIn(child: const HomeSearchButtons()),
+        // Row(
+        //   children: [
+        //     Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 10),
+        //       child: SizedBox(
+        //         height: 50,
+        //         child: OutlinedButton.icon(
+        //           onPressed: () {},
+        //           icon: const Icon(
+        //             Icons.search,
+        //             color: Color(0xffB9C1CC),
+        //           ),
+        //           label: const Text(
+        //             'Buscar Negocio o Producto',
+        //             style: TextStyle(color: Color(0xffB9C1CC), fontSize: 16),
+        //           ),
+        //           style: AppTheme.outlinedButtonStyleAlignCenterLeft(),
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        // const SizedBox(
+        //   height: 20,
+        // ),
+        // FadeIn(child: const HomeSearchButtons()),
         const SizedBox(height: 10),
         const _Negocios(),
         // const SizedBox(height: 20),
@@ -146,36 +145,46 @@ class _Negocios extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    final height = MediaQuery.of(context).size.height -
+        AppBar().preferredSize.height -
+        MediaQuery.of(context).padding.top * 0.3;
+    return SizedBox(
       child: context.watch<NegociosBloc>().state.status ==
               NegociosStatus.fetching
-          ? const Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-              ),
+          ? const Column(
+              children: [
+                Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                  ),
+                ),
+                Center(
+                  child: Text('Cargando informacion...'),
+                )
+              ],
             )
           : FadeIn(
               delay: const Duration(milliseconds: 200),
               child: SizedBox(
-                height: 400,
+                height: height,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
                       child: GridView.builder(
+                        physics: const BouncingScrollPhysics(),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
-                          mainAxisExtent: 210,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
+                          mainAxisExtent: 250,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 5,
                         ),
                         itemCount:
-                            context.watch<NegociosBloc>().state.negocios.length,
+                            context.read<NegociosBloc>().state.negocios.length,
                         itemBuilder: (context, index) {
                           final negocio = context
-                              .watch<NegociosBloc>()
+                              .read<NegociosBloc>()
                               .state
                               .negocios[index];
                           return GestureDetector(
@@ -189,7 +198,6 @@ class _Negocios extends StatelessWidget {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
-                                // color: bgContainer,
                               ),
                               child: Column(
                                 children: [
@@ -197,7 +205,7 @@ class _Negocios extends StatelessWidget {
                                     padding: const EdgeInsets.only(top: 10),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          color: Colors.white,
+                                          color: bgContainer,
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       child: Padding(
@@ -207,8 +215,8 @@ class _Negocios extends StatelessWidget {
                                               BorderRadius.circular(10),
                                           child: Image.network(
                                             negocio.photoUrl,
-                                            height: 120,
-                                            width: 110,
+                                            height: 150,
+                                            width: 150,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -221,14 +229,23 @@ class _Negocios extends StatelessWidget {
                                   Expanded(
                                     child: Padding(
                                       padding: const EdgeInsets.all(5),
-                                      child: Text(
-                                        maxLines: 2,
-                                        negocio.nombreEmpresa,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                            fontSize: 12,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.bold),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            maxLines: 2,
+                                            negocio.nombreEmpresa,
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                                fontSize: 14,
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Expanded(
+                                              child: Text(
+                                            negocio.id,
+                                            style: const TextStyle(fontSize: 8),
+                                          ))
+                                        ],
                                       ),
                                     ),
                                   )
@@ -246,55 +263,3 @@ class _Negocios extends StatelessWidget {
     );
   }
 }
-
-
-//context.read<NegociosBloc>().state.negocios.length,
-
-// ListView.builder(
-//                 itemCount: context.watch<NegociosBloc>().state.negocios.length,
-//                 itemBuilder: (context, index) {
-//                   final negocio =
-//                       context.watch<NegociosBloc>().state.negocios[index];
-//                   return Card(
-//                     child: Text(negocio.nombreEmpresa),
-//                   );
-//                 },
-//               ),
-
-
-
-                  // alignment: Alignment.bottomCenter,
-                  // decoration: BoxDecoration(
-                  //     color: Colors.amber,
-                  //     borderRadius: BorderRadius.circular(5)),
-                  // child: Column(
-                  //   children: [
-                  //     Text(negocio.nombreEmpresa),
-                  //     Text(negocio.nombreEmpresa)
-                  //   ],
-                  // ),
-
-
-                      //                   Text(
-                      //   negocio.nombreEmpresa,
-                      //   textAlign: TextAlign.center,
-                      //   style: const TextStyle(fontSize: 12),
-                      // )
-
-
-                  //                       child: Column(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     ClipRRect(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //       child: negocio.photoUrl.isNotEmpty
-                  //           ? Image.network(
-                  //               negocio.photoUrl,
-                  //               height: 100,
-                  //               width: 100,
-                  //               fit: BoxFit.fill,
-                  //             )
-                  //           : const Text('no imagen'),
-                  //     ),
-                  //   ],
-                  // ),

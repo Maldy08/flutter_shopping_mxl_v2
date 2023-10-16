@@ -15,6 +15,7 @@ class CuponesBloc extends Bloc<CuponesEvent, CuponesState> {
         super(const CuponesState()) {
     on<CuponesFetched>(_fetchCupones);
     on<CuponesFetchedById>(_fecthCuponeById);
+    on<CuponesFetchAll>(_fetchAllCupones);
   }
 
   Future<void> _fetchCupones(
@@ -23,7 +24,8 @@ class CuponesBloc extends Bloc<CuponesEvent, CuponesState> {
     final cupones =
         await _firebaseCuponesRepositoryImpl.getCupones(uid: event.uid);
 
-    emit(state.copyWith(status: CuponesStatus.completed, cupones: cupones));
+    emit(state.copyWith(
+        status: CuponesStatus.completed, cuponesByNegocio: cupones));
   }
 
   Future<void> _fecthCuponeById(
@@ -32,5 +34,13 @@ class CuponesBloc extends Bloc<CuponesEvent, CuponesState> {
     final cupon = state.cupones.where((element) => element.id == event.id);
     if (cupon.isEmpty) return;
     emit(state.copyWith(status: CuponesStatus.completed, cupon: cupon.first));
+  }
+
+  Future<void> _fetchAllCupones(
+      CuponesFetchAll event, Emitter<CuponesState> emit) async {
+    emit(state.copyWith(status: CuponesStatus.fetching));
+    final cupones = await _firebaseCuponesRepositoryImpl.getAllCupones();
+
+    emit(state.copyWith(status: CuponesStatus.completed, cupones: cupones));
   }
 }

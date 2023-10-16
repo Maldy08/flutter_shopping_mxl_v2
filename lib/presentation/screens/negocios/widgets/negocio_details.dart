@@ -1,27 +1,37 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/cupones/cupones_bloc.dart';
+
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/productos/productos_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/promociones/promociones_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens/cupones/widgets/widgets.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/productos/widgets/widgets.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/promociones/widgets/promociones_list.dart';
 
 class NegocioDetails extends StatelessWidget {
   final Negocios negocio;
   final String fontFamily;
-  final List<Productos> productos;
-  final List<Promociones> promociones;
+  //final List<Productos> productos;
+  //final List<Promociones> promociones;
 
   const NegocioDetails({
     super.key,
     required this.negocio,
     required this.fontFamily,
-    required this.productos,
-    required this.promociones,
+    // required this.productos,
+    // required this.promociones,
   });
 
   @override
   Widget build(BuildContext context) {
-    // final productos = context.watch<ProductosBloc>().state.productos;
+    final productos = context.watch<ProductosBloc>().state.productosByNegocio;
+    final promociones =
+        context.watch<PromocionesBloc>().state.promocionesByNegocio;
+    final cupones = context.watch<CuponesBloc>().state.cuponesByNegocio;
+    // ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    // ScaffoldMessenger.of(context)
+    //     .showSnackBar(SnackBar(content: Text(negocio.id)));
     return Container(
       color: Colors.white,
       child: Padding(
@@ -108,7 +118,7 @@ class NegocioDetails extends StatelessWidget {
             ),
             productos.isNotEmpty
                 ? SizedBox(
-                    height: 250,
+                    height: 300,
                     child:
                         ProductosList(productos: productos, negocio: negocio),
                   )
@@ -139,8 +149,17 @@ class NegocioDetails extends StatelessWidget {
                   fontFamily: fontFamily,
                   fontWeight: FontWeight.bold),
             ),
+
+            cupones.isNotEmpty
+                ? SizedBox(
+                    height: 250,
+                    child: CuponesList(
+                      cupones: cupones,
+                    ),
+                  )
+                : const Text('Sin cupones a mostrar'),
             const SizedBox(
-              height: 10,
+              height: 40,
             ),
             // const SizedBox(
             //   height: 150,
@@ -152,54 +171,6 @@ class NegocioDetails extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _PromocionesList extends StatelessWidget {
-  const _PromocionesList({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) {
-        return SizedBox(
-          width: 150,
-          child: FadeInRight(
-              child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Placeholder(),
-          )),
-        );
-      },
-    );
-  }
-}
-
-class _CuponesList extends StatelessWidget {
-  const _CuponesList({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 50,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) {
-        return SizedBox(
-          width: 150,
-          child: FadeInRight(
-              child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Placeholder(),
-          )),
-        );
-      },
     );
   }
 }

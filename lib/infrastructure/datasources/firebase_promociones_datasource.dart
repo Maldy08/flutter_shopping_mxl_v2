@@ -41,4 +41,19 @@ class FirebasePromocionesDataSource extends PromocionesDataSource {
 
     return PromocionesMapper.promocionesToEntity(promociones!);
   }
+
+  @override
+  Future<List<Promociones>> getAllPromociones() async {
+    List<Promociones> list = [];
+    final response = await _firebaseFirestore.collection('promociones').get();
+
+    for (var element in response.docs) {
+      list.add(Promociones.fromJson(element.data()));
+    }
+
+    final promociones =
+        list.map((e) => PromocionesMapper.promocionesToEntity(e)).toList();
+
+    return promociones;
+  }
 }

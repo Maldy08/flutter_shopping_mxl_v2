@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens/cupones/cupones_screen.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/promociones/promociones_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -84,9 +85,21 @@ GoRouter routes(AuthenticationBloc bloc) {
             path: 'promocion/:id',
             name: PromocionesScreen.name,
             builder: (context, state) {
-              final id = int.parse(state.params['id'] ?? '0 ');
+              final id = state.params['id'] ?? '0 ';
               // final uid = state.params['uid'] ?? '0';
               return PromocionesScreen(
+                id: id,
+                // uid: uid,
+              );
+            },
+          ),
+          GoRoute(
+            path: 'cupon/:id',
+            name: CuponesScreen.name,
+            builder: (context, state) {
+              final id = state.params['id'] ?? '0 ';
+              // final uid = state.params['uid'] ?? '0';
+              return CuponesScreen(
                 id: id,
                 // uid: uid,
               );

@@ -17,4 +17,9 @@ class FirebasePromocionesRepositoryImpl extends PromocionesRepository {
   Future<List<Promociones>> getPromociones({required String uid}) {
     return dataSource.getPromociones(uid: uid);
   }
+
+  @override
+  Future<List<Promociones>> getAllPromociones() {
+    return dataSource.getAllPromociones();
+  }
 }

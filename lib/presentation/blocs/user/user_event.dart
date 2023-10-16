@@ -34,3 +34,8 @@ class SaveUserInfo extends UserEvent {
   final User user;
   SaveUserInfo(this.user);
 }
+
+class LoadUserFavoritesProducts extends UserEvent {
+  final User user;
+  LoadUserFavoritesProducts(this.user);
+}

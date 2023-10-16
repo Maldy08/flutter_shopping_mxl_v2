@@ -18,11 +18,10 @@ class _NegocioScreenState extends State<NegocioScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<NegociosBloc>().add(NegocioFetchedById(widget.id.toString()));
-    context.read<ProductosBloc>().add(ProductosFetched(widget.id.toString()));
-    context
-        .read<PromocionesBloc>()
-        .add(PromocionesFetched(widget.id.toString()));
+    context.read<NegociosBloc>().add(NegocioFetchedById(widget.id));
+    context.read<ProductosBloc>().add(ProductosFetched(widget.id));
+    context.read<PromocionesBloc>().add(PromocionesFetched(widget.id));
+    context.read<CuponesBloc>().add(CuponesFetched(widget.id));
     //final user = context.read<UserBloc>().state.user;
     // context.read<FavoritesBloc>().add(LoadFavorites(user));
   }
@@ -66,14 +65,14 @@ class _NegocioDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productos = context.watch<ProductosBloc>().state.productosByNegocio;
-    final promociones = context.watch<PromocionesBloc>().state.promociones;
+    // final productos = context.read<ProductosBloc>().state.productosByNegocio;
+    // final promociones = context.read<PromocionesBloc>().state.promociones;
 
     return NegocioDetails(
       negocio: negocio,
       fontFamily: fontFamily,
-      productos: productos,
-      promociones: promociones,
+      // productos: productos,
+      // promociones: promociones,
     );
   }
 }

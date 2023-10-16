@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   final viewRoutes = const <Widget>[
     HomeView(),
-    SearchView(),
+    // SearchView(),
     FavoritesView(
       pageIndex: 1,
     ),
@@ -47,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    final user = context.read<UserBloc>().state.user;
     super.build(context);
     if (pageController.hasClients) {
       pageController.animateToPage(
@@ -58,6 +59,59 @@ class _HomeScreenState extends State<HomeScreen>
     //final scaffoldKey = GlobalKey<ScaffoldState>();
     // final theme = Theme.of(context);
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          title: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/app-logo-white.png',
+                width: 50,
+                height: 50,
+                fit: BoxFit.contain,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              const Text(
+                'ENOFFERTA',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              )
+            ],
+          ),
+          actions: [
+            IconButton(
+              color: Colors.white,
+              icon: const Icon(
+                Icons.search_outlined,
+                size: 28,
+              ),
+              tooltip: 'Show Snackbar',
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Busqueda no implementada')));
+              },
+            ),
+            // const Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: CircleAvatar(
+                child: user.photoUrl != null
+                    ? ClipOval(
+                        child: Image.network(
+                          user.photoUrl!,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.account_circle_rounded),
+                      ),
+              ),
+            )
+          ],
+        ),
         backgroundColor: Colors.white,
         extendBody: true,
         // key: scaffoldKey,

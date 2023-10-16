@@ -18,6 +18,7 @@ class PromocionesBloc extends Bloc<PromocionesEvent, PromocionesState> {
     //
     on<PromocionesFetched>(_fetchPromociones);
     on<PromocionesFetchedById>(_fetchPromocionById);
+    on<PromocionesFetchAll>(_fetchAllPromociones);
   }
 
   Future<void> _fetchPromociones(
@@ -26,7 +27,8 @@ class PromocionesBloc extends Bloc<PromocionesEvent, PromocionesState> {
     final promociones =
         await _firebasePromocionesRepositoryImpl.getPromociones(uid: event.uid);
     emit(state.copyWith(
-        promociones: promociones, status: PromocionesStatus.completed));
+        promocionesByNegocio: promociones,
+        status: PromocionesStatus.completed));
   }
 
   Future<void> _fetchPromocionById(
@@ -37,5 +39,14 @@ class PromocionesBloc extends Bloc<PromocionesEvent, PromocionesState> {
     if (promocion.isEmpty) return;
     emit(state.copyWith(
         status: PromocionesStatus.completed, promocion: promocion.first));
+  }
+
+  Future<void> _fetchAllPromociones(
+      PromocionesFetchAll event, Emitter<PromocionesState> emit) async {
+    emit(state.copyWith(status: PromocionesStatus.fetching));
+    final promociones =
+        await _firebasePromocionesRepositoryImpl.getAllPromociones();
+    emit(state.copyWith(
+        promociones: promociones, status: PromocionesStatus.completed));
   }
 }

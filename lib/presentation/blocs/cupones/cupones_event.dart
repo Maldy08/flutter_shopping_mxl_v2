@@ -11,7 +11,10 @@ class CuponesFetched extends CuponesEvent {
 
 class CuponesFetchedById extends CuponesEvent {
   final String id;
-  final String uid;
 
-  CuponesFetchedById(this.id, this.uid);
+  CuponesFetchedById(this.id);
+}
+
+class CuponesFetchAll extends CuponesEvent {
+  const CuponesFetchAll();
 }

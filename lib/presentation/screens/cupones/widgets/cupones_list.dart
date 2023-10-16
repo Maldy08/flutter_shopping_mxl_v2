@@ -1,21 +1,19 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
-// import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/cupones.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/cupones/cupones_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class PromocionesList extends StatelessWidget {
-  final List<Promociones> promociones;
+class CuponesList extends StatelessWidget {
+  final List<Cupones> cupones;
 
-  const PromocionesList({super.key, required this.promociones});
+  const CuponesList({super.key, required this.cupones});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: promociones.length,
+      itemCount: cupones.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
         return SizedBox(
@@ -26,8 +24,8 @@ class PromocionesList extends StatelessWidget {
             child: GestureDetector(
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: context.watch<PromocionesBloc>().state.status ==
-                        PromocionesStatus.fetching
+                child: context.watch<CuponesBloc>().state.status ==
+                        CuponesStatus.fetching
                     ? const Center(
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
@@ -39,16 +37,16 @@ class PromocionesList extends StatelessWidget {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                                color: bgContainer,
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
-                              padding: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(1),
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.asset(
-                                    'assets/images/discount.png',
-                                    height: 150,
-                                    width: 150,
+                                    'assets/images/cupon.png',
+                                    height: 120,
+                                    width: 120,
                                     fit: BoxFit.cover,
                                   )),
                             ),
@@ -57,7 +55,7 @@ class PromocionesList extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            promociones[index].descripcion,
+                            cupones[index].descripcion,
                             maxLines: 3,
                           ),
                           const SizedBox(
@@ -71,7 +69,7 @@ class PromocionesList extends StatelessWidget {
                       ),
               ),
               onTap: () {
-                context.push('/home/0/promocion/${promociones[index].id}');
+                context.push('/home/0/cupon/${cupones[index].id}');
               },
             ),
           )),

@@ -26,9 +26,10 @@ class CustomBottomNavigation extends StatelessWidget {
     const double size = 28;
     //final theme = Theme.of(context);
     return BottomNavigationBar(
+      backgroundColor: Colors.white,
       enableFeedback: true,
 
-      elevation: 0,
+      elevation: 2,
       type: BottomNavigationBarType.fixed,
       //backgroundColor: Colors.blue,
 
@@ -45,15 +46,15 @@ class CustomBottomNavigation extends StatelessWidget {
           label: 'Inicio',
           // activeIcon: Icon(Icons.home_filled),
         ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            // color: Colors.white,
-            Icons.search,
-            size: size,
-          ),
-          label: 'Buscar',
-          // activeIcon: Icon(Icons.search),
-        ),
+        // BottomNavigationBarItem(
+        //   icon: Icon(
+        //     // color: Colors.white,
+        //     Icons.search,
+        //     size: size,
+        //   ),
+        //   label: 'Buscar',
+        //   // activeIcon: Icon(Icons.search),
+        // ),
         BottomNavigationBarItem(
           icon: Icon(
             //color: Colors.white,

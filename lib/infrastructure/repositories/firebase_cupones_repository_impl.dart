@@ -17,4 +17,9 @@ class FirebaseCuponesRepositoryImpl extends CuponesRepository {
   Future<List<Cupones>> getCupones({required String uid}) {
     return dataSource.getCupones(uid: uid);
   }
+
+  @override
+  Future<List<Cupones>> getAllCupones() {
+    return dataSource.getAllCupones();
+  }
 }

@@ -39,4 +39,17 @@ class FirebaseCuponesDataSource extends CuponesDataSource {
     final cupones = list.map((e) => CuponesMapper.cuponesToEntity(e)).toList();
     return cupones;
   }
+
+  @override
+  Future<List<Cupones>> getAllCupones() async {
+    List<Cupones> list = [];
+    final response = await _firebaseFirestore.collection('cupones').get();
+
+    for (var element in response.docs) {
+      list.add(Cupones.fromJson(element.data()));
+    }
+
+    final cupones = list.map((e) => CuponesMapper.cuponesToEntity(e)).toList();
+    return cupones;
+  }
 }
