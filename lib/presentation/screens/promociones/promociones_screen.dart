@@ -34,21 +34,11 @@ class _MyWidgetState extends State<PromocionesScreen> {
     const fontFamily = "Poppins";
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: CustomScrollView(
-        physics: const ClampingScrollPhysics(),
-        slivers: [
-          PromocionesSliverAppBar(promocion: promocion),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => PromocionesDetails(
-                    negocio: negocio,
-                    promocion: promocion,
-                    fontFamily: fontFamily),
-                childCount: 1),
-          )
-        ],
-      ),
-    );
+        backgroundColor: Colors.white,
+        appBar: AppBar(),
+        body: SizedBox(
+          child: PromocionesDetails(
+              fontFamily: fontFamily, negocio: negocio, promocion: promocion),
+        ));
   }
 }

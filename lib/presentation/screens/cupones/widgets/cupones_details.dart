@@ -3,7 +3,6 @@ import 'package:flutter_shopping_mxl_v2/config/config.dart';
 
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/cupones.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class CuponesDetails extends StatelessWidget {

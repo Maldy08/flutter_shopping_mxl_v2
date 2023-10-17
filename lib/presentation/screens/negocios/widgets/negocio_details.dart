@@ -135,7 +135,7 @@ class NegocioDetails extends StatelessWidget {
             ),
             promociones.isNotEmpty
                 ? SizedBox(
-                    height: 250,
+                    height: 300,
                     child: PromocionesList(promociones: promociones),
                   )
                 : const Text('Sin promociones a mostrar'),
@@ -152,7 +152,7 @@ class NegocioDetails extends StatelessWidget {
 
             cupones.isNotEmpty
                 ? SizedBox(
-                    height: 250,
+                    height: 300,
                     child: CuponesList(
                       cupones: cupones,
                     ),

@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/cupones.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/cupones/cupones_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +38,7 @@ class CuponesList extends StatelessWidget {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: bgContainer,
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
                               padding: const EdgeInsets.all(1),
