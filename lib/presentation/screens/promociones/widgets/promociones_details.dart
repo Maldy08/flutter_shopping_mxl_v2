@@ -1,4 +1,6 @@
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
 
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
@@ -18,116 +20,108 @@ class PromocionesDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.92;
+    //final width = MediaQuery.of(context).size.width * 0.92;
 
-    return const Placeholder();
+    return Container(
+      color: bgContainer,
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: SizedBox(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                width: 150,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/price-tag.png',
+                    width: 150,
+                    height: 150,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 100,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                negocio.nombreEmpresa,
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                promocion.vigencia,
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          height: 100,
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: QrImageView(
+                              data: promocion.id,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                color: Colors.white,
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Center(
+                    child: Text(
+                      promocion.descripcion,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              FilledButton(onPressed: () {}, child: Text(promocion.id)),
+              const SizedBox(height: 10),
+              Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(15),
+                child: BarcodeWidget(
+                  data: promocion.id,
+                  barcode: Barcode.code128(),
+                  width: 300,
+                  height: 100,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
-
-                      // Row(
-                      //   children: [
-                      //     Column(
-                      //       children: [
-                      //         Container(
-                      //           width: width,
-                      //           color: Colors.red,
-                      //           child: Center(
-                      //             child: QrImageView(
-                                    
-                      //               data: promocion.id,
-                      //               size: 70,
-                      //               gapless: false,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     )
-                      //   ],
-                      // ),
-
-
-//  color: Colors.white,
-//       child: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Padding(
-//               padding: const EdgeInsets.all(5),
-//               child: Text(
-//                 promocion.descripcion,
-//                 style: TextStyle(
-//                     fontFamily: fontFamily,
-//                     fontSize: 20,
-//                     fontWeight: FontWeight.bold),
-//               ),
-//             ),
-//             Row(
-//               children: [
-//                 const Icon(
-//                   Icons.business_center_outlined,
-//                   size: 20,
-//                 ),
-//                 const SizedBox(
-//                   width: 5,
-//                 ),
-//                 Flexible(
-//                   child: Text(
-//                     negocio.nombreEmpresa,
-//                     style: TextStyle(fontFamily: fontFamily, fontSize: 16),
-//                   ),
-//                 )
-//               ],
-//             ),
-//             const SizedBox(
-//               height: 5,
-//             ),
-//             Row(
-//               children: [
-//                 const Icon(
-//                   Icons.date_range_rounded,
-//                   size: 20,
-//                 ),
-//                 const SizedBox(
-//                   width: 5,
-//                 ),
-//                 Flexible(
-//                   child: Text(
-//                     promocion.vigencia,
-//                     style: TextStyle(fontFamily: fontFamily, fontSize: 16),
-//                   ),
-//                 )
-//               ],
-//             ),
-//             const SizedBox(
-//               height: 5,
-//             ),
-//             Row(
-//               children: [
-//                 const Icon(
-//                   Icons.local_offer_outlined,
-//                   size: 20,
-//                 ),
-//                 const SizedBox(
-//                   width: 5,
-//                 ),
-//                 Flexible(
-//                   child: Text(
-//                     promocion.descuento.toString(),
-//                     style: TextStyle(fontFamily: fontFamily, fontSize: 16),
-//                   ),
-//                 )
-//               ],
-//             ),
-//             const SizedBox(
-//               height: 20,
-//             ),
-//             const SizedBox(
-//               height: 10,
-//             ),
-//             const SizedBox(
-//               height: 20,
-//             ),
-//           ],
-//         ),
-//       ),
