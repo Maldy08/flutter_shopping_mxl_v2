@@ -19,78 +19,8 @@ class PromocionesDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width * 0.92;
-    const double size01 = 20.0;
-    const double size02 = 25.0;
-    return Expanded(
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              color: Colors.white,
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Parchis Colors:",
-                      style: TextStyle(
-                          fontSize: size01, fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ),
-          ), // Text Top
 
-          Expanded(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    child: Container(
-                        color: Colors.red,
-                        child: const Center(
-                            child: Text("Red Color",
-                                style: TextStyle(fontSize: size02))))),
-                Expanded(
-                    child: Container(
-                        color: Colors.yellow,
-                        child: const Center(
-                            child: Text("Yellow Color",
-                                style: TextStyle(fontSize: size02))))),
-              ],
-            ),
-          ), //Row 1/2
-
-          Expanded(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    child: Container(
-                        color: Colors.green,
-                        child: const Center(
-                            child: Text("Green Color",
-                                style: TextStyle(fontSize: size02))))),
-                Expanded(
-                    child: Container(
-                        color: Colors.blue,
-                        child: const Center(
-                            child: Text("Blue Color",
-                                style: TextStyle(fontSize: size02))))),
-              ],
-            ),
-          ), //Row 2/2
-          Expanded(
-            child: Container(
-              color: Colors.white,
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("¿What's your favourite color?",
-                      style: TextStyle(
-                          fontSize: size01, fontWeight: FontWeight.bold))
-                ],
-              ),
-            ),
-          ), // Text Bottom
-        ],
-      ),
-    );
+    return const Placeholder();
   }
 }
 
