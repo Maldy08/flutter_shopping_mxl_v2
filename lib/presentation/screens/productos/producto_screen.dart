@@ -31,22 +31,27 @@ class _ProductoScreenState extends State<ProductoScreen> {
   @override
   Widget build(BuildContext context) {
     final producto = context.watch<ProductosBloc>().state.producto;
+    final negocio = context.watch<NegociosBloc>().state.negocio;
     const fontFamily = "Poppins";
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: CustomScrollView(
-        physics: const ClampingScrollPhysics(),
-        slivers: [
-          ProductoSliveAppBar(producto: producto),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) =>
-                    ProductoDetails(producto: producto, fontFamily: fontFamily),
-                childCount: 1),
-          )
-        ],
-      ),
-    );
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: IconButton(
+                  onPressed: () {}, icon: Icon(Icons.favorite_outline)),
+            )
+          ],
+          title: Text(negocio.nombreEmpresa),
+          centerTitle: true,
+        ),
+        body: SizedBox(
+          child: ProductoDetails(
+            fontFamily: fontFamily,
+            producto: producto,
+          ),
+        ));
   }
 }

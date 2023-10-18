@@ -35,7 +35,10 @@ class _MyWidgetState extends State<PromocionesScreen> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text('Promocion'),
+          centerTitle: true,
+        ),
         body: SizedBox(
           child: PromocionesDetails(
               fontFamily: fontFamily, negocio: negocio, promocion: promocion),

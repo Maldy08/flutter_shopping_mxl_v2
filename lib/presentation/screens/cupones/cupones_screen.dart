@@ -33,19 +33,17 @@ class _CuponesScreenState extends State<CuponesScreen> {
     const fontFamily = "Poppins";
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: CustomScrollView(
-        physics: const ClampingScrollPhysics(),
-        slivers: [
-          CuponesSliverAppBar(cupon: cupon),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => CuponesDetails(
-                    cupon: cupon, negocio: negocio, fontFamily: fontFamily),
-                childCount: 1),
-          )
-        ],
-      ),
-    );
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: const Text('Cupon'),
+          centerTitle: true,
+        ),
+        body: SizedBox(
+          child: CuponesDetails(
+            fontFamily: fontFamily,
+            cupon: cupon,
+            negocio: negocio,
+          ),
+        ));
   }
 }

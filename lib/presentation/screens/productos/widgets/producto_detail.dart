@@ -1,6 +1,9 @@
 // import 'package:animate_do/animate_do.dart';
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 // import 'package:flutter_shopping_mxl_v2/presentation/screens/productos/widgets/widgets.dart';
 
 class ProductoDetails extends StatelessWidget {
@@ -19,91 +22,115 @@ class ProductoDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     // final productos = context.watch<ProductosBloc>().state.productos;
     return Container(
-      color: Colors.white,
+      color: bgContainer,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: Flexible(
-                child: Text(
-                  producto.descripcion,
-                  style: TextStyle(
-                      fontFamily: fontFamily,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+        padding: const EdgeInsets.all(15),
+        child: SizedBox(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                child: Center(
+                    child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20), // Image border
+                  child: SizedBox.fromSize(
+                    size: const Size.fromRadius(200), // Image radius
+                    child: Image.network(producto.photoUrl, fit: BoxFit.cover),
+                  ),
+                )),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          // height: 200,
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                producto.descripcion,
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                producto.precio,
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // FilledButton.icon(
+                              //     onPressed: () {},
+                              //     icon: const Icon(Icons.category),
+                              //     label: Text(producto.idCategoria))
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          height: 100,
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: QrImageView(
+                              data: producto.id,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Row(
-              children: [
-                const Icon(
-                  Icons.monetization_on_outlined,
-                  size: 20,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Flexible(
-                  child: Text(
-                    producto.precio,
-                    style: TextStyle(fontFamily: fontFamily, fontSize: 16),
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                const Icon(
-                  Icons.category_outlined,
-                  size: 20,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Flexible(
-                  child: Text(
-                    producto.idCategoria,
-                    style: TextStyle(fontFamily: fontFamily, fontSize: 16),
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                const Icon(
-                  Icons.business_center_outlined,
-                  size: 20,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Flexible(
-                  child: Text(
-                    producto.nombreNegocio,
-                    style: TextStyle(fontFamily: fontFamily, fontSize: 16),
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
+              // const SizedBox(height: 10),
+              // Container(
+              //   decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(15),
+              //       color: Colors.white),
+              //   width: double.infinity,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(15),
+              //     child: Center(
+              //       child: Text(
+              //         '',
+              //         textAlign: TextAlign.justify,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              const SizedBox(height: 20),
+              FilledButton(onPressed: () {}, child: Text(producto.id)),
+              // const SizedBox(height: 10),
+              // Container(
+              //   decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(15),
+              //       color: Colors.white),
+              //   padding: const EdgeInsets.all(15),
+              //   child: BarcodeWidget(
+              //     data: producto.id,
+              //     barcode: Barcode.code128(),
+              //     width: double.infinity,
+              //     height: 100,
+              //   ),
+              // )
+            ],
+          ),
         ),
       ),
     );

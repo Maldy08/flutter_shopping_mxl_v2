@@ -42,23 +42,20 @@ class ProductosList extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: bgContainer,
-                                borderRadius: BorderRadius.circular(10)),
+                          SizedBox(
                             child: Padding(
-                              padding: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(5),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: productos[index].photoUrl.isNotEmpty
-                                    ? Image.network(
-                                        productos[index].photoUrl,
-                                        height: 150,
-                                        width: 150,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : const NoImage(),
-                              ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: SizedBox.fromSize(
+                                    size: const Size.fromRadius(60),
+                                    child: productos[index].photoUrl.isNotEmpty
+                                        ? Image.network(
+                                            productos[index].photoUrl,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : const NoImage(),
+                                  )),
                             ),
                           ),
                           const SizedBox(

@@ -1,3 +1,4 @@
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_mxl_v2/config/config.dart';
 
@@ -19,128 +20,110 @@ class CuponesDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          color: bgContainer,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Text(
-                    cupon.descripcion,
-                    style: TextStyle(
-                        fontFamily: fontFamily,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+    return Container(
+      color: bgContainer,
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: SizedBox(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                width: 150,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/cupon.png',
+                    width: 150,
+                    height: 150,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.business_center_outlined,
-                      size: 20,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Flexible(
-                      child: Text(
-                        negocio.nombreEmpresa,
-                        style: TextStyle(fontFamily: fontFamily, fontSize: 16),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 100,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                negocio.nombreEmpresa,
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                cupon.vigencia,
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.date_range_rounded,
-                      size: 20,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Flexible(
-                      child: Text(
-                        cupon.vigencia,
-                        style: TextStyle(fontFamily: fontFamily, fontSize: 16),
+                      Expanded(
+                        child: SizedBox(
+                          height: 100,
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: QrImageView(
+                              data: cupon.id,
+                            ),
+                          ),
+                        ),
                       ),
-                    )
-                  ],
+                    ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.local_offer_outlined,
-                      size: 20,
+              ),
+              const SizedBox(height: 10),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white),
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Center(
+                    child: Text(
+                      cupon.descripcion,
+                      textAlign: TextAlign.justify,
                     ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Flexible(
-                      child: Text(
-                        cupon.descuento.toString(),
-                        style: TextStyle(fontFamily: fontFamily, fontSize: 16),
-                      ),
-                    )
-                  ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 20,
+              ),
+              const SizedBox(height: 20),
+              FilledButton(onPressed: () {}, child: Text(cupon.id)),
+              const SizedBox(height: 10),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white),
+                padding: const EdgeInsets.all(15),
+                child: BarcodeWidget(
+                  data: cupon.id,
+                  barcode: Barcode.code128(),
+                  width: double.infinity,
+                  height: 100,
                 ),
-              ],
-            ),
+              )
+            ],
           ),
         ),
-        const SizedBox(
-          height: 30,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                SizedBox(
-                  width: 250,
-                  height: 50,
-                  child: FilledButton.icon(
-                    onPressed: () {
-                      showModalBottomSheet(
-                          backgroundColor: bgContainer,
-                          context: context,
-                          useSafeArea: true,
-                          builder: ((context) {
-                            return Center(
-                              child: QrImageView(
-                                data: cupon.id,
-                                size: 320,
-                                gapless: false,
-                              ),
-                            );
-                          }));
-                    },
-                    icon: const Icon(Icons.generating_tokens_outlined),
-                    label: const Text(
-                      'Generar cupon!',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                )
-              ],
-            )
-          ],
-        )
-      ],
+      ),
     );
   }
 }

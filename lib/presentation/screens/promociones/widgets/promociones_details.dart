@@ -1,10 +1,9 @@
-import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:barcode_widget/barcode_widget.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
-
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class PromocionesDetails extends StatelessWidget {
   final Promociones promocion;
@@ -21,7 +20,6 @@ class PromocionesDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width * 0.92;
-
     return Container(
       color: bgContainer,
       child: Padding(
@@ -48,7 +46,7 @@ class PromocionesDetails extends StatelessWidget {
               ),
               Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(15),
                     color: Colors.white),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -93,7 +91,9 @@ class PromocionesDetails extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Container(
-                color: Colors.white,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white),
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.all(15),
@@ -105,16 +105,18 @@ class PromocionesDetails extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               FilledButton(onPressed: () {}, child: Text(promocion.id)),
               const SizedBox(height: 10),
               Container(
-                color: Colors.white,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white),
                 padding: const EdgeInsets.all(15),
                 child: BarcodeWidget(
                   data: promocion.id,
                   barcode: Barcode.code128(),
-                  width: 300,
+                  width: double.infinity,
                   height: 100,
                 ),
               )
