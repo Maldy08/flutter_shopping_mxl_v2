@@ -5,6 +5,7 @@ import 'package:flutter_shopping_mxl_v2/config/config.dart';
 
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
 import 'package:go_router/go_router.dart';
 
@@ -175,10 +176,8 @@ class _Negocios extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisExtent: 250,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 5,
+                          crossAxisCount: 2,
+                          mainAxisExtent: 200,
                         ),
                         itemCount:
                             context.read<NegociosBloc>().state.negocios.length,
@@ -195,67 +194,46 @@ class _Negocios extends StatelessWidget {
                               // ScaffoldMessenger.of(context).showSnackBar(
                               //     SnackBar(content: Text(negocio.id)));
                             },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: bgContainer,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(1),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.network(
-                                            negocio.photoUrl,
-                                            height: 150,
-                                            width: 150,
-                                            fit: BoxFit.cover,
-                                          ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: bgContainer,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(1),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: ImageLoading(
+                                          photoUrl: negocio.photoUrl),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        maxLines: 2,
+                                        softWrap: true,
+                                        negocio.nombreEmpresa,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'Poppins',
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            maxLines: 2,
-                                            negocio.nombreEmpresa,
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Expanded(
-                                              child: Text(
-                                            negocio.id,
-                                            style: const TextStyle(fontSize: 8),
-                                          ))
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           );
                         },
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

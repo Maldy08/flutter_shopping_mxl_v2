@@ -1,9 +1,9 @@
 // import 'package:animate_do/animate_do.dart';
-import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 // import 'package:flutter_shopping_mxl_v2/presentation/screens/productos/widgets/widgets.dart';
 
 class ProductoDetails extends StatelessWidget {
@@ -36,9 +36,10 @@ class ProductoDetails extends StatelessWidget {
                     child: ClipRRect(
                   borderRadius: BorderRadius.circular(20), // Image border
                   child: SizedBox.fromSize(
-                    size: const Size.fromRadius(200), // Image radius
-                    child: Image.network(producto.photoUrl, fit: BoxFit.cover),
-                  ),
+                      size: const Size.fromRadius(200), // Image radius
+                      child: ImageLoading(
+                        photoUrl: producto.photoUrl,
+                      )),
                 )),
               ),
               const SizedBox(

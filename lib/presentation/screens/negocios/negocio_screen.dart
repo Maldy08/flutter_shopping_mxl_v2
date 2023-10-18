@@ -37,20 +37,18 @@ class _NegocioScreenState extends State<NegocioScreen> {
     const fontFamily = "Poppins";
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: CustomScrollView(
-        physics: const ClampingScrollPhysics(),
-        slivers: [
-          NegocioSliveAppBar(negocio: negocio),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) =>
-                    _NegocioDetails(negocio: negocio, fontFamily: fontFamily),
-                childCount: 1),
-          )
-        ],
-      ),
-    );
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: const Text('Negocio'),
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+          child: SizedBox(
+              child: _NegocioDetails(
+            fontFamily: fontFamily,
+            negocio: negocio,
+          )),
+        ));
   }
 }
 
@@ -76,3 +74,17 @@ class _NegocioDetails extends StatelessWidget {
     );
   }
 }
+
+
+// CustomScrollView(
+//         physics: const ClampingScrollPhysics(),
+//         slivers: [
+//           NegocioSliveAppBar(negocio: negocio),
+//           SliverList(
+//             delegate: SliverChildBuilderDelegate(
+//                 (context, index) =>
+//                     _NegocioDetails(negocio: negocio, fontFamily: fontFamily),
+//                 childCount: 1),
+//           )
+//         ],
+//       ),

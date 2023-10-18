@@ -95,22 +95,25 @@ class _HomeScreenState extends State<HomeScreen>
               },
             ),
             // const Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: CircleAvatar(
-                child: user.photoUrl != null
-                    ? ClipOval(
-                        child: Image.network(
-                          user.photoUrl!,
-                          fit: BoxFit.cover,
-                        ),
-                      )
-                    : IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.account_circle_rounded),
-                      ),
-              ),
-            )
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 10),
+            //   child: CircleAvatar(
+            //     child: user.photoUrl != null
+            //         ? ClipOval(
+            //             child: Image.network(
+            //               user.photoUrl!,
+            //               fit: BoxFit.cover,
+            //               errorBuilder: (context, exception, stackTrace) {
+            //                 return const Text('Error');
+            //               },
+            //             ),
+            //           )
+            //         : IconButton(
+            //             onPressed: () {},
+            //             icon: const Icon(Icons.account_circle_rounded),
+            //           ),
+            //   ),
+            // )
           ],
         ),
         backgroundColor: Colors.white,

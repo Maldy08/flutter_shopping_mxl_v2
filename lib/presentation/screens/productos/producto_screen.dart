@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
@@ -38,20 +39,59 @@ class _ProductoScreenState extends State<ProductoScreen> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: IconButton(
-                  onPressed: () {}, icon: Icon(Icons.favorite_outline)),
+            BlocBuilder<UserBloc, UserState>(
+              builder: (context, state) {
+                if (state.status == UserStatus.fetching) {
+                  return IconButton(
+                    onPressed: () {},
+                    icon: CircleAvatar(
+                      child: SpinPerfect(
+                        infinite: true,
+                        child: const Icon(Icons.refresh_outlined),
+                      ),
+                    ),
+                  );
+                }
+
+                return IconButton(
+                  onPressed: () {
+                    context
+                        .read<UserBloc>()
+                        .add(ToogleFavoritesProducts(producto.id));
+                  },
+                  icon: context.read<UserBloc>().isFavoriteProduct(producto.id)
+                      ? CircleAvatar(
+                          child: Icon(
+                            Icons.favorite_rounded,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        )
+                      : const CircleAvatar(
+                          child: Icon(
+                            Icons.favorite_border,
+                          ),
+                        ),
+                );
+              },
             )
           ],
           title: Text(negocio.nombreEmpresa),
           centerTitle: true,
         ),
-        body: SizedBox(
-          child: ProductoDetails(
-            fontFamily: fontFamily,
-            producto: producto,
+        body: SingleChildScrollView(
+          child: SizedBox(
+            child: ProductoDetails(
+              fontFamily: fontFamily,
+              producto: producto,
+            ),
           ),
         ));
   }
 }
+
+
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 10),
+            //   child: IconButton(
+            //       onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
+            // )

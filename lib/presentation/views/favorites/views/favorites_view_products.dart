@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class FavoritesViewProducts extends StatelessWidget {
@@ -75,14 +76,8 @@ class FavoritesViewProducts extends StatelessWidget {
                                       padding: const EdgeInsets.only(left: 10),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          producto.photoUrl,
-                                          fit: BoxFit.cover,
-                                          errorBuilder:
-                                              (context, exception, stackTrace) {
-                                            return const Text('Error');
-                                          },
-                                        ),
+                                        child: ImageLoading(
+                                            photoUrl: producto.photoUrl),
                                       ),
                                     ),
                                   ),
@@ -108,16 +103,6 @@ class FavoritesViewProducts extends StatelessWidget {
                                           fontFamily: 'Poppins',
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      producto.precio,
-                                      style: const TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
                                     ),
                                     Text(
                                       producto.nombreNegocio,

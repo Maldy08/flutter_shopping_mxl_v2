@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/cupones/cupones_bloc.dart';
 
@@ -8,6 +9,8 @@ import 'package:flutter_shopping_mxl_v2/presentation/blocs/promociones/promocion
 import 'package:flutter_shopping_mxl_v2/presentation/screens/cupones/widgets/widgets.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/productos/widgets/widgets.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/promociones/widgets/promociones_list.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class NegocioDetails extends StatelessWidget {
   final Negocios negocio;
@@ -33,141 +36,105 @@ class NegocioDetails extends StatelessWidget {
     // ScaffoldMessenger.of(context)
     //     .showSnackBar(SnackBar(content: Text(negocio.id)));
     return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
+      color: bgContainer,
+      padding: const EdgeInsets.all(15),
+      child: SizedBox(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                negocio.nombreEmpresa,
-                style: TextStyle(
-                    fontFamily: fontFamily,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold),
+            const SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              child: Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: SizedBox.fromSize(
+                    size: const Size.fromRadius(125),
+                    child: ImageLoading(
+                      photoUrl: negocio.photoUrl,
+                    ),
+                  ),
+                ),
               ),
-            ),
-            Row(
-              children: [
-                const Icon(
-                  Icons.location_pin,
-                  size: 16,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Flexible(
-                  child: Text(
-                    negocio.direccion,
-                    style: TextStyle(fontFamily: fontFamily),
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                const Icon(
-                  Icons.schedule,
-                  size: 16,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Flexible(
-                  child: Text(
-                    negocio.horario,
-                    style: TextStyle(fontFamily: fontFamily),
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                const Icon(
-                  Icons.phone,
-                  size: 16,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Flexible(
-                  child: Text(
-                    negocio.telefono,
-                    style: TextStyle(fontFamily: fontFamily, fontSize: 12),
-                  ),
-                )
-              ],
             ),
             const SizedBox(
               height: 20,
             ),
-            Text(
-              'Productos',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: fontFamily,
-                  fontWeight: FontWeight.bold),
-            ),
-            productos.isNotEmpty
-                ? SizedBox(
-                    height: 300,
-                    child:
-                        ProductosList(productos: productos, negocio: negocio),
-                  )
-                : const Text('Sin productos a mostrar'),
-            const SizedBox(
-              height: 40,
-            ),
-            Text(
-              'Promociones',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: fontFamily,
-                  fontWeight: FontWeight.bold),
-            ),
-            promociones.isNotEmpty
-                ? SizedBox(
-                    height: 300,
-                    child: PromocionesList(promociones: promociones),
-                  )
-                : const Text('Sin promociones a mostrar'),
-            const SizedBox(
-              height: 40,
-            ),
-            Text(
-              'Cupones',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: fontFamily,
-                  fontWeight: FontWeight.bold),
-            ),
-
-            cupones.isNotEmpty
-                ? SizedBox(
-                    height: 300,
-                    child: CuponesList(
-                      cupones: cupones,
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15), color: Colors.white),
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              negocio.nombreEmpresa,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            // const SizedBox(
+                            //   height: 10,
+                            // ),
+                            // Text(
+                            //   negocio.giroEmpresa,
+                            //   style: const TextStyle(fontSize: 14),
+                            // ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              negocio.direccion,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              negocio.horario,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              negocio.telefono,
+                              style: const TextStyle(fontSize: 14),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
-                  )
-                : const Text('Sin cupones a mostrar'),
-            const SizedBox(
-              height: 40,
+                    Expanded(
+                      child: SizedBox(
+                        height: 100,
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: QrImageView(
+                            data: negocio.id,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            // const SizedBox(
-            //   height: 150,
-            //   child: _CuponesList(),
-            // ),
-            const SizedBox(
-              height: 100,
-            ),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.white,
+              ),
+              padding: const EdgeInsets.all(15),
+              child: Column(children: [const Text('Listado de Productos')]),
+            )
           ],
         ),
       ),
