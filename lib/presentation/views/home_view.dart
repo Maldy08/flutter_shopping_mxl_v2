@@ -27,6 +27,8 @@ class _HomeViewState extends State<HomeView>
     context.read<ProductosBloc>().add(const ProductosFetchedAll());
     context.read<PromocionesBloc>().add(const PromocionesFetchAll());
     context.read<CuponesBloc>().add(const CuponesFetchAll());
+
+    context.read<NotificationsBloc>().requestPermission();
   }
 
   @override

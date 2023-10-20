@@ -39,11 +39,13 @@ class LocalNotifications {
     String? data,
   }) {
     const androidDetails = AndroidNotificationDetails(
-        'channelId', 'channelName',
-        playSound: true,
-        sound: RawResourceAndroidNotificationSound('notification'),
-        importance: Importance.max,
-        priority: Priority.high);
+      'channelId',
+      'channelName',
+      playSound: true,
+      // sound: RawResourceAndroidNotificationSound('notification'),
+      importance: Importance.max,
+      priority: Priority.high,
+    );
 
     const notificationDetails = NotificationDetails(
         android: androidDetails,
@@ -59,5 +61,6 @@ class LocalNotifications {
 
   static void onDidReceiveNotificationResponse(NotificationResponse response) {
     // appRouter.push('/push-details/${response.payload}');
+    print(response.payload);
   }
 }
