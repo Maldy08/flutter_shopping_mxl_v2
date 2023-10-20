@@ -30,6 +30,11 @@ class _HomeViewState extends State<HomeView>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     // final scaffoldKey = GlobalKey<ScaffoldState>();

@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/config.dart';
@@ -126,14 +127,75 @@ class NegocioDetails extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+            const SizedBox(
+              height: 10,
+            ),
+            FadeIn(
+              delay: const Duration(milliseconds: 200),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    const Text('Catalogo de Productos'),
+                    SizedBox(
+                      height: 250,
+                      child:
+                          ProductosList(productos: productos, negocio: negocio),
+                    )
+                  ],
+                ),
               ),
-              padding: const EdgeInsets.all(15),
-              child: Column(children: [const Text('Listado de Productos')]),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            FadeIn(
+              delay: const Duration(milliseconds: 200),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    const Text('Catalogo de Promociones'),
+                    SizedBox(
+                      height: 250,
+                      child: PromocionesList(promociones: promociones),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            FadeIn(
+              delay: const Duration(milliseconds: 200),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    const Text('Catalogo de Cupones'),
+                    SizedBox(
+                      height: 250,
+                      child: CuponesList(cupones: cupones),
+                    )
+                  ],
+                ),
+              ),
             )
           ],
         ),

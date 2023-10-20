@@ -43,13 +43,17 @@ class CuponesList extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(1),
                               child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(10),
+                                child: SizedBox.fromSize(
+                                  size: const Size.fromRadius(60),
                                   child: Image.asset(
                                     'assets/images/cupon.png',
                                     height: 120,
                                     width: 120,
                                     fit: BoxFit.cover,
-                                  )),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(

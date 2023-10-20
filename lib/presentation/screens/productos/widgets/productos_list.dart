@@ -45,14 +45,15 @@ class ProductosList extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(5),
                               child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: SizedBox.fromSize(
-                                    size: const Size.fromRadius(60),
-                                    child: productos[index].photoUrl.isNotEmpty
-                                        ? ImageLoading(
-                                            photoUrl: productos[index].photoUrl)
-                                        : const NoImage(),
-                                  )),
+                                borderRadius: BorderRadius.circular(10),
+                                child: SizedBox.fromSize(
+                                  size: const Size.fromRadius(60),
+                                  child: productos[index].photoUrl.isNotEmpty
+                                      ? ImageLoading(
+                                          photoUrl: productos[index].photoUrl)
+                                      : const NoImage(),
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(

@@ -44,13 +44,17 @@ class PromocionesList extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(10),
                               child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(10),
+                                child: SizedBox.fromSize(
+                                  size: const Size.fromRadius(60),
                                   child: Image.asset(
-                                    'assets/images/discount.png',
-                                    height: 150,
-                                    width: 150,
+                                    'assets/images/price-tag.png',
+                                    height: 120,
+                                    width: 120,
                                     fit: BoxFit.cover,
-                                  )),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(
