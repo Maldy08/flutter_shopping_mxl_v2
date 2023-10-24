@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens/configuration/configuration_screen.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/cupones/cupones_screen.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/promociones/promociones_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -60,6 +61,11 @@ GoRouter routes(AuthenticationBloc bloc) {
             path: 'aviso-privacidad',
             name: AvisoPrivacidadScreen.name,
             builder: (context, state) => const AvisoPrivacidadScreen(),
+          ),
+          GoRoute(
+            path: 'configuration',
+            name: ConfigurationScreen.name,
+            builder: (context, state) => const ConfigurationScreen(),
           ),
           GoRoute(
             path: 'negocio/:id',
