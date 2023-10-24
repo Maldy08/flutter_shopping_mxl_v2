@@ -159,17 +159,23 @@ class _Negocios extends StatelessWidget {
     return SizedBox(
       child: context.watch<NegociosBloc>().state.status ==
               NegociosStatus.fetching
-          ? const Column(
-              children: [
-                Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
+          ? SizedBox(
+              height: 400,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SpinPerfect(
+                    infinite: true,
+                    child: Icon(
+                      Icons.refresh_outlined,
+                      color: Theme.of(context).primaryColor,
+                      size: 50,
+                    ),
                   ),
-                ),
-                Center(
-                  child: Text('Cargando informacion...'),
-                )
-              ],
+                  const SizedBox(height: 10),
+                  const Text('Cargando informacion...'),
+                ],
+              ),
             )
           : FadeIn(
               delay: const Duration(milliseconds: 200),

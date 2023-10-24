@@ -78,13 +78,17 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'sex': '',
         'phoneNumber': '',
         'photoUrl': _firebaseAuth.currentUser!.photoURL,
-        'favorites_negocios': [
-          {"idnegocio": ""}
-        ],
-        'favorites_products': [
-          {"idproducto": ""}
-        ],
+        'favorites_negocios': [],
+        'favorites_products': [],
       });
+
+      await _firebaseFirestore.collection('tokens').doc().set(
+        {
+          'uid': _firebaseAuth.currentUser!.uid,
+          'email': _firebaseAuth.currentUser!.email,
+          'token': '',
+        },
+      );
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -186,13 +190,17 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'phoneNumber': '',
         'photoUrl':
             'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg',
-        'favorites_negocios': [
-          {"idnegocio": ""}
-        ],
-        'favorites_products': [
-          {"idproducto": ""}
-        ],
+        'favorites_negocios': [],
+        'favorites_products': [],
       });
+
+      await _firebaseFirestore.collection('tokens').doc().set(
+        {
+          'uid': _firebaseAuth.currentUser!.uid,
+          'email': _firebaseAuth.currentUser!.email,
+          'token': '',
+        },
+      );
 
       // collectionUsers.add({
       //   'uid': credentials.user!.uid,

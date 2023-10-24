@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ImageLoading extends StatelessWidget {
@@ -21,13 +24,17 @@ class ImageLoading extends StatelessWidget {
         }
 
         return Center(
-          child: CircularProgressIndicator(
-            strokeWidth: 2,
-            value: loadingProgress.expectedTotalBytes != null
-                ? loadingProgress.cumulativeBytesLoaded /
-                    loadingProgress.expectedTotalBytes!
-                : null,
-          ),
+          child: Platform.isIOS
+              ? const CupertinoActivityIndicator(
+                  animating: true,
+                )
+              : CircularProgressIndicator(
+                  strokeWidth: 2,
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                      : null,
+                ),
         );
       },
       errorBuilder: (context, exception, stackTrace) {
