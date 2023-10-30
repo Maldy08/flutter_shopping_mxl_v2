@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,6 +42,41 @@ class _NegocioScreenState extends State<NegocioScreen> {
         appBar: AppBar(
           title: const Text('Negocio'),
           centerTitle: true,
+          actions: [
+            BlocBuilder<UserBloc, UserState>(
+              builder: (context, state) {
+                if (state.status == UserStatus.fetching) {
+                  return IconButton(
+                    onPressed: () {},
+                    icon: CircleAvatar(
+                      child: SpinPerfect(
+                        infinite: true,
+                        child: const Icon(Icons.refresh_outlined),
+                      ),
+                    ),
+                  );
+                }
+
+                return IconButton(
+                  onPressed: () {
+                    context.read<UserBloc>().add(ToogleFavorites(negocio.id));
+                  },
+                  icon: context.read<UserBloc>().isFavorite(negocio.id)
+                      ? CircleAvatar(
+                          child: Icon(
+                            Icons.favorite_rounded,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        )
+                      : const CircleAvatar(
+                          child: Icon(
+                            Icons.favorite_border,
+                          ),
+                        ),
+                );
+              },
+            )
+          ],
         ),
         body: SingleChildScrollView(
           child: SizedBox(

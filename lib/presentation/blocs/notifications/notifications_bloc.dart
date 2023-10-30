@@ -80,6 +80,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     if (state.status != AuthorizationStatus.authorized) return '';
 
     final token = await messaging.getToken();
+    messaging.subscribeToTopic("pushNotifications");
     print(token);
     return token!;
   }
