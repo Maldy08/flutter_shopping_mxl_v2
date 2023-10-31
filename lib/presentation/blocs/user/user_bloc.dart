@@ -18,6 +18,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<ToogleFavoritesProducts>(_toogleFavoriteProduct);
     on<IsFavorite>(_isFavorite);
     on<IsFavoriteProduct>(_isFavoriteProduct);
+    on<SaveToken>(_saveToken);
   }
 
   Future<void> _userLogged(UserLogged event, Emitter<UserState> emit) async {
@@ -105,5 +106,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(state.copyWith(status: UserStatus.completed, user: user));
       add(IsFavoriteProduct(event.uid));
     });
+  }
+
+  void _saveToken(SaveToken event, Emitter<UserState> emitter) async {
+    await _firebaseUserRepositoryImpl.saveToken(
+        email: event.email, token: event.token);
   }
 }

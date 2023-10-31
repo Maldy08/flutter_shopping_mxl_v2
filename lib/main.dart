@@ -37,10 +37,10 @@ void main() async {
       providers: [
         BlocProvider(
           create: (_) => NotificationsBloc(
-            requestLocalNotificationPermissions:
-                LocalNotifications.requestPermissionLocalNotifications,
-            showLocalNotification: LocalNotifications.showLocalNotification,
-          ),
+              requestLocalNotificationPermissions:
+                  LocalNotifications.requestPermissionLocalNotifications,
+              showLocalNotification: LocalNotifications.showLocalNotification,
+              firebaseUserRepositoryImpl: firebaseUserRepository),
         ),
         BlocProvider(
           create: (_) =>

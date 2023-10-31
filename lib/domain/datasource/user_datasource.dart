@@ -5,4 +5,5 @@ abstract class UserDataSource {
   Future<User?> getCurrentAppUser({required String email});
   //Future<bool> isFavoriteNegocio({required int id});
   Future<void> toogleFavorite({required User user});
+  Future<void> saveToken({required String email, required String token});
 }

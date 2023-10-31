@@ -39,3 +39,9 @@ class LoadUserFavoritesProducts extends UserEvent {
   final User user;
   LoadUserFavoritesProducts(this.user);
 }
+
+class SaveToken extends UserEvent {
+  final String token;
+  final String email;
+  const SaveToken(this.email, this.token);
+}

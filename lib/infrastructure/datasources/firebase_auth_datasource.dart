@@ -80,6 +80,7 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'photoUrl': _firebaseAuth.currentUser!.photoURL,
         'favorites_negocios': [],
         'favorites_products': [],
+        'token': ''
       });
 
       await _firebaseFirestore.collection('tokens').doc().set(
@@ -192,15 +193,8 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
             'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg',
         'favorites_negocios': [],
         'favorites_products': [],
+        'token': ''
       });
-
-      await _firebaseFirestore.collection('tokens').doc().set(
-        {
-          'uid': _firebaseAuth.currentUser!.uid,
-          'email': _firebaseAuth.currentUser!.email,
-          'token': '',
-        },
-      );
 
       // collectionUsers.add({
       //   'uid': credentials.user!.uid,

@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_shopping_mxl_v2/domain/entities/push_message.dart';
 import 'package:flutter_shopping_mxl_v2/firebase_options.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/repositories/firebase_user_repository_impl.dart';
 
 part 'notifications_event.dart';
 part 'notifications_state.dart';
@@ -20,9 +22,11 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
   int pushNumberId = 0;
 
   final Future<void> Function()? requestLocalNotificationPermissions;
+  final FirebaseUserRepositoryImpl _firebaseUserRepositoryImpl;
   final void Function(
       {required int id,
       String? title,
@@ -30,8 +34,12 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       String? data})? showLocalNotification;
 
   NotificationsBloc(
-      {this.requestLocalNotificationPermissions, this.showLocalNotification})
-      : super(const NotificationsState()) {
+      {this.requestLocalNotificationPermissions,
+      this.showLocalNotification,
+      FirebaseUserRepositoryImpl? firebaseUserRepositoryImpl})
+      : _firebaseUserRepositoryImpl =
+            firebaseUserRepositoryImpl ?? FirebaseUserRepositoryImpl(),
+        super(const NotificationsState()) {
     on<NotificationStatusChanged>(_notificationStatusChanged);
     on<NotificationReceived>(_onPushMessageReceived);
     on<NotificationToken>(_setNotificationToken);
@@ -52,7 +60,9 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   void _notificationStatusChanged(
       NotificationStatusChanged event, Emitter<NotificationsState> emit) {
     emit(state.copyWith(status: event.status));
-    _getFCMToken();
+    if (event.status == AuthorizationStatus.authorized) {
+      _getFCMToken();
+    }
   }
 
   void _setNotificationToken(
@@ -81,8 +91,10 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
 
     final token = await messaging.getToken();
     messaging.subscribeToTopic("pushNotifications");
+    _firebaseUserRepositoryImpl.saveToken(
+        email: auth.currentUser!.email!, token: token!);
     print(token);
-    return token!;
+    return token;
   }
 
   void handleRemoteMessage(RemoteMessage message) {

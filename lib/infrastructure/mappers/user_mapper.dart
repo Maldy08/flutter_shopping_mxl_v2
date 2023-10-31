@@ -11,5 +11,6 @@ class UserMapper {
         favoritesNegocios: user.favoritesNegocios.map((e) => e).toList(),
         favoritesProducts: user.favoritesProducts.map((e) => e).toList(),
         photoUrl: user.photoUrl,
+        token: user.token,
       );
 }

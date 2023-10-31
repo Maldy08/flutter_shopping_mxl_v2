@@ -15,6 +15,7 @@ class User {
     required this.sex,
     required this.uid,
     required this.username,
+    required this.token,
   });
 
   final int? age;
@@ -26,6 +27,7 @@ class User {
   final String? sex;
   final String uid;
   final String username;
+  final String? token;
 
   static const empty = User(
     age: 0,
@@ -37,6 +39,7 @@ class User {
     sex: '',
     uid: '',
     username: '',
+    token: '',
   );
 
   bool get isEmpty => this == User.empty;
@@ -56,6 +59,7 @@ class User {
         sex: json["sex"],
         uid: json["uid"],
         username: json["username"],
+        token: json["token"],
       );
   Map<String, dynamic> toJson() => {
         "age": age,
@@ -69,6 +73,7 @@ class User {
         "sex": sex,
         "uid": uid,
         "username": username,
+        "token": token,
       };
 }
 

@@ -21,4 +21,9 @@ class FirebaseUserRepositoryImpl extends UserRepository {
   Future<void> toogleFavorite({required User user}) {
     return dataSource.toogleFavorite(user: user);
   }
+
+  @override
+  Future<void> saveToken({required String email, required String token}) {
+    return dataSource.saveToken(email: email, token: token);
+  }
 }

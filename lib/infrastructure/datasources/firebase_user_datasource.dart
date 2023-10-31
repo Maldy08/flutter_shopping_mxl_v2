@@ -73,4 +73,23 @@ class FirebaseUserDatasource extends UserDataSource {
     // }
     // });
   }
+
+  @override
+  Future<void> saveToken({required String email, required String token}) async {
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .get()
+          .then((value) {
+        //_firebaseFirestore.collection('users').doc(value.docs[0].id);
+        final doc =
+            _firebaseFirestore.collection('users').doc(value.docs[0].id);
+
+        doc.update({"token": token});
+      });
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

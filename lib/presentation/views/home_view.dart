@@ -27,8 +27,7 @@ class _HomeViewState extends State<HomeView>
     context.read<ProductosBloc>().add(const ProductosFetchedAll());
     context.read<PromocionesBloc>().add(const PromocionesFetchAll());
     context.read<CuponesBloc>().add(const CuponesFetchAll());
-
-    context.read<NotificationsBloc>().requestPermission();
+    context.read<NotificationsBloc>().state.messageToken;
   }
 
   @override
@@ -39,6 +38,7 @@ class _HomeViewState extends State<HomeView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
     // final scaffoldKey = GlobalKey<ScaffoldState>();
     final theme = Theme.of(context);
 
