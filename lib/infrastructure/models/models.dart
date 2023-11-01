@@ -6,3 +6,4 @@ export './categorias.dart';
 export './fcmtokens.dart';
 export './cupones.dart';
 export './promociones.dart';
+export './fcmnotifications.dart';

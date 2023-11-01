@@ -102,7 +102,6 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
   @override
   Future<void> singOut() async {
     bool exists = false;
-    String noombre = "";
     final token = await _firebaseMessaging.getToken();
     final email = _firebaseAuth.currentUser!.email!;
     await _firebaseFirestore

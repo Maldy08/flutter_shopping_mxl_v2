@@ -5,9 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_shopping_mxl_v2/domain/entities/push_message.dart';
-import 'package:flutter_shopping_mxl_v2/firebase_options.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/infrastructure.dart';
+
+import '../../../domain/entities/push_message.dart';
+import '../../../firebase_options.dart';
+import '../../../infrastructure/infrastructure.dart';
 
 part 'notifications_event.dart';
 part 'notifications_state.dart';
@@ -27,6 +28,9 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
 
   final Future<void> Function()? requestLocalNotificationPermissions;
   final FirebaseFCMtokensRepositoryImpl _fcMtokensRepositoryImpl;
+  final FirebaseFCMnotificationsRepositoryImpl
+      _firebaseFCMnotificationsRepositoryImpl;
+
   final void Function(
       {required int id,
       String? title,
@@ -36,10 +40,17 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   NotificationsBloc(
       {this.requestLocalNotificationPermissions,
       this.showLocalNotification,
-      FirebaseFCMtokensRepositoryImpl? fcMtokensRepositoryImpl})
+      FirebaseFCMtokensRepositoryImpl? fcMtokensRepositoryImpl,
+      FirebaseFCMnotificationsRepositoryImpl? fcMnotificationsRepositoryImpl,
+      FirebaseFCMnotificationsRepositoryImpl?
+          firebaseFCMnotificationsRepositoryImpl})
       : _fcMtokensRepositoryImpl =
             fcMtokensRepositoryImpl ?? FirebaseFCMtokensRepositoryImpl(),
+        _firebaseFCMnotificationsRepositoryImpl =
+            firebaseFCMnotificationsRepositoryImpl ??
+                FirebaseFCMnotificationsRepositoryImpl(),
         super(const NotificationsState()) {
+    ////
     on<NotificationStatusChanged>(_notificationStatusChanged);
     on<NotificationReceived>(_onPushMessageReceived);
     on<NotificationToken>(_setNotificationToken);
@@ -79,6 +90,14 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       NotificationReceived event, Emitter<NotificationsState> emit) {
     emit(state
         .copyWith(notifications: [event.pushMessage, ...state.notifications]));
+    _firebaseFCMnotificationsRepositoryImpl.saveNotification(
+        email: auth.currentUser!.email!,
+        messageId: event.pushMessage.messageId,
+        title: event.pushMessage.title,
+        body: event.pushMessage.body,
+        sentDate: event.pushMessage.sentDate,
+        data: event.pushMessage.data ?? event.pushMessage.data,
+        imageUrl: event.pushMessage.imageUrl ?? event.pushMessage.imageUrl);
   }
 
   void _initialStatusCheck() async {
@@ -127,6 +146,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
 
   void _onForegroundMessage() {
     FirebaseMessaging.onMessage.listen(handleRemoteMessage);
+    // FirebaseMessaging.onMessageOpenedApp.listen((event) {});
   }
 
   void requestPermission() async {
