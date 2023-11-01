@@ -8,7 +8,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_shopping_mxl_v2/domain/entities/push_message.dart';
 import 'package:flutter_shopping_mxl_v2/firebase_options.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/infrastructure.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/repositories/firebase_user_repository_impl.dart';
 
 part 'notifications_event.dart';
 part 'notifications_state.dart';

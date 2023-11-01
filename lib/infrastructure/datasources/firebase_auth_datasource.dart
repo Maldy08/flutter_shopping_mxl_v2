@@ -1,6 +1,7 @@
 import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../models/models.dart' as models;
@@ -10,6 +11,7 @@ import '../../domain/datasource/auth_datasource.dart';
 class FirebaseAuthDatasource extends AuthDatasoruce {
   final FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firebaseFirestore;
+  final FirebaseMessaging _firebaseMessaging;
   final GoogleSignIn _googleSignIn;
   final CacheClient _cache;
 
@@ -17,11 +19,13 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
       {CacheClient? cache,
       FirebaseAuth? firebaseAuth,
       GoogleSignIn? googleSignIn,
-      FirebaseFirestore? firebaseFirestore})
+      FirebaseFirestore? firebaseFirestore,
+      FirebaseMessaging? firebaseMessaging})
       : _cache = cache ?? CacheClient(),
         _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance,
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
+        _googleSignIn = googleSignIn ?? GoogleSignIn.standard(),
+        _firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance;
 
   @override
   Future<void> signIn({required String email, required String password}) async {
@@ -97,10 +101,37 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
 
   @override
   Future<void> singOut() async {
+    bool exists = false;
+    String noombre = "";
+    final token = await _firebaseMessaging.getToken();
+    final email = _firebaseAuth.currentUser!.email!;
+    await _firebaseFirestore
+        .collection("FCMtokens")
+        .where("email", isEqualTo: email)
+        .where("token", isEqualTo: token)
+        .get()
+        .then((value) => value.size > 0 ? exists = true : exists = false);
+
+    if (exists) {
+      final doc = await _firebaseFirestore
+          .collection("FCMtokens")
+          .where("email", isEqualTo: email)
+          .where("token", isEqualTo: token)
+          .get()
+          .then((value) => value.docs.first.id.toString());
+
+      await _firebaseFirestore.collection("FCMtokens").doc(doc).delete();
+
+      //_firebaseFirestore.collection("FCMtokens").doc(doc).delete()
+    }
+
+    // _firebaseFirestore.doc(id).delete();
+
     try {
       await Future.wait([
         _firebaseAuth.signOut(),
         _googleSignIn.signOut(),
+        _firebaseMessaging.deleteToken(),
       ]);
     } catch (e) {
       throw Exception(e);

@@ -16,7 +16,7 @@ class LoginCubit extends Cubit<LoginState> {
   // super(const LoginState());
 
   Future<void> logInWithGoogle() async {
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
     emit(state.copyWith(isPosting: true));
     try {
       await _firebaseAuthRepositoryImpl.signInWithGoogle();
