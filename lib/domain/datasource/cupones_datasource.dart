@@ -1,4 +1,4 @@
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/cupones.dart';
+import '../../infrastructure/models/models.dart';
 
 abstract class CuponesDataSource {
   Future<List<Cupones>> getCupones({required String uid});

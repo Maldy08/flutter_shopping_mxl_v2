@@ -1,6 +1,6 @@
-import 'package:flutter_shopping_mxl_v2/domain/repositories/user_repository.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/datasources/firebase_user_datasource.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/user.dart';
+import '../../domain/repositories/user_repository.dart';
+import '../datasources/firebase_user_datasource.dart';
+import '../models/models.dart';
 
 class FirebaseUserRepositoryImpl extends UserRepository {
   final FirebaseUserDatasource dataSource;

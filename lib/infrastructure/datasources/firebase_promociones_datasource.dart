@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_shopping_mxl_v2/domain/datasource/promociones_datasource.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/mappers/promociones_mapper.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
+
+import '../../domain/datasource/promociones_datasource.dart';
+import '../mappers/promociones_mapper.dart';
+import '../models/models.dart';
 
 class FirebasePromocionesDataSource extends PromocionesDataSource {
   final FirebaseFirestore _firebaseFirestore;

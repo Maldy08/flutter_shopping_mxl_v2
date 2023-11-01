@@ -1,4 +1,4 @@
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
+import '../models/models.dart';
 
 class PromocionesMapper {
   static Promociones promocionesToEntity(Promociones promociones) =>

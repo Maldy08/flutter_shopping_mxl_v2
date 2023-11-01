@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_shopping_mxl_v2/domain/datasource/negocios_datasource.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/mappers/negocios_mapper.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
+import '../../domain/datasource/negocios_datasource.dart';
+import '../mappers/negocios_mapper.dart';
+import '../models/models.dart';
 
 class FirebaseNegociosDataSource extends NegociosDataSource {
   final FirebaseFirestore _firebaseFirestore;

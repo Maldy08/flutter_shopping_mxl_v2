@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_shopping_mxl_v2/domain/datasource/cupones_datasource.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/mappers/cupones_mapper.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/cupones.dart';
+import '../../domain/datasource/cupones_datasource.dart';
+import '../mappers/cupones_mapper.dart';
+import '../models/models.dart';
 
 class FirebaseCuponesDataSource extends CuponesDataSource {
   final FirebaseFirestore _firebaseFirestore;

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/cupones/cupones_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/negocios/negocios_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/cupones/widgets/cupones_details.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/cupones/widgets/cupones_sliver_appbar.dart';
 
 class CuponesScreen extends StatefulWidget {
   final String id;

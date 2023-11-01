@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_shopping_mxl_v2/domain/entities/push_message.dart';
 import 'package:flutter_shopping_mxl_v2/firebase_options.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/infrastructure.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/repositories/firebase_user_repository_impl.dart';
 
 part 'notifications_event.dart';
@@ -26,7 +27,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   int pushNumberId = 0;
 
   final Future<void> Function()? requestLocalNotificationPermissions;
-  final FirebaseUserRepositoryImpl _firebaseUserRepositoryImpl;
+  final FirebaseFCMtokensRepositoryImpl _fcMtokensRepositoryImpl;
   final void Function(
       {required int id,
       String? title,
@@ -36,9 +37,9 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   NotificationsBloc(
       {this.requestLocalNotificationPermissions,
       this.showLocalNotification,
-      FirebaseUserRepositoryImpl? firebaseUserRepositoryImpl})
-      : _firebaseUserRepositoryImpl =
-            firebaseUserRepositoryImpl ?? FirebaseUserRepositoryImpl(),
+      FirebaseFCMtokensRepositoryImpl? fcMtokensRepositoryImpl})
+      : _fcMtokensRepositoryImpl =
+            fcMtokensRepositoryImpl ?? FirebaseFCMtokensRepositoryImpl(),
         super(const NotificationsState()) {
     on<NotificationStatusChanged>(_notificationStatusChanged);
     on<NotificationReceived>(_onPushMessageReceived);
@@ -91,8 +92,12 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
 
     final token = await messaging.getToken();
     messaging.subscribeToTopic("pushNotifications");
-    _firebaseUserRepositoryImpl.saveToken(
-        email: auth.currentUser!.email!, token: token!);
+    _fcMtokensRepositoryImpl.saveToken(
+      email: auth.currentUser!.email!,
+      uid: auth.currentUser!.uid,
+      token: token!,
+    );
+
     print(token);
     return token;
   }

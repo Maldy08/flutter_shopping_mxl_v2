@@ -1,6 +1,6 @@
-import 'package:flutter_shopping_mxl_v2/domain/repositories/promociones_repository.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/datasources/firebase_promociones_datasource.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
+import '../../domain/repositories/promociones_repository.dart';
+import '../datasources/firebase_promociones_datasource.dart';
+import '../models/models.dart';
 
 class FirebasePromocionesRepositoryImpl extends PromocionesRepository {
   final FirebasePromocionesDataSource dataSource;

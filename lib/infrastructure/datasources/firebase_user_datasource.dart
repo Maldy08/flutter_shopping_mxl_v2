@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_shopping_mxl_v2/domain/datasource/user_datasource.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/mappers/user_mapper.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/user.dart';
+
+import '../../domain/datasource/user_datasource.dart';
+import '../mappers/user_mapper.dart';
+import '../models/models.dart';
 
 class FirebaseUserDatasource extends UserDataSource {
   final FirebaseFirestore _firebaseFirestore;

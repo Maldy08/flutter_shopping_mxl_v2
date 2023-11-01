@@ -14,6 +14,7 @@ final firebaseProductosRepository = FirebaseProductosRepositoryImpl();
 final firebaseUserRepository = FirebaseUserRepositoryImpl();
 final firebasePromocionesRepository = FirebasePromocionesRepositoryImpl();
 final firebaseCuponesRepository = FirebaseCuponesRepositoryImpl();
+final firebaseFCMtokensRepository = FirebaseFCMtokensRepositoryImpl();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +41,7 @@ void main() async {
               requestLocalNotificationPermissions:
                   LocalNotifications.requestPermissionLocalNotifications,
               showLocalNotification: LocalNotifications.showLocalNotification,
-              firebaseUserRepositoryImpl: firebaseUserRepository),
+              fcMtokensRepositoryImpl: firebaseFCMtokensRepository),
         ),
         BlocProvider(
           create: (_) =>

@@ -1,4 +1,4 @@
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/cupones.dart';
+import '../models/models.dart';
 
 class CuponesMapper {
   static Cupones cuponesToEntity(Cupones cupones) => Cupones(

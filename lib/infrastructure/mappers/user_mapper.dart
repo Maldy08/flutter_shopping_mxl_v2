@@ -1,4 +1,4 @@
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/user.dart';
+import '../models/user.dart';
 
 class UserMapper {
   static User userToEntity(User user) => User(

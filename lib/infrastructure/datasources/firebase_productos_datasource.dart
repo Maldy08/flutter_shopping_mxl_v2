@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_shopping_mxl_v2/domain/datasource/productos_datasource.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/mappers/productos_mapper.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/productos.dart';
+
+import '../../domain/datasource/productos_datasource.dart';
+import '../mappers/productos_mapper.dart';
+import '../models/models.dart';
 
 class FirebaseProductosDataSource extends ProductosDataSource {
   final FirebaseFirestore _firebaseFirestore;

@@ -1,7 +1,6 @@
-import 'package:flutter_shopping_mxl_v2/domain/repositories/negocios_repository.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
-
+import '../../domain/repositories/negocios_repository.dart';
 import '../datasources/firebase_negocios_datasource.dart';
+import '../models/models.dart';
 
 class FirebaseNegociosRepositoryImpl extends NegociosRepository {
   final FirebaseNegociosDataSource dataSource;

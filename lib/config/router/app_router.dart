@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/configuration/configuration_screen.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/cupones/cupones_screen.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/promociones/promociones_screen.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authentication_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
+import '../../presentation/blocs/blocs.dart';
+import '../../presentation/screens.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 

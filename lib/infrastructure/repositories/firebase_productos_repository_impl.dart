@@ -1,6 +1,6 @@
-import 'package:flutter_shopping_mxl_v2/domain/repositories/productos_repository.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/datasources/firebase_productos_datasource.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/productos.dart';
+import '../../domain/repositories/productos_repository.dart';
+import '../datasources/firebase_productos_datasource.dart';
+import '../models/models.dart';
 
 class FirebaseProductosRepositoryImpl extends ProductosRepository {
   final FirebaseProductosDataSource dataSource;

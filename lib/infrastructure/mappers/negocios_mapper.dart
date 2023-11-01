@@ -1,4 +1,4 @@
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
+import '../models/models.dart';
 
 class NegociosMapper {
   static Negocios negociosToEntity(Negocios negocios) => Negocios(

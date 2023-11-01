@@ -1,11 +1,11 @@
 import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_shopping_mxl_v2/domain/datasource/auth_datasource.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart'
-    as models;
-
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../models/models.dart' as models;
+
+import '../../domain/datasource/auth_datasource.dart';
 
 class FirebaseAuthDatasource extends AuthDatasoruce {
   final FirebaseAuth _firebaseAuth;

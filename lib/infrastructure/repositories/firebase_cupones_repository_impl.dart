@@ -1,6 +1,6 @@
-import 'package:flutter_shopping_mxl_v2/domain/repositories/cupones_repository.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/datasources/firebase_cupones_datasource.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/cupones.dart';
+import '../../domain/repositories/cupones_repository.dart';
+import '../datasources/firebase_cupones_datasource.dart';
+import '../models/models.dart';
 
 class FirebaseCuponesRepositoryImpl extends CuponesRepository {
   final FirebaseCuponesDataSource dataSource;

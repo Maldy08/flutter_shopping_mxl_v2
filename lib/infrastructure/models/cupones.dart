@@ -1,5 +1,5 @@
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/categorias.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/productos.dart';
+import 'categorias.dart';
+import 'productos.dart';
 
 class Cupones {
   final String id;

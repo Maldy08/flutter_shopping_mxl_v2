@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter_shopping_mxl_v2/domain/repositories/auth_repository.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/datasources/firebase_auth_datasource.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/firebase/firebase_user.dart';
+import '../../domain/repositories/auth_repository.dart';
+import '../infrastructure.dart';
 
 //import 'package:flutter_shopping_mxl_v2/infrastructure/models/user.dart';
 
