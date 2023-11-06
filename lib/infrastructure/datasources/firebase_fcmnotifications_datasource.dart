@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 import '../../domain/datasource/fcmnotifications_datasource.dart';
 import '../mappers/fcmnotifications_mapper.dart';
 import '../models/models.dart';
 
-class FirebaseFCMnotificationsDatasource extends FCMnotificationsDataSource {
+class FirebaseFCMnotificationsDatasource extends FCMnotificationsDataSource
+    with ChangeNotifier {
   final FirebaseFirestore _firebaseFirestore;
 
   FirebaseFCMnotificationsDatasource({FirebaseFirestore? firebaseFirestore})
@@ -39,7 +41,7 @@ class FirebaseFCMnotificationsDatasource extends FCMnotificationsDataSource {
       required String messageId,
       required String title,
       required String body,
-      required DateTime sentDate,
+      required String sentDate,
       Map<String, dynamic>? data,
       String? imageUrl}) async {
     FCMnotification nofitication = FCMnotification(

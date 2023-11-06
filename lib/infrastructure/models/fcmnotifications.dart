@@ -3,7 +3,7 @@ class FCMnotification {
   final String messageId;
   final String title;
   final String body;
-  final DateTime sentDate;
+  final String sentDate;
   final Map<String, dynamic>? data;
   final String? imageUrl;
 
@@ -22,8 +22,17 @@ class FCMnotification {
           messageId: json['messageId'],
           title: json['title'],
           body: json['body'],
-          sentDate: DateTime.parse(json['sentDate']),
+          sentDate: json['sentDate'],
           data: json["data"] ?? Map.from(json["data"]));
+
+  factory FCMnotification.empty() => FCMnotification(
+      email: '',
+      messageId: '',
+      title: '',
+      body: '',
+      sentDate: DateTime.now.toString(),
+      data: null,
+      imageUrl: '');
 
   Map<String, dynamic> toJson() => {
         "email": email,

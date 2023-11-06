@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,7 +22,8 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   //print("Handling a background message: ${message.messageId}");
 }
 
-class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
+class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState>
+    with ChangeNotifier {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
   int pushNumberId = 0;
@@ -95,7 +97,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         messageId: event.pushMessage.messageId,
         title: event.pushMessage.title,
         body: event.pushMessage.body,
-        sentDate: event.pushMessage.sentDate,
+        sentDate: event.pushMessage.sentDate.toString(),
         data: event.pushMessage.data ?? event.pushMessage.data,
         imageUrl: event.pushMessage.imageUrl ?? event.pushMessage.imageUrl);
   }

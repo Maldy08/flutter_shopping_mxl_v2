@@ -7,7 +7,7 @@ abstract class FCMnotificationsDataSource {
       required String messageId,
       required String title,
       required String body,
-      required DateTime sentDate,
+      required String sentDate,
       Map<String, dynamic>? data,
       String? imageUrl});
 }
