@@ -21,6 +21,7 @@ class FirebaseFCMnotificationsRepositoryImpl extends FCMnoticationsRepository {
       required String title,
       required String body,
       required String sentDate,
+      required bool readed,
       Map<String, dynamic>? data,
       String? imageUrl}) {
     return datasource.saveNotification(
@@ -29,6 +30,7 @@ class FirebaseFCMnotificationsRepositoryImpl extends FCMnoticationsRepository {
       title: title,
       body: body,
       sentDate: sentDate,
+      readed: readed,
       data: data ?? data,
       imageUrl: imageUrl ?? imageUrl,
     );

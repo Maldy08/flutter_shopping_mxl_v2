@@ -104,6 +104,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         title: event.pushMessage.title,
         body: event.pushMessage.body,
         sentDate: event.pushMessage.sentDate.toString(),
+        readed: false,
         data: event.pushMessage.data ?? event.pushMessage.data,
         imageUrl: event.pushMessage.imageUrl ?? event.pushMessage.imageUrl);
 
@@ -112,6 +113,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         messageId: event.pushMessage.messageId,
         title: event.pushMessage.title,
         body: event.pushMessage.body,
+        readed: false,
         sentDate: event.pushMessage.sentDate.toString());
 
     _fcmnotificationsBloc.state

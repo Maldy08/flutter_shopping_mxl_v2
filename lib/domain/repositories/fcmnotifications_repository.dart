@@ -8,6 +8,7 @@ abstract class FCMnoticationsRepository {
       required String title,
       required String body,
       required String sentDate,
+      required bool readed,
       Map<String, dynamic>? data,
       String? imageUrl});
 }

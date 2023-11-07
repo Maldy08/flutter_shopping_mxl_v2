@@ -9,6 +9,7 @@ class FCMnotificationsMapper {
         title: fcMnotification.title,
         body: fcMnotification.body,
         sentDate: fcMnotification.sentDate,
+        readed: fcMnotification.readed,
         data: fcMnotification.data ?? fcMnotification.data,
         imageUrl: fcMnotification.imageUrl ?? fcMnotification.imageUrl,
       );

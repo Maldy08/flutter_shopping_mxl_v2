@@ -42,6 +42,7 @@ class FirebaseFCMnotificationsDatasource extends FCMnotificationsDataSource
       required String title,
       required String body,
       required String sentDate,
+      required bool readed,
       Map<String, dynamic>? data,
       String? imageUrl}) async {
     FCMnotification nofitication = FCMnotification(
@@ -50,6 +51,7 @@ class FirebaseFCMnotificationsDatasource extends FCMnotificationsDataSource
       title: title,
       body: body,
       sentDate: sentDate,
+      readed: readed,
       data: data,
       imageUrl: imageUrl,
     );
