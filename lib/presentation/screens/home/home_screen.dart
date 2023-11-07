@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens/notifications/notifications_screen.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/views/views.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
@@ -42,12 +43,12 @@ class _HomeScreenState extends State<HomeScreen>
     FavoritesView(
       pageIndex: 1,
     ),
+    NotificationsScreen(),
     SettingsView()
   ];
 
   @override
   Widget build(BuildContext context) {
-    final user = context.read<UserBloc>().state.user;
     super.build(context);
     if (pageController.hasClients) {
       pageController.animateToPage(

@@ -1,11 +1,14 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/fcmnotifications.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/fcmnotifications/fcmnotifications_bloc.dart';
 
 import '../../../domain/entities/push_message.dart';
 import '../../../firebase_options.dart';
@@ -22,8 +25,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   //print("Handling a background message: ${message.messageId}");
 }
 
-class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState>
-    with ChangeNotifier {
+class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
   int pushNumberId = 0;
@@ -39,18 +41,22 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState>
       String? body,
       String? data})? showLocalNotification;
 
+  final FcmnotificationsBloc _fcmnotificationsBloc;
+
   NotificationsBloc(
       {this.requestLocalNotificationPermissions,
       this.showLocalNotification,
       FirebaseFCMtokensRepositoryImpl? fcMtokensRepositoryImpl,
       FirebaseFCMnotificationsRepositoryImpl? fcMnotificationsRepositoryImpl,
       FirebaseFCMnotificationsRepositoryImpl?
-          firebaseFCMnotificationsRepositoryImpl})
+          firebaseFCMnotificationsRepositoryImpl,
+      FcmnotificationsBloc? fcmnotificationsBloc})
       : _fcMtokensRepositoryImpl =
             fcMtokensRepositoryImpl ?? FirebaseFCMtokensRepositoryImpl(),
         _firebaseFCMnotificationsRepositoryImpl =
             firebaseFCMnotificationsRepositoryImpl ??
                 FirebaseFCMnotificationsRepositoryImpl(),
+        _fcmnotificationsBloc = fcmnotificationsBloc ?? FcmnotificationsBloc(),
         super(const NotificationsState()) {
     ////
     on<NotificationStatusChanged>(_notificationStatusChanged);
@@ -89,10 +95,10 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState>
   }
 
   void _onPushMessageReceived(
-      NotificationReceived event, Emitter<NotificationsState> emit) {
+      NotificationReceived event, Emitter<NotificationsState> emit) async {
     emit(state
         .copyWith(notifications: [event.pushMessage, ...state.notifications]));
-    _firebaseFCMnotificationsRepositoryImpl.saveNotification(
+    await _firebaseFCMnotificationsRepositoryImpl.saveNotification(
         email: auth.currentUser!.email!,
         messageId: event.pushMessage.messageId,
         title: event.pushMessage.title,
@@ -100,6 +106,29 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState>
         sentDate: event.pushMessage.sentDate.toString(),
         data: event.pushMessage.data ?? event.pushMessage.data,
         imageUrl: event.pushMessage.imageUrl ?? event.pushMessage.imageUrl);
+
+    FCMnotification fcmnotification = FCMnotification(
+        email: auth.currentUser!.email!,
+        messageId: event.pushMessage.messageId,
+        title: event.pushMessage.title,
+        body: event.pushMessage.body,
+        sentDate: event.pushMessage.sentDate.toString());
+
+    _fcmnotificationsBloc.state
+        .copyWith(status: FCMnotificationStatus.fetching);
+
+    // final noti = await _firebaseFCMnotificationsRepositoryImpl.getNotifications(
+    //     email: auth.currentUser!.email!);
+
+    _fcmnotificationsBloc
+        .add(FCMnotificationsFetched(auth.currentUser!.email!));
+
+    _fcmnotificationsBloc.state.copyWith(fcmnotifications: [
+      fcmnotification,
+      ..._fcmnotificationsBloc.state.fcmnotifications
+    ], status: FCMnotificationStatus.completed);
+
+    // _fcmnotificationsBloc.notifyListeners();
   }
 
   void _initialStatusCheck() async {

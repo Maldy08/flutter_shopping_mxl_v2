@@ -39,11 +39,17 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => NotificationsBloc(
+          create: (_) => FcmnotificationsBloc(
+              firebaseFCMnotificationsRepositoryImpl:
+                  firebaseFCMnotificationsRepository),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => NotificationsBloc(
               requestLocalNotificationPermissions:
                   LocalNotifications.requestPermissionLocalNotifications,
               showLocalNotification: LocalNotifications.showLocalNotification,
-              fcMtokensRepositoryImpl: firebaseFCMtokensRepository),
+              fcMtokensRepositoryImpl: firebaseFCMtokensRepository,
+              fcmnotificationsBloc: context.read<FcmnotificationsBloc>()),
         ),
         BlocProvider(
           create: (_) =>
@@ -75,11 +81,7 @@ void main() async {
           create: (_) =>
               UserBloc(firebaseUserRepositoryImpl: firebaseUserRepository),
         ),
-        BlocProvider(
-          create: (_) => FcmnotificationsBloc(
-              firebaseFCMnotificationsRepositoryImpl:
-                  firebaseFCMnotificationsRepository),
-        ),
+
         // BlocProvider(
         //   create: (_) => FavoritesBloc(),
         // )

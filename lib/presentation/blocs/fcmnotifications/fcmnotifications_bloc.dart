@@ -25,6 +25,8 @@ class FcmnotificationsBloc
       Emitter<FcmnotificationsState> emit) async {
     emit(state.copyWith(status: FCMnotificationStatus.fetching));
 
+    // await Future.delayed(const Duration(seconds: 2));
+
     final notifications = await _firebaseFCMnotificationsRepositoryImpl
         .getNotifications(email: event.email);
 

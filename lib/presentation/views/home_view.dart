@@ -28,6 +28,8 @@ class _HomeViewState extends State<HomeView>
     context.read<PromocionesBloc>().add(const PromocionesFetchAll());
     context.read<CuponesBloc>().add(const CuponesFetchAll());
     context.read<NotificationsBloc>().state.messageToken;
+    final email = context.read<AuthenticationBloc>().state.user.email;
+    context.read<FcmnotificationsBloc>().add(FCMnotificationsFetched(email!));
   }
 
   @override
