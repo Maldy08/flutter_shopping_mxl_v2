@@ -19,6 +19,7 @@ class FcmnotificationsBloc
                 FirebaseFCMnotificationsRepositoryImpl(),
         super(const FcmnotificationsState()) {
     on<FCMnotificationsFetched>(_fetchFCMnotifications);
+    on<FCMNotificationsToogleState>(_onToogleState);
   }
 
   Future<void> _fetchFCMnotifications(FCMnotificationsFetched event,
@@ -33,5 +34,35 @@ class FcmnotificationsBloc
     emit(state.copyWith(
         status: FCMnotificationStatus.completed,
         fcmnotifications: notifications));
+  }
+
+  Future<void> _onToogleState(FCMNotificationsToogleState event,
+      Emitter<FcmnotificationsState> emit) async {
+    await _firebaseFCMnotificationsRepositoryImpl.toogleState(
+        messageId: event.messageId);
+
+    // final filter = state.fcmnotifications
+    //     .where((element) => element.messageId != event.messageId)
+    //     .toList();
+
+    // final filter = state.fcmnotifications
+    //     .map((notificacion) {
+    //       if (notificacion.messageId != event.messageId) {
+    //         return notificacion;
+    //       }
+    //     })
+    //     .nonNulls
+    //     .toList();
+
+    // emit(state.copyWith(fcmnotifications: filter));
+
+    final readedNotifications = state.fcmnotifications.map((notification) {
+      if (notification.messageId == event.messageId) {
+        return notification.copyWith(readed: true);
+      }
+      return notification;
+    }).toList();
+
+    emit(state.copyWith(fcmnotifications: readedNotifications));
   }
 }

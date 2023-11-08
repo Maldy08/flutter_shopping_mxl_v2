@@ -18,6 +18,36 @@ class FCMnotification {
       this.data,
       this.imageUrl});
 
+  FCMnotification copyWith(
+          {String? email,
+          String? messageId,
+          String? title,
+          String? body,
+          String? sentDate,
+          bool? readed,
+          Map<String, dynamic>? data,
+          String? imageUrl}) =>
+      FCMnotification(
+          email: email ?? this.email,
+          messageId: messageId ?? this.messageId,
+          title: title ?? this.title,
+          body: body ?? this.body,
+          sentDate: sentDate ?? this.sentDate,
+          readed: readed ?? this.readed,
+          data: data ?? this.data,
+          imageUrl: imageUrl ?? this.imageUrl);
+
+  // Todo copyWith({
+  //   String? id,
+  //   String? description,
+  //   DateTime? completedAt,
+  // }) =>
+  //     Todo(
+  //       id: id ?? this.id,
+  //       description: description ?? this.description,
+  //       completedAt: completedAt,
+  //     );
+
   factory FCMnotification.fromJson(Map<String, dynamic> json) =>
       FCMnotification(
           email: json['email'],

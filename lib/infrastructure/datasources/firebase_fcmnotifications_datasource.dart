@@ -65,4 +65,23 @@ class FirebaseFCMnotificationsDatasource extends FCMnotificationsDataSource
       throw e.message.toString();
     }
   }
+
+  @override
+  Future<void> toogleState({required String messageId}) async {
+    try {
+      await _firebaseFirestore
+          .collection("FCMnotifications")
+          .where("messageId", isEqualTo: messageId)
+          .get()
+          .then((value) {
+        final doc = _firebaseFirestore
+            .collection("FCMnotifications")
+            .doc(value.docs[0].id);
+
+        doc.update({"readed": true});
+      });
+    } on FirebaseException catch (e) {
+      throw e.message.toString();
+    }
+  }
 }

@@ -35,4 +35,9 @@ class FirebaseFCMnotificationsRepositoryImpl extends FCMnoticationsRepository {
       imageUrl: imageUrl ?? imageUrl,
     );
   }
+
+  @override
+  Future<void> toogleState({required String messageId}) {
+    return datasource.toogleState(messageId: messageId);
+  }
 }

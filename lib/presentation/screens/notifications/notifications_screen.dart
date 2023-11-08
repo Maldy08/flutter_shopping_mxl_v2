@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/config.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -62,92 +63,36 @@ class _NotificationsScreenState extends State<NotificationsScreen>
               : Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: SizedBox(
-                    child: BlocBuilder<NotificationsBloc, NotificationsState>(
+                    child: BlocBuilder<FcmnotificationsBloc,
+                        FcmnotificationsState>(
                       builder: (context, state) {
                         return ListView.builder(
                           itemCount: notifications.length,
                           itemBuilder: (context, index) {
-                            final notification = state.notifications[index];
+                            final notification = state.fcmnotifications[index];
                             return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 3),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: bgContainer,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      GestureDetector(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 3),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: bgContainer,
+                                ),
+                                child: Column(
+                                  children: [
+                                    GestureDetector(
                                         onTap: () {
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                                  content: Text(state
-                                                      .notifications[index]
-                                                      .messageId
-                                                      .toString())));
+                                          context
+                                              .read<FcmnotificationsBloc>()
+                                              .add(FCMNotificationsToogleState(
+                                                  notification.messageId));
                                         },
-                                        child: Badge(
-                                          alignment: Alignment.centerRight,
-                                          backgroundColor: colors.primary,
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 10, left: 5),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 250,
-                                                      child: Text(
-                                                        notification.title,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        maxLines: 3,
-                                                        softWrap: false,
-                                                        style: const TextStyle(
-                                                          fontFamily: 'Poppins',
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      notification.body,
-                                                      style: const TextStyle(
-                                                          fontFamily: 'Poppins',
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text(
-                                                      notification.data
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                        fontFamily: 'Poppins',
-                                                        fontSize: 10,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ));
+                                        child: NotificationDetail(
+                                            notification: notification))
+                                  ],
+                                ),
+                              ),
+                            );
                           },
                         );
                       },
@@ -155,5 +100,111 @@ class _NotificationsScreenState extends State<NotificationsScreen>
                   ),
                 ),
     );
+  }
+}
+
+class NotificationDetail extends StatelessWidget {
+  final FCMnotification notification;
+  const NotificationDetail({required this.notification, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
+    return notification.readed != true
+        ? Badge(
+            alignment: Alignment.centerRight,
+            backgroundColor: colors.primary,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  width: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 250,
+                        child: Text(
+                          notification.title,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          softWrap: false,
+                          style: const TextStyle(
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                      ),
+                      Text(
+                        notification.body,
+                        style: const TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        notification.data.toString(),
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )
+        : Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                width: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, left: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 250,
+                      child: Text(
+                        notification.title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        softWrap: false,
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                        ),
+                      ),
+                    ),
+                    Text(
+                      notification.body,
+                      style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      notification.data.toString(),
+                      style: const TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
   }
 }

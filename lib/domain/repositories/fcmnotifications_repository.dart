@@ -11,4 +11,5 @@ abstract class FCMnoticationsRepository {
       required bool readed,
       Map<String, dynamic>? data,
       String? imageUrl});
+  Future<void> toogleState({required String messageId});
 }

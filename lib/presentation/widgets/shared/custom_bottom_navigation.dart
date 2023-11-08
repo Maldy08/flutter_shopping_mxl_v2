@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/fcmnotifications/fcmnotifications_bloc.dart';
+
 import 'package:go_router/go_router.dart';
+
+import '../../blocs/blocs.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
   final int currentIndex;
@@ -71,9 +73,13 @@ class CustomBottomNavigation extends StatelessWidget {
         BottomNavigationBarItem(
           icon: BlocBuilder<FcmnotificationsBloc, FcmnotificationsState>(
             builder: (context, state) {
-              return state.fcmnotifications.isNotEmpty
+              return state.fcmnotifications
+                      .where((element) => element.readed == false)
+                      .isNotEmpty
                   ? Badge.count(
-                      count: state.fcmnotifications.length,
+                      count: state.fcmnotifications
+                          .where((element) => element.readed == false)
+                          .length,
                       largeSize: 15,
                       smallSize: 10,
                       textStyle: const TextStyle(fontSize: 10),
