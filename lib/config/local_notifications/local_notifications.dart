@@ -25,6 +25,8 @@ class LocalNotifications {
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+
+    
   }
 
   static void iosShowNotification(
@@ -63,4 +65,17 @@ class LocalNotifications {
     // appRouter.push('/push-details/${response.payload}');
     print(response.payload);
   }
+
+//   @pragma('vm:entry-point')
+// static void notificationTapBackground(NotificationResponse notificationResponse) {
+//   // ignore: avoid_print
+//   print('notification(${notificationResponse.id}) action tapped: '
+//       '${notificationResponse.actionId} with'
+//       ' payload: ${notificationResponse.payload}');
+//   if (notificationResponse.input?.isNotEmpty ?? false) {
+//     // ignore: avoid_print
+//     print(
+//         'notification action tapped with input: ${notificationResponse.input}');
+//   }
+// }
 }
