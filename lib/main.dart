@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,7 @@ void main() async {
   //await Future.delayed(const Duration(seconds: 2));
   // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await NotificationsBloc.initializeFCM();
+
   await LocalNotifications.initializeLocalNotifications();
 
   //final firebaseDatasource = FirebaseAuthDatasource();

@@ -12,22 +12,13 @@ class NotificationsScreen extends StatefulWidget {
   State<NotificationsScreen> createState() => _NotificationsScreenState();
 }
 
-class _NotificationsScreenState extends State<NotificationsScreen>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  bool get wantKeepAlive => false;
-
+class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     final notifications =
         context.watch<FcmnotificationsBloc>().state.fcmnotifications;
     final colors = Theme.of(context).colorScheme;
+    final status = context.watch<FcmnotificationsBloc>().state.status;
 
     return Container(
       child: context.read<FcmnotificationsBloc>().state.status ==

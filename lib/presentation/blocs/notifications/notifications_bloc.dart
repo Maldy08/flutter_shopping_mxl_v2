@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,8 +17,6 @@ import '../../../infrastructure/infrastructure.dart';
 
 part 'notifications_event.dart';
 part 'notifications_state.dart';
-
-
 
 class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -61,7 +60,9 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     _initialStatusCheck();
 
     // Listener para notificaciones en Foreground
-    // _onForegroundMessage();
+    _onForegroundMessage();
+
+    //_onBackgroundMessage();
     // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   }
 
@@ -69,6 +70,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
   void _notificationStatusChanged(
@@ -172,10 +174,10 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     add(NotificationReceived(notification));
   }
 
-  // void _onForegroundMessage() {
-  //   FirebaseMessaging.onMessage.listen(handleRemoteMessage);
-  //   // FirebaseMessaging.onMessageOpenedApp.listen((event) {});
-  // }
+  void _onForegroundMessage() {
+    FirebaseMessaging.onMessage.listen(handleRemoteMessage);
+    // FirebaseMessaging.onMessageOpenedApp.listen((event) {});
+  }
 
   void requestPermission() async {
     NotificationSettings settings = await messaging.requestPermission(
@@ -206,7 +208,55 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         .firstWhere((element) => element.messageId == pushMessageId);
   }
 
-  Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message ) async {
-    print(message.messageId);
+  @pragma('vm:entry-point')
+  static Future<void> _firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {
+    if (message.notification == null) return;
+
+    // final notification = PushMessage(
+    //     messageId:
+    //         message.messageId?.replaceAll(':', '').replaceAll('%', '') ?? '',
+    //     title: message.notification!.title ?? '',
+    //     body: message.notification!.body ?? '',
+    //     sentDate: message.sentTime ?? DateTime.now(),
+    //     data: message.data,
+    //     imageUrl: Platform.isAndroid
+    //         ? message.notification!.android?.imageUrl
+    //         : message.notification!.apple?.imageUrl);
+
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    final firestore = FirebaseFirestore.instance;
+    final email = FirebaseAuth.instance.currentUser!.email;
+
+    FCMnotification fcmnotification = FCMnotification(
+        email: email!,
+        messageId: message.messageId!,
+        title: message.notification!.title!,
+        body: message.notification!.body!,
+        readed: false,
+        sentDate: message.sentTime.toString(),
+        data: message.data);
+
+    await firestore
+        .collection("FCMnotifications")
+        .doc()
+        .set(fcmnotification.toJson());
+
+    // await fmm.saveNotification(
+    //     email: 'camv29@gmail.com',
+    //     messageId: message.messageId!,
+    //     title: message.notification!.title!,
+    //     body: message.notification!.body!,
+    //     sentDate: message.sentTime!.toString(),
+    //     readed: false,
+    //     data: message.data,
+    //     imageUrl: message.notification!.android!.imageUrl!);
   }
+
+  // Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  //   print(message.messageId);
+  // }
 }
