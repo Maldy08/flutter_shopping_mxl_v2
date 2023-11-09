@@ -1,94 +1,48 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 
-class NotificationsScreen extends StatefulWidget {
+class NotificationScreenSnapshot extends StatefulWidget {
   static const String name = "notifications_screen";
-  const NotificationsScreen({super.key});
+  const NotificationScreenSnapshot({super.key});
 
   @override
-  State<NotificationsScreen> createState() => _NotificationsScreenState();
+  State<NotificationScreenSnapshot> createState() => _NotificationScreenSnapshotState();
 }
 
-class _NotificationsScreenState extends State<NotificationsScreen> {
+class _NotificationScreenSnapshotState extends State<NotificationScreenSnapshot> {
+  
   @override
   Widget build(BuildContext context) {
-    final notifications =
-        context.watch<FcmnotificationsBloc>().state.fcmnotifications;
-    final colors = Theme.of(context).colorScheme;
+  final Stream<QuerySnapshot> _usersStream =
+      FirebaseFirestore.instance.collection('FCMnotifications').snapshots();
 
-    return Container(
-      child: context.read<FcmnotificationsBloc>().state.status ==
-              FCMnotificationStatus.fetching
-          ? const Center(
-              child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(
-                  strokeWidth: 2,
-                )
-              ],
-            ))
-          : notifications.isEmpty
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.notifications_outlined,
-                        size: 60,
-                        color: colors.primary,
-                      ),
-                      const Text(
-                        'No tienes notificaciones',
-                        style: TextStyle(fontSize: 20),
-                      )
-                    ],
-                  ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: SizedBox(
-                    child: BlocBuilder<FcmnotificationsBloc,
-                        FcmnotificationsState>(
-                      builder: (context, state) {
-                        return ListView.builder(
-                          itemCount: notifications.length,
-                          itemBuilder: (context, index) {
-                            final notification = state.fcmnotifications[index];
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 3),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: bgContainer,
-                                ),
-                                child: Column(
-                                  children: [
-                                    GestureDetector(
-                                        onTap: () {
-                                          context
-                                              .read<FcmnotificationsBloc>()
-                                              .add(FCMNotificationsToogleState(
-                                                  notification.messageId));
-                                        },
-                                        child: NotificationDetail(
-                                            notification: notification))
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ),
+    return StreamBuilder<QuerySnapshot>(
+      stream: _usersStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading");
+        }
+
+        return ListView(
+          children: snapshot.data!.docs
+              .map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data()! as Map<String, dynamic>;
+                return ListTile(
+                  title: Text(data['title']),
+                  subtitle: Text(data['body']),
+                );
+              })
+              .toList()
+              .cast()
+        );
+      },
     );
   }
 }

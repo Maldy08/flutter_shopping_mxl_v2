@@ -61,6 +61,7 @@ class FirebaseFCMnotificationsDatasource extends FCMnotificationsDataSource
           .collection("FCMnotifications")
           .doc()
           .set(nofitication.toJson());
+          
     } on FirebaseException catch (e) {
       throw e.message.toString();
     }

@@ -213,17 +213,6 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       RemoteMessage message) async {
     if (message.notification == null) return;
 
-    // final notification = PushMessage(
-    //     messageId:
-    //         message.messageId?.replaceAll(':', '').replaceAll('%', '') ?? '',
-    //     title: message.notification!.title ?? '',
-    //     body: message.notification!.body ?? '',
-    //     sentDate: message.sentTime ?? DateTime.now(),
-    //     data: message.data,
-    //     imageUrl: Platform.isAndroid
-    //         ? message.notification!.android?.imageUrl
-    //         : message.notification!.apple?.imageUrl);
-
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
@@ -245,18 +234,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         .doc()
         .set(fcmnotification.toJson());
 
-    // await fmm.saveNotification(
-    //     email: 'camv29@gmail.com',
-    //     messageId: message.messageId!,
-    //     title: message.notification!.title!,
-    //     body: message.notification!.body!,
-    //     sentDate: message.sentTime!.toString(),
-    //     readed: false,
-    //     data: message.data,
-    //     imageUrl: message.notification!.android!.imageUrl!);
+
   }
 
-  // Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  //   print(message.messageId);
-  // }
 }
