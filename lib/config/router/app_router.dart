@@ -49,11 +49,11 @@ GoRouter routes(AuthenticationBloc bloc) {
           return '/';
         },
         routes: [
-          GoRoute(
-            path: 'notifications',
-            name: NotificationsScreen.name,
-            builder: (context, state) => const NotificationsScreen(),
-          ),
+          // GoRoute(
+          //   path: 'notifications',
+          //   name: NotificationsScreen.name,
+          //   builder: (context, state) => const NotificationsScreen(),
+          // ),
           GoRoute(
             path: 'aviso-privacidad',
             name: AvisoPrivacidadScreen.name,
