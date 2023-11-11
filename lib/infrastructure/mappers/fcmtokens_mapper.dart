@@ -5,5 +5,6 @@ class FCMtokensMapper {
         email: fcMtokens.email,
         token: fcMtokens.token,
         uid: fcMtokens.uid,
+        createdAt: fcMtokens.createdAt,
       );
 }

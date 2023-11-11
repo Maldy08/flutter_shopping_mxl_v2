@@ -22,6 +22,7 @@ class _NotificationScreenSnapshotState
     final Stream<QuerySnapshot> notificationsStream = FirebaseFirestore.instance
         .collection('FCMnotifications')
         .where("email", isEqualTo: FirebaseAuth.instance.currentUser!.email!)
+        .orderBy("sentDate", descending: true)
         .snapshots();
     final colors = Theme.of(context).colorScheme;
 
@@ -29,7 +30,7 @@ class _NotificationScreenSnapshotState
       stream: notificationsStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return const Text('Something went wrong');
+          return Text(snapshot.error.toString());
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -67,44 +68,47 @@ class _NotificationScreenSnapshotState
         // }
 
         return Padding(
-          padding: const EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.all(10),
           child: SizedBox(
               child: ListView(
-            children: snapshot.data!.docs
-                .map((DocumentSnapshot document) {
-                  Map<String, dynamic> data =
-                      document.data()! as Map<String, dynamic>;
-                  return Card(
-                    elevation: 0,
-                    child: ListTile(
-                      leading: data['readed'] == true
-                          ? Icon(
-                              Icons.circle_outlined,
-                              color: colors.primary,
-                            )
-                          : Icon(
-                              Icons.circle,
-                              color: colors.primary,
-                            ),
-                      title: Text(
-                        data['title'],
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14),
+                  children:
+                      snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data =
+                document.data()! as Map<String, dynamic>;
+            return Card(
+              surfaceTintColor: bgContainer,
+              elevation: 0.25,
+              child: ListTile(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                leading: data['readed'] == true
+                    ? Icon(
+                        Icons.circle_outlined,
+                        color: colors.primary,
+                        size: 18,
+                      )
+                    : Icon(
+                        Icons.circle,
+                        color: colors.primary,
+                        size: 18,
                       ),
-                      subtitle: Text(
-                        data['body'],
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                      onTap: () {
-                        context.read<FcmnotificationsBloc>().add(
-                            FCMNotificationsToogleState(data['messageId']));
-                      },
-                    ),
-                  );
-                })
-                .toList()
-                .cast(),
-          )),
+                title: Text(
+                  data['title'],
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 14),
+                ),
+                subtitle: Text(
+                  data['body'],
+                  style: const TextStyle(fontSize: 12),
+                ),
+                onTap: () {
+                  context
+                      .read<FcmnotificationsBloc>()
+                      .add(FCMNotificationsToogleState(data['messageId']));
+                },
+              ),
+            );
+          }).toList())),
         );
       },
     );

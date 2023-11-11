@@ -1,14 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
 
-import '../../blocs/blocs.dart';
-
-class CustomBottomNavigation extends StatelessWidget {
+class CustomBottomNavigation extends StatefulWidget {
   final int currentIndex;
 
   const CustomBottomNavigation({super.key, required this.currentIndex});
+
+  @override
+  State<CustomBottomNavigation> createState() => _CustomBottomNavigationState();
+}
+
+class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
   void onItemTapped(BuildContext context, int index) {
     switch (index) {
       case 0:
@@ -29,6 +34,12 @@ class CustomBottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final Stream<QuerySnapshot> notificationsStream = FirebaseFirestore.instance
+        .collection('FCMnotifications')
+        .where("email", isEqualTo: FirebaseAuth.instance.currentUser!.email!)
+        .where("readed", isEqualTo: false)
+        .snapshots();
+
     const double size = 28;
     //final theme = Theme.of(context);
     return BottomNavigationBar(
@@ -39,7 +50,7 @@ class CustomBottomNavigation extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       //backgroundColor: Colors.blue,
 
-      currentIndex: currentIndex,
+      currentIndex: widget.currentIndex,
       onTap: (index) => onItemTapped(context, index),
       //surfaceTintColor: Colors.white,
       items: [
@@ -71,30 +82,54 @@ class CustomBottomNavigation extends StatelessWidget {
           // activeIcon: Icon(Icons.favorite),
         ),
         BottomNavigationBarItem(
-          icon: BlocBuilder<FcmnotificationsBloc, FcmnotificationsState>(
-            builder: (context, state) {
-              return state.fcmnotifications
-                      .where((element) => element.readed == false)
-                      .isNotEmpty
-                  ? Badge.count(
-                      count: state.fcmnotifications
-                          .where((element) => element.readed == false)
-                          .length,
-                      largeSize: 15,
-                      smallSize: 10,
-                      textStyle: const TextStyle(fontSize: 10),
-                      backgroundColor: colors.primary,
-                      child: const Icon(
-                        Icons.notifications_outlined,
-                        size: size,
-                      ),
-                    )
-                  : const Icon(
-                      Icons.notifications_outlined,
-                      size: size,
-                    );
+          icon: StreamBuilder<QuerySnapshot>(
+            stream: notificationsStream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data!.size > 0) {
+                return Badge.count(
+                  count: snapshot.hasData ? snapshot.data!.size : 0,
+                  largeSize: 15,
+                  smallSize: 10,
+                  textStyle: const TextStyle(fontSize: 10),
+                  backgroundColor: colors.primary,
+                  child: const Icon(
+                    Icons.notifications_outlined,
+                    size: size,
+                  ),
+                );
+              }
+
+              return const Icon(
+                Icons.notifications_outlined,
+                size: size,
+              );
             },
-          ),
+          )
+          // BlocBuilder<FcmnotificationsBloc, FcmnotificationsState>(
+          //   builder: (context, state) {
+          //     return state.fcmnotifications
+          //             .where((element) => element.readed == false)
+          //             .isNotEmpty
+          //         ? Badge.count(
+          //             count: state.fcmnotifications
+          //                 .where((element) => element.readed == false)
+          //                 .length,
+          //             largeSize: 15,
+          //             smallSize: 10,
+          //             textStyle: const TextStyle(fontSize: 10),
+          //             backgroundColor: colors.primary,
+          //             child: const Icon(
+          //               Icons.notifications_outlined,
+          //               size: size,
+          //             ),
+          //           )
+          //         : const Icon(
+          //             Icons.notifications_outlined,
+          //             size: size,
+          //           );
+          //   },
+          // ),
+          ,
           label: 'Notificaciones',
           // activeIcon: Icon(Icons.favorite),
         ),

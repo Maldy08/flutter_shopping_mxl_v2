@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:flutter/foundation.dart';
 import '../../domain/datasource/fcmtokens_datasource.dart';
 import '../mappers/fcmtokens_mapper.dart';
 import '../models/models.dart';
@@ -63,10 +63,13 @@ class FirebaseFCMtokensDataSource extends FCMtokensDataSource {
 
       if (!exists) {
         final doc = _firebaseFirestore.collection("FCMtokens").doc();
+
         doc.set({
           "email": email,
           "token": token,
           "uid": uid,
+          "createdAt": DateTime.now().toString(),
+          "platform": defaultTargetPlatform.toString(),
         });
       }
     } on FirebaseException catch (e) {

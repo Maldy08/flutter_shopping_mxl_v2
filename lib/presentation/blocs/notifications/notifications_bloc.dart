@@ -233,8 +233,5 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         .collection("FCMnotifications")
         .doc()
         .set(fcmnotification.toJson());
-
-
   }
-
 }
