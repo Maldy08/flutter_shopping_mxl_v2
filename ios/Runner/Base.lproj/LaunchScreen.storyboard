@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="YRO-k0-Ey4">
-                                <rect key="frame" x="80" y="323" width="233" height="206"/>
+                                <rect key="frame" x="80" y="313" width="233" height="206"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.231372565" green="0.3058823645" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
