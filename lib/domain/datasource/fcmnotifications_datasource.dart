@@ -13,4 +13,5 @@ abstract class FCMnotificationsDataSource {
       String? imageUrl});
 
   Future<void> toogleState({required String messageId});
+  Future<void> deleteNotifications({required String email});
 }

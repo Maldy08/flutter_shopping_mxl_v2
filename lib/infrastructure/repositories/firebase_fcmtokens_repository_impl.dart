@@ -1,4 +1,4 @@
-import '../../domain/repositories/fcmtokens_repository.dart';
+import '/domain/repositories/fcmtokens_repository.dart';
 import '../datasources/firebase_fcmtokens_datasource.dart';
 import '../models/models.dart';
 

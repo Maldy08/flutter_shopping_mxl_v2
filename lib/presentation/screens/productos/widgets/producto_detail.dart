@@ -1,10 +1,10 @@
 // import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
-// import 'package:flutter_shopping_mxl_v2/presentation/screens/productos/widgets/widgets.dart';
+
+import '/config/config.dart';
+import '/presentation/widgets/widgets.dart';
+import '/infrastructure/models/models.dart';
 
 class ProductoDetails extends StatelessWidget {
   final Productos producto;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
 
-import 'package:flutter_shopping_mxl_v2/presentation/screens/register/widgets/form_register.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
+import '/config/config.dart';
+import '/presentation/screens/register/widgets/form_register.dart';
+import '/presentation/widgets/widgets.dart';
 
 class RegisterScreen extends StatelessWidget {
   static const String name = "register_screen";

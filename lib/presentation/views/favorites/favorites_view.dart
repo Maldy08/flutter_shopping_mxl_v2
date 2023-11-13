@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/views/views.dart';
-
-// import 'package:go_router/go_router.dart';
+import '/presentation/views/views.dart';
 
 class FavoritesView extends StatefulWidget {
   const FavoritesView({super.key, required this.pageIndex});

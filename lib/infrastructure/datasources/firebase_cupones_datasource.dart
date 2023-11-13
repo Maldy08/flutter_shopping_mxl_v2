@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../domain/datasource/cupones_datasource.dart';
+import '/domain/datasource/cupones_datasource.dart';
 import '../mappers/cupones_mapper.dart';
 import '../models/models.dart';
 

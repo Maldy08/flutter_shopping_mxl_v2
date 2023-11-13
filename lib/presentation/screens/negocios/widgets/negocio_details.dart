@@ -1,17 +1,15 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/cupones/cupones_bloc.dart';
-
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/productos/productos_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/promociones/promociones_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/cupones/widgets/widgets.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/productos/widgets/widgets.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/promociones/widgets/promociones_list.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:animate_do/animate_do.dart';
+
+import '/config/config.dart';
+import '/infrastructure/models/models.dart';
+import '/presentation/blocs/blocs.dart';
+import '/presentation/screens/cupones/widgets/widgets.dart';
+import '/presentation/screens/productos/widgets/widgets.dart';
+import '/presentation/screens/promociones/widgets/promociones_list.dart';
+import '/presentation/widgets/widgets.dart';
 
 class NegocioDetails extends StatelessWidget {
   final Negocios negocio;

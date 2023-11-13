@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/notifications/notifications_screen.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/views/views.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
+
+import '/presentation/blocs/blocs.dart';
+import '/presentation/screens.dart';
+
+import '/presentation/views/views.dart';
+import '/presentation/widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String name = "home_screen";
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
+    NotificationsBloc.setContext(context);
     super.initState();
     context
         .read<UserBloc>()
@@ -83,19 +85,35 @@ class _HomeScreenState extends State<HomeScreen>
             ],
           ),
           actions: [
-            IconButton(
-              color: Colors.white,
-              icon: const Icon(
-                Icons.search_outlined,
-                size: 28,
-              ),
-              tooltip: 'Show Snackbar',
-              onPressed: () {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Busqueda no implementada')));
-              },
-            ),
+            widget.pageIndex == 0
+                ? IconButton(
+                    color: Colors.white,
+                    icon: const Icon(
+                      Icons.search_outlined,
+                      size: 28,
+                    ),
+                    tooltip: 'Show Snackbar',
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Busqueda no implementada')));
+                    },
+                  )
+                : widget.pageIndex == 2
+                    ? IconButton(
+                        color: Colors.white,
+                        icon: const Icon(
+                          Icons.delete_outlined,
+                          size: 28,
+                        ),
+                        tooltip: 'Eliminar Notificaciones',
+                        onPressed: () {
+                          context.read<FcmnotificationsBloc>().add(
+                              FCMNotificationsDelete(
+                                  context.read<UserBloc>().state.user.email));
+                        },
+                      )
+                    : Container(),
             // const Spacer(),
             // Padding(
             //   padding: const EdgeInsets.only(right: 10),

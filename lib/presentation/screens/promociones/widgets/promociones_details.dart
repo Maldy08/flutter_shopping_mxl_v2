@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
+
+import '/config/config.dart';
+import '/infrastructure/models/negocios.dart';
+import '/infrastructure/models/promociones.dart';
 
 class PromocionesDetails extends StatelessWidget {
   final Promociones promocion;

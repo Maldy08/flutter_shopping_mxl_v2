@@ -1,8 +1,9 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+import '/config/config.dart';
+import '/presentation/blocs/blocs.dart';
 
 class ConfigurationScreen extends StatelessWidget {
   static const String name = "configuration_screen";

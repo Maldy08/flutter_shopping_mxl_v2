@@ -1,10 +1,11 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/cupones.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/cupones/cupones_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:animate_do/animate_do.dart';
+
+import '/config/config.dart';
+import '/infrastructure/models/cupones.dart';
+import '/presentation/blocs/cupones/cupones_bloc.dart';
 
 class CuponesList extends StatelessWidget {
   final List<Cupones> cupones;

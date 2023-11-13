@@ -7,4 +7,4 @@ export 'user/user_bloc.dart';
 export 'productos/productos_bloc.dart';
 export 'promociones/promociones_bloc.dart';
 export 'cupones/cupones_bloc.dart';
-export './fcmnotifications/fcmnotifications_bloc.dart';
+export 'fcmnotifications/fcmnotifications_bloc.dart';

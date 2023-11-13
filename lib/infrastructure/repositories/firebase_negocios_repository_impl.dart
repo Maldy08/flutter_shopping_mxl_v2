@@ -1,4 +1,4 @@
-import '../../domain/repositories/negocios_repository.dart';
+import '/domain/repositories/negocios_repository.dart';
 import '../datasources/firebase_negocios_datasource.dart';
 import '../models/models.dart';
 

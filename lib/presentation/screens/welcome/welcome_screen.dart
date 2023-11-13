@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
+
+import '/config/theme/app_theme.dart';
+import '/presentation/screens.dart';
+import '/presentation/widgets/widgets.dart';
 
 class WelcomeScreen extends StatelessWidget {
   static const String name = "welcome_screen";

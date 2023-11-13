@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/infrastructure.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
+
+import '/infrastructure/infrastructure.dart';
+import '/infrastructure/models/models.dart';
 
 part 'fcmnotifications_event.dart';
 part 'fcmnotifications_state.dart';
@@ -20,6 +21,7 @@ class FcmnotificationsBloc
         super(const FcmnotificationsState()) {
     on<FCMnotificationsFetched>(_fetchFCMnotifications);
     on<FCMNotificationsToogleState>(_onToogleState);
+    on<FCMNotificationsDelete>(_onDeleteNotifications);
   }
 
   Future<void> _fetchFCMnotifications(FCMnotificationsFetched event,
@@ -34,6 +36,12 @@ class FcmnotificationsBloc
     emit(state.copyWith(
         status: FCMnotificationStatus.completed,
         fcmnotifications: notifications));
+  }
+
+  Future<void> _onDeleteNotifications(
+      FCMNotificationsDelete event, Emitter<FcmnotificationsState> emit) async {
+    _firebaseFCMnotificationsRepositoryImpl.deleteNotifications(
+        email: event.email);
   }
 
   Future<void> _onToogleState(FCMNotificationsToogleState event,

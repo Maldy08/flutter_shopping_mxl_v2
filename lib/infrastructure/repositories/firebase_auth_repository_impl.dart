@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../../domain/repositories/auth_repository.dart';
+import '/domain/repositories/auth_repository.dart';
 import '../infrastructure.dart';
 
 //import 'package:flutter_shopping_mxl_v2/infrastructure/models/user.dart';

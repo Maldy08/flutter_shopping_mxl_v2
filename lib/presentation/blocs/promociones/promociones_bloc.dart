@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/repositories/firebase_promociones_repository_impl.dart';
+
+import '/infrastructure/models/promociones.dart';
+import '/infrastructure/repositories/firebase_promociones_repository_impl.dart';
 
 part 'promociones_event.dart';
 part 'promociones_state.dart';

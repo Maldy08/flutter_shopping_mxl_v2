@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/infrastructure.dart';
+
+import '/infrastructure/infrastructure.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';

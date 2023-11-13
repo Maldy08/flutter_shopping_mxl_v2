@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/cupones.dart';
+import '/infrastructure/models/cupones.dart';
 
 class CuponesSliverAppBar extends StatelessWidget {
   final Cupones cupon;

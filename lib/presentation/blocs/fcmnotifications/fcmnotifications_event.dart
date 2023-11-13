@@ -13,3 +13,8 @@ class FCMNotificationsToogleState extends FcmnotificationsEvent {
   final String messageId;
   FCMNotificationsToogleState(this.messageId);
 }
+
+class FCMNotificationsDelete extends FcmnotificationsEvent {
+  final String email;
+  FCMNotificationsDelete(this.email);
+}

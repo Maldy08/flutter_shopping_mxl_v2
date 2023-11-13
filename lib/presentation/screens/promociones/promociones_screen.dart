@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/promociones/widgets/widgets.dart';
+
+import '/presentation/blocs/blocs.dart';
+import '/presentation/screens/promociones/widgets/widgets.dart';
 
 class PromocionesScreen extends StatefulWidget {
   final String id;

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../domain/datasource/fcmnotifications_datasource.dart';
@@ -61,7 +62,6 @@ class FirebaseFCMnotificationsDatasource extends FCMnotificationsDataSource
           .collection("FCMnotifications")
           .doc()
           .set(nofitication.toJson());
-          
     } on FirebaseException catch (e) {
       throw e.message.toString();
     }
@@ -81,6 +81,25 @@ class FirebaseFCMnotificationsDatasource extends FCMnotificationsDataSource
 
         doc.update({"readed": true});
       });
+    } on FirebaseException catch (e) {
+      throw e.message.toString();
+    }
+  }
+
+  @override
+  Future<void> deleteNotifications({required String email}) async {
+    try {
+      final response = await _firebaseFirestore
+          .collection("FCMnotifications")
+          .where("email", isEqualTo: email)
+          .get();
+
+      for (var element in response.docs) {
+        _firebaseFirestore
+            .collection("FCMnotifications")
+            .doc(element.id)
+            .delete();
+      }
     } on FirebaseException catch (e) {
       throw e.message.toString();
     }

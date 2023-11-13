@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/firebase/firebase_user.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/authentication/authentication_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import '/config/config.dart';
+import '/infrastructure/models/firebase/firebase_user.dart';
+import '/presentation/blocs/authentication/authentication_bloc.dart';
+import '/presentation/widgets/widgets.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -62,11 +64,7 @@ class _SettingsViewDetails extends StatelessWidget {
                     child: CircleAvatar(
                       child: user.photoUrl != null
                           ? ClipOval(
-                              child: Image.network(
-                                user.photoUrl!,
-                                fit: BoxFit.cover,
-                              ),
-                            )
+                              child: ImageLoading(photoUrl: user.photoUrl!))
                           : IconButton(
                               onPressed: () {},
                               icon: const Icon(Icons.account_circle_rounded),
@@ -94,32 +92,32 @@ class _SettingsViewDetails extends StatelessWidget {
               padding: const EdgeInsets.only(right: 20, left: 20),
               child: Column(
                 children: [
-                  Card(
-                    color: Colors.white,
-                    elevation: 0,
-                    child: ListTile(
-                      trailing: IconButton(
-                        icon: const Icon(Icons.arrow_forward_ios_rounded),
-                        onPressed: () {
-                          context.push('/home/3/notifications');
-                        },
-                      ),
-                      leading: IconButton(
-                        iconSize: 20,
-                        color: Colors.white,
-                        onPressed: () {
-                          context.push('/home/3/notifications');
-                        },
-                        icon: const Icon(Icons.notifications),
-                        style: AppTheme.iconButtonSettings(),
-                      ),
-                      title: const Text(
-                        'Notificaciones',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      // onTap: () => context.push('/home/3/notifications'),
-                    ),
-                  ),
+                  // Card(
+                  //   color: Colors.white,
+                  //   elevation: 0,
+                  //   child: ListTile(
+                  //     trailing: IconButton(
+                  //       icon: const Icon(Icons.arrow_forward_ios_rounded),
+                  //       onPressed: () {
+                  //         context.push('/home/3/notifications');
+                  //       },
+                  //     ),
+                  //     leading: IconButton(
+                  //       iconSize: 20,
+                  //       color: Colors.white,
+                  //       onPressed: () {
+                  //         context.push('/home/3/notifications');
+                  //       },
+                  //       icon: const Icon(Icons.notifications),
+                  //       style: AppTheme.iconButtonSettings(),
+                  //     ),
+                  //     title: const Text(
+                  //       'Notificaciones',
+                  //       style: TextStyle(fontSize: 14),
+                  //     ),
+                  //     // onTap: () => context.push('/home/3/notifications'),
+                  //   ),
+                  // ),
                   Card(
                     color: Colors.white,
                     elevation: 0,

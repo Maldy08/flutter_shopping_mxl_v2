@@ -3,17 +3,18 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/fcmnotifications.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/fcmnotifications/fcmnotifications_bloc.dart';
 
-import '../../../domain/entities/push_message.dart';
-import '../../../firebase_options.dart';
-import '../../../infrastructure/infrastructure.dart';
+import '/infrastructure/models/fcmnotifications.dart';
+import '/infrastructure/infrastructure.dart';
+import '/domain/entities/push_message.dart';
+import '/presentation/blocs/fcmnotifications/fcmnotifications_bloc.dart';
+import '/presentation/screens.dart';
+import '/firebase_options.dart';
 
 part 'notifications_event.dart';
 part 'notifications_state.dart';
@@ -22,6 +23,8 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
   int pushNumberId = 0;
+
+  static BuildContext? _context;
 
   final Future<void> Function()? requestLocalNotificationPermissions;
   final FirebaseFCMtokensRepositoryImpl _fcMtokensRepositoryImpl;
@@ -65,6 +68,9 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     //_onBackgroundMessage();
     // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   }
+
+  static void setContext(BuildContext context) =>
+      NotificationsBloc._context = context;
 
   static Future<void> initializeFCM() async {
     await Firebase.initializeApp(
@@ -174,9 +180,19 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     add(NotificationReceived(notification));
   }
 
+  static Future<void> onTapNotification(RemoteMessage response) async {
+    if (NotificationsBloc._context == null || response.data.isEmpty) return;
+    // print(response.data["idnegocio"]);
+    await Navigator.of(_context!).push(MaterialPageRoute(
+        builder: (_context) =>
+            NegocioScreen(id: response.data["idnegocio"].toString())));
+  }
+
   void _onForegroundMessage() {
     FirebaseMessaging.onMessage.listen(handleRemoteMessage);
-    // FirebaseMessaging.onMessageOpenedApp.listen((event) {});
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      onTapNotification(event);
+    });
   }
 
   void requestPermission() async {

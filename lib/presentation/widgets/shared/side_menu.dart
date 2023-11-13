@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/theme_changer/theme_changer_screen.dart';
 import 'package:go_router/go_router.dart';
+import '/presentation/screens/theme_changer/theme_changer_screen.dart';
 
 class SideMenu extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;

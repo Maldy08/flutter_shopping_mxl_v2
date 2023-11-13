@@ -1,11 +1,11 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
-// import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:go_router/go_router.dart';
+
+import '/config/config.dart';
+import '/infrastructure/models/promociones.dart';
+import '/presentation/blocs/blocs.dart';
 
 class PromocionesList extends StatelessWidget {
   final List<Promociones> promociones;

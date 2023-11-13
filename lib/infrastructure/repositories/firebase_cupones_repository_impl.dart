@@ -1,4 +1,4 @@
-import '../../domain/repositories/cupones_repository.dart';
+import '/domain/repositories/cupones_repository.dart';
 import '../datasources/firebase_cupones_datasource.dart';
 import '../models/models.dart';
 

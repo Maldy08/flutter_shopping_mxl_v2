@@ -1,4 +1,4 @@
-import '../../domain/repositories/fcmnotifications_repository.dart';
+import '/domain/repositories/fcmnotifications_repository.dart';
 import '../datasources/firebase_fcmnotifications_datasource.dart';
 import '../models/models.dart';
 
@@ -39,5 +39,10 @@ class FirebaseFCMnotificationsRepositoryImpl extends FCMnoticationsRepository {
   @override
   Future<void> toogleState({required String messageId}) {
     return datasource.toogleState(messageId: messageId);
+  }
+
+  @override
+  Future<void> deleteNotifications({required String email}) {
+    return datasource.deleteNotifications(email: email);
   }
 }

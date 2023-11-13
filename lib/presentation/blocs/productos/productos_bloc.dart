@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/infrastructure.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/productos.dart';
+
+import '/infrastructure/infrastructure.dart';
+import '/infrastructure/models/productos.dart';
 
 part 'productos_event.dart';
 part 'productos_state.dart';

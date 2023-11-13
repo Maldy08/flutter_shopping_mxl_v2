@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
-
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/register/register_cubit.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
-import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
+import 'package:formz/formz.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '/config/theme/app_theme.dart';
+import '/presentation/blocs/register/register_cubit.dart';
+import '/presentation/screens.dart';
+import '/presentation/widgets/widgets.dart';
 
 class FormRegister extends StatefulWidget {
   const FormRegister({super.key});

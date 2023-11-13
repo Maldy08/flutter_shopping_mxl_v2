@@ -2,10 +2,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/infrastructure.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/repositories/firebase_user_repository_impl.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'config/config.dart';
+import 'infrastructure/infrastructure.dart';
+import 'presentation/blocs/blocs.dart';
 
 final firebaseRepository = FirebaseAuthRepositoryImpl();
 final firebaseNegociosRepository = FirebaseNegociosRepositoryImpl();

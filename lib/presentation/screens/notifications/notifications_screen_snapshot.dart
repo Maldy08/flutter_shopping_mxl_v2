@@ -1,10 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/fcmnotifications/fcmnotifications_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '/config/config.dart';
+import '/infrastructure/models/models.dart';
+import '/presentation/blocs/fcmnotifications/fcmnotifications_bloc.dart';
 
 class NotificationScreenSnapshot extends StatefulWidget {
   static const String name = "notifications_screen";
@@ -47,25 +48,25 @@ class _NotificationScreenSnapshotState
           );
         }
 
-        // if (snapshot.hasData == false) {
-        //   return Center(
-        //     child: Column(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       crossAxisAlignment: CrossAxisAlignment.center,
-        //       children: [
-        //         Icon(
-        //           Icons.notifications_outlined,
-        //           size: 60,
-        //           color: colors.primary,
-        //         ),
-        //         const Text(
-        //           'No tienes notificaciones',
-        //           style: TextStyle(fontSize: 20),
-        //         )
-        //       ],
-        //     ),
-        //   );
-        // }
+        if (snapshot.hasData && snapshot.data!.size == 0) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.notifications_outlined,
+                  size: 60,
+                  color: colors.primary,
+                ),
+                const Text(
+                  'No tienes notificaciones',
+                  style: TextStyle(fontSize: 20),
+                )
+              ],
+            ),
+          );
+        }
 
         return Padding(
           padding: const EdgeInsets.all(10),

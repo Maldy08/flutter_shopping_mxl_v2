@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../models/models.dart' as models;
 
-import '../../domain/datasource/auth_datasource.dart';
+import '/domain/datasource/auth_datasource.dart';
 
 class FirebaseAuthDatasource extends AuthDatasoruce {
   final FirebaseAuth _firebaseAuth;

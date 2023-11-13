@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/cupones.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/repositories/firebase_cupones_repository_impl.dart';
+
+import '/infrastructure/models/cupones.dart';
+import '/infrastructure/repositories/firebase_cupones_repository_impl.dart';
 
 part 'cupones_event.dart';
 part 'cupones_state.dart';

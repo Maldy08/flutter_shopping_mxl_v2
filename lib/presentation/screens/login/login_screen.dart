@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_shopping_mxl_v2/presentation/screens/login/widgets/form_login.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/login/widgets/login_image.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
+import '/presentation/screens/login/widgets/form_login.dart';
+import '/presentation/screens/login/widgets/login_image.dart';
+import '/presentation/widgets/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String name = "login_screen";

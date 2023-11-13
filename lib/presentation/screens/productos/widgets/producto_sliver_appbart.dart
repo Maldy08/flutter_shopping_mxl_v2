@@ -1,9 +1,10 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
+import 'package:animate_do/animate_do.dart';
+
+import '/infrastructure/models/models.dart';
+import '/presentation/blocs/blocs.dart';
+import '/presentation/widgets/widgets.dart';
 
 class ProductoSliveAppBar extends StatelessWidget {
   final Productos producto;

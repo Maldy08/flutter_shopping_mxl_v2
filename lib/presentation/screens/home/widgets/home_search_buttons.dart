@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_mxl_v2/config/theme/app_theme.dart';
+import '/config/theme/app_theme.dart';
 
 class HomeSearchButtons extends StatelessWidget {
   const HomeSearchButtons({

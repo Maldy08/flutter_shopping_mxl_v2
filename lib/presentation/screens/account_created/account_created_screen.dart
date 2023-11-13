@@ -1,10 +1,10 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:animate_do/animate_do.dart';
 
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
+import '/config/config.dart';
+import '/presentation/screens.dart';
+import '/presentation/widgets/widgets.dart';
 
 class AccountCreatedScreen extends StatelessWidget {
   static const String name = "account_created_screen";

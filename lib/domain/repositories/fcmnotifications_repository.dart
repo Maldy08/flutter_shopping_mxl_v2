@@ -12,4 +12,5 @@ abstract class FCMnoticationsRepository {
       Map<String, dynamic>? data,
       String? imageUrl});
   Future<void> toogleState({required String messageId});
+  Future<void> deleteNotifications({required String email});
 }

@@ -1,4 +1,4 @@
-import '../../domain/repositories/promociones_repository.dart';
+import '/domain/repositories/promociones_repository.dart';
 import '../datasources/firebase_promociones_datasource.dart';
 import '../models/models.dart';
 

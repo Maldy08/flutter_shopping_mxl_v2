@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
+
+import '/config/config.dart';
+import '/presentation/blocs/blocs.dart';
+import '/presentation/widgets/widgets.dart';
 
 class FavoritesViewProducts extends StatelessWidget {
   const FavoritesViewProducts({super.key});

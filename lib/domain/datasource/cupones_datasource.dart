@@ -1,4 +1,4 @@
-import '../../infrastructure/models/models.dart';
+import '/infrastructure/models/models.dart';
 
 abstract class CuponesDataSource {
   Future<List<Cupones>> getCupones({required String uid});

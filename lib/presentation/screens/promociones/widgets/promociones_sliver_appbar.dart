@@ -1,8 +1,9 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:animate_do/animate_do.dart';
+
+import '/infrastructure/models/promociones.dart';
+import '/presentation/blocs/blocs.dart';
 
 class PromocionesSliverAppBar extends StatelessWidget {
   final Promociones promocion;

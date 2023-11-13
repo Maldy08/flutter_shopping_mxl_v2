@@ -1,4 +1,4 @@
-import '../../domain/repositories/productos_repository.dart';
+import '/domain/repositories/productos_repository.dart';
 import '../datasources/firebase_productos_datasource.dart';
 import '../models/models.dart';
 
