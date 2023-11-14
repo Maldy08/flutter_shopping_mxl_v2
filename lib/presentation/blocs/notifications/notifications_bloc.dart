@@ -24,7 +24,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   FirebaseAuth auth = FirebaseAuth.instance;
   int pushNumberId = 0;
 
-  static BuildContext? _context;
+  static BuildContext? context;
 
   final Future<void> Function()? requestLocalNotificationPermissions;
   final FirebaseFCMtokensRepositoryImpl _fcMtokensRepositoryImpl;
@@ -70,7 +70,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   }
 
   static void setContext(BuildContext context) =>
-      NotificationsBloc._context = context;
+      NotificationsBloc.context = context;
 
   static Future<void> initializeFCM() async {
     await Firebase.initializeApp(
@@ -181,11 +181,33 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   }
 
   static Future<void> onTapNotification(RemoteMessage response) async {
-    if (NotificationsBloc._context == null || response.data.isEmpty) return;
-    // print(response.data["idnegocio"]);
-    await Navigator.of(_context!).push(MaterialPageRoute(
-        builder: (_context) =>
-            NegocioScreen(id: response.data["idnegocio"].toString())));
+    final notificationData = response.data;
+    if (NotificationsBloc.context == null || notificationData.isEmpty) return;
+
+    await Navigator.of(context!).push(
+      MaterialPageRoute(
+        builder: (context) {
+          if (notificationData.containsKey('idnegocio')) {
+            return NegocioScreen(id: response.data["idnegocio"].toString());
+          }
+
+          if (notificationData.containsKey('idproducto')) {
+            return ProductoScreen(id: response.data['idproducto'].toString());
+          }
+
+          if (notificationData.containsKey('idpromocion')) {
+            return PromocionesScreen(
+                id: response.data['idpromocion'].toString());
+          }
+
+          if (notificationData.containsKey('idcupon')) {
+            return CuponesScreen(id: response.data['idcupon'].toString());
+          }
+
+          return const HomeScreen(pageIndex: 0);
+        },
+      ),
+    );
   }
 
   void _onForegroundMessage() {
