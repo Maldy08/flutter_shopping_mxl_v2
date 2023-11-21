@@ -44,7 +44,8 @@ GoRouter routes(AuthenticationBloc bloc) {
             if (isGoingTo == '/home/0' ||
                 isGoingTo == '/home/1' ||
                 isGoingTo == '/home/2' ||
-                isGoingTo == '/home/3') return null;
+                isGoingTo == '/home/3' ||
+                isGoingTo == '/home/4') return null;
           }
           return '/';
         },

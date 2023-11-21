@@ -42,12 +42,13 @@ class _HomeScreenState extends State<HomeScreen>
 
   final viewRoutes = const <Widget>[
     HomeView(),
+    PromocionesView(),
+    CuponesView(),
     // SearchView(),
     FavoritesView(
       pageIndex: 1,
     ),
     NotificationScreenSnapshot(),
-    SettingsView()
   ];
 
   @override

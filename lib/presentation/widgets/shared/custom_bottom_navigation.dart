@@ -28,6 +28,8 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
       case 3:
         context.go('/home/3');
         break;
+      case 4:
+        context.go('/home/4');
     }
   }
 
@@ -63,15 +65,20 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
           label: 'Inicio',
           // activeIcon: Icon(Icons.home_filled),
         ),
-        // BottomNavigationBarItem(
-        //   icon: Icon(
-        //     // color: Colors.white,
-        //     Icons.search,
-        //     size: size,
-        //   ),
-        //   label: 'Buscar',
-        //   // activeIcon: Icon(Icons.search),
-        // ),
+        const BottomNavigationBarItem(
+            icon: Icon(
+              Icons.local_offer_outlined,
+              size: size,
+            ),
+            label: "Ofertas"),
+        const BottomNavigationBarItem(
+          icon: Icon(
+            //  color: Colors.white,
+            Icons.local_activity_outlined,
+            size: size,
+          ),
+          label: 'Cupones',
+        ),
         const BottomNavigationBarItem(
           icon: Icon(
             //color: Colors.white,
@@ -79,7 +86,6 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
             size: size,
           ),
           label: 'Favoritos',
-          // activeIcon: Icon(Icons.favorite),
         ),
         BottomNavigationBarItem(
           icon: StreamBuilder<QuerySnapshot>(
@@ -104,44 +110,9 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
                 size: size,
               );
             },
-          )
-          // BlocBuilder<FcmnotificationsBloc, FcmnotificationsState>(
-          //   builder: (context, state) {
-          //     return state.fcmnotifications
-          //             .where((element) => element.readed == false)
-          //             .isNotEmpty
-          //         ? Badge.count(
-          //             count: state.fcmnotifications
-          //                 .where((element) => element.readed == false)
-          //                 .length,
-          //             largeSize: 15,
-          //             smallSize: 10,
-          //             textStyle: const TextStyle(fontSize: 10),
-          //             backgroundColor: colors.primary,
-          //             child: const Icon(
-          //               Icons.notifications_outlined,
-          //               size: size,
-          //             ),
-          //           )
-          //         : const Icon(
-          //             Icons.notifications_outlined,
-          //             size: size,
-          //           );
-          //   },
-          // ),
-          ,
+          ),
           label: 'Notificaciones',
           // activeIcon: Icon(Icons.favorite),
-        ),
-        const BottomNavigationBarItem(
-          icon: Icon(
-            //  color: Colors.white,
-            Icons.account_circle_outlined,
-            size: size,
-          ),
-          label: 'Usuario',
-
-          // activeIcon: Icon(Icons.settings),
         ),
       ],
     );
