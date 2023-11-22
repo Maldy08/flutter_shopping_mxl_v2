@@ -15,7 +15,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.getBackgroundContainerColor(),
+      backgroundColor: bgContainer,
       body: SafeArea(
         child: SizedBox(
           width: double.infinity,

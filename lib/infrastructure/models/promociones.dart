@@ -11,18 +11,19 @@ class Promociones {
   final String photoUrl;
   final String vigencia;
   final String uid;
+  final String idNegocio;
 
-  const Promociones({
-    required this.id,
-    required this.descripcion,
-    required this.categorias,
-    required this.productos,
-    required this.descuento,
-    required this.fechaCreacion,
-    required this.photoUrl,
-    required this.vigencia,
-    required this.uid,
-  });
+  const Promociones(
+      {required this.id,
+      required this.descripcion,
+      required this.categorias,
+      required this.productos,
+      required this.descuento,
+      required this.fechaCreacion,
+      required this.photoUrl,
+      required this.vigencia,
+      required this.uid,
+      required this.idNegocio});
 
   factory Promociones.fromJson(Map<String, dynamic> json) => Promociones(
         id: json['id'],
@@ -34,6 +35,7 @@ class Promociones {
         photoUrl: json['photoUrl'],
         vigencia: json['vigencia'].toDate().toString(),
         uid: json['uid'],
+        idNegocio: json['id_negocio'],
       );
 
   factory Promociones.empty() => const Promociones(
@@ -46,6 +48,7 @@ class Promociones {
         photoUrl: '',
         vigencia: '',
         uid: '',
+        idNegocio: '',
       );
 
   Map<String, dynamic> toJson() => {

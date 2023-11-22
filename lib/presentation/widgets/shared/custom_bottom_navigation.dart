@@ -59,10 +59,10 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
         const BottomNavigationBarItem(
           icon: Icon(
             // color: Colors.white,
-            Icons.home_max,
+            Icons.business_outlined,
             size: size,
           ),
-          label: 'Inicio',
+          label: 'Afiliados',
           // activeIcon: Icon(Icons.home_filled),
         ),
         const BottomNavigationBarItem(

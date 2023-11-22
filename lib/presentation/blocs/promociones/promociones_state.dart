@@ -16,15 +16,17 @@ class PromocionesState extends Equatable {
       this.promociones = const [],
       this.promocionesByNegocio = const [],
       this.promocion = const Promociones(
-          id: '',
-          descripcion: '',
-          categorias: [],
-          productos: [],
-          descuento: 0,
-          fechaCreacion: '',
-          photoUrl: '',
-          vigencia: '',
-          uid: '')});
+        id: '',
+        descripcion: '',
+        categorias: [],
+        productos: [],
+        descuento: 0,
+        fechaCreacion: '',
+        photoUrl: '',
+        vigencia: '',
+        uid: '',
+        idNegocio: '',
+      )});
 
   PromocionesState copyWith({
     PromocionesStatus? status,

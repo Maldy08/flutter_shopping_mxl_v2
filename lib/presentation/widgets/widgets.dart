@@ -5,3 +5,4 @@ export '/presentation/widgets/shared/custom_appbar.dart';
 export '/presentation/widgets/shared/custom_elevated_button.dart';
 export '/presentation/widgets/shared/no_image.dart';
 export './shared/image_loading.dart';
+export '/presentation/widgets/shared/custom_elevated_button_white.dart';

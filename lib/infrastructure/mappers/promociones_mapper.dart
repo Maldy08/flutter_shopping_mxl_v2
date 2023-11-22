@@ -12,5 +12,6 @@ class PromocionesMapper {
         photoUrl: promociones.photoUrl,
         vigencia: promociones.vigencia,
         uid: promociones.uid,
+        idNegocio: promociones.idNegocio,
       );
 }
