@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/promociones/promociones_bloc.dart';
+
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,7 +16,8 @@ class PromocionesView extends StatelessWidget {
     final promociones = context.read<PromocionesBloc>().state.promociones;
     final negocios = context.read<NegociosBloc>().state.negocios;
 
-    return SizedBox(
+    return Container(
+      padding: const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -29,7 +30,7 @@ class PromocionesView extends StatelessWidget {
                 childAspectRatio: 1.0,
                 crossAxisSpacing: 0.0,
                 mainAxisSpacing: 5,
-                mainAxisExtent: 230,
+                mainAxisExtent: 220,
               ),
               itemCount: promociones.length,
               itemBuilder: (context, index) {
@@ -44,6 +45,8 @@ class PromocionesView extends StatelessWidget {
                   child: Column(
                     children: [
                       Card(
+                        elevation: 0,
+                        color: bgContainer,
                         child: Container(
                           height: 200,
                           width: double.infinity,
@@ -56,39 +59,48 @@ class PromocionesView extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  Expanded(
-                                    child: ImageLoading(
-                                      photoUrl: negocio.first.photoUrl,
-                                      fit: BoxFit.cover,
-                                    ),
+                                  ImageLoading(
+                                    photoUrl: negocio.first.photoUrl,
+                                    height: 70,
+                                    width: 50,
                                   ),
                                   const SizedBox(
                                     height: 10,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      promocion.descripcion,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
                                   ),
                                   Text(
-                                    promocion.descripcion,
-                                    maxLines: 4,
-                                    softWrap: true,
+                                    negocio.first.nombreEmpresa,
                                     style: const TextStyle(
                                       fontSize: 12,
-                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Text(
-                                        'Subtitle',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ],
-                                  )
                                 ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: Align(
+                                  alignment: Alignment.topRight,
+                                  child: CircleAvatar(
+                                    radius: 16,
+                                    backgroundColor: Colors.white,
+                                    child: Icon(
+                                      Icons.local_offer_outlined,
+                                      color: Theme.of(context).primaryColor,
+                                      size: 20,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
