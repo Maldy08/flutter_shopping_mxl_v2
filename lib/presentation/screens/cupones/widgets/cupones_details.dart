@@ -9,13 +9,11 @@ import '/infrastructure/models/negocios.dart';
 class CuponesDetails extends StatelessWidget {
   final Cupones cupon;
   final Negocios negocio;
-  final String fontFamily;
 
   const CuponesDetails({
     super.key,
     required this.cupon,
     required this.negocio,
-    required this.fontFamily,
   });
 
   @override

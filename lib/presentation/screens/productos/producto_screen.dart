@@ -33,7 +33,6 @@ class _ProductoScreenState extends State<ProductoScreen> {
   Widget build(BuildContext context) {
     final producto = context.watch<ProductosBloc>().state.producto;
     final negocio = context.watch<NegociosBloc>().state.negocio;
-    const fontFamily = "Poppins";
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -81,7 +80,6 @@ class _ProductoScreenState extends State<ProductoScreen> {
         body: SingleChildScrollView(
           child: SizedBox(
             child: ProductoDetails(
-              fontFamily: fontFamily,
               producto: producto,
             ),
           ),

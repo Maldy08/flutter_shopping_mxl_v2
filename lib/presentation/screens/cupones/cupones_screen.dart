@@ -29,7 +29,6 @@ class _CuponesScreenState extends State<CuponesScreen> {
   Widget build(BuildContext context) {
     final negocio = context.watch<NegociosBloc>().state.negocio;
     final cupon = context.watch<CuponesBloc>().state.cupon;
-    const fontFamily = "Poppins";
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -39,7 +38,6 @@ class _CuponesScreenState extends State<CuponesScreen> {
         ),
         body: SizedBox(
           child: CuponesDetails(
-            fontFamily: fontFamily,
             cupon: cupon,
             negocio: negocio,
           ),

@@ -156,7 +156,7 @@ class _Negocios extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height -
         AppBar().preferredSize.height -
-        MediaQuery.of(context).padding.top * 0.3;
+        MediaQuery.of(context).padding.top * 0.2;
     return SizedBox(
       child: context.watch<NegociosBloc>().state.status ==
               NegociosStatus.fetching
@@ -191,6 +191,9 @@ class _Negocios extends StatelessWidget {
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
+                          childAspectRatio: 1.0,
+                          crossAxisSpacing: 0.0,
+                          mainAxisSpacing: 5,
                           mainAxisExtent: 200,
                         ),
                         itemCount:

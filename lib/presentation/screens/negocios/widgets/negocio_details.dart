@@ -13,14 +13,14 @@ import '/presentation/widgets/widgets.dart';
 
 class NegocioDetails extends StatelessWidget {
   final Negocios negocio;
-  final String fontFamily;
+
   //final List<Productos> productos;
   //final List<Promociones> promociones;
 
   const NegocioDetails({
     super.key,
     required this.negocio,
-    required this.fontFamily,
+
     // required this.productos,
     // required this.promociones,
   });

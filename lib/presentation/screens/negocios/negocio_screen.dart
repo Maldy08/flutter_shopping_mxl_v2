@@ -35,7 +35,6 @@ class _NegocioScreenState extends State<NegocioScreen> {
   @override
   Widget build(BuildContext context) {
     final negocio = context.watch<NegociosBloc>().state.negocio;
-    const fontFamily = "Poppins";
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -81,7 +80,6 @@ class _NegocioScreenState extends State<NegocioScreen> {
         body: SingleChildScrollView(
           child: SizedBox(
               child: _NegocioDetails(
-            fontFamily: fontFamily,
             negocio: negocio,
           )),
         ));
@@ -91,11 +89,9 @@ class _NegocioScreenState extends State<NegocioScreen> {
 class _NegocioDetails extends StatelessWidget {
   const _NegocioDetails({
     required this.negocio,
-    required this.fontFamily,
   });
 
   final Negocios negocio;
-  final String fontFamily;
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +100,7 @@ class _NegocioDetails extends StatelessWidget {
 
     return NegocioDetails(
       negocio: negocio,
-      fontFamily: fontFamily,
+
       // productos: productos,
       // promociones: promociones,
     );

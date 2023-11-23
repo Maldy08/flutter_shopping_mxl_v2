@@ -8,13 +8,13 @@ import '/infrastructure/models/models.dart';
 
 class ProductoDetails extends StatelessWidget {
   final Productos producto;
-  final String fontFamily;
+
   // final List<Productos> productos;
 
   const ProductoDetails({
     super.key,
     required this.producto,
-    required this.fontFamily,
+
     // required this.productos,
   });
 

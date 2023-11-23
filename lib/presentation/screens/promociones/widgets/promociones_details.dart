@@ -9,13 +9,11 @@ import '/infrastructure/models/promociones.dart';
 class PromocionesDetails extends StatelessWidget {
   final Promociones promocion;
   final Negocios negocio;
-  final String fontFamily;
 
   const PromocionesDetails({
     super.key,
     required this.promocion,
     required this.negocio,
-    required this.fontFamily,
   });
 
   @override

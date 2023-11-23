@@ -64,7 +64,6 @@ class AppTheme {
 
   ThemeData getTheme() => ThemeData(
       useMaterial3: true,
-      fontFamily: 'Poppins',
       colorSchemeSeed: colorList[selectedColor],
       inputDecorationTheme: const InputDecorationTheme(
         filled: true,

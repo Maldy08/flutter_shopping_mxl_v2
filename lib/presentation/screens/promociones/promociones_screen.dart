@@ -32,7 +32,6 @@ class _MyWidgetState extends State<PromocionesScreen> {
   Widget build(BuildContext context) {
     final promocion = context.watch<PromocionesBloc>().state.promocion;
     final negocio = context.watch<NegociosBloc>().state.negocio;
-    const fontFamily = "Poppins";
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -41,8 +40,7 @@ class _MyWidgetState extends State<PromocionesScreen> {
           centerTitle: true,
         ),
         body: SizedBox(
-          child: PromocionesDetails(
-              fontFamily: fontFamily, negocio: negocio, promocion: promocion),
+          child: PromocionesDetails(negocio: negocio, promocion: promocion),
         ));
   }
 }
