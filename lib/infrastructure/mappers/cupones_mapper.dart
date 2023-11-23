@@ -11,5 +11,6 @@ class CuponesMapper {
         photoUrl: cupones.photoUrl,
         vigencia: cupones.vigencia,
         uid: cupones.uid,
+        idNegocio: cupones.idNegocio,
       );
 }

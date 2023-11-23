@@ -43,11 +43,9 @@ class _HomeViewState extends State<HomeView>
     // final scaffoldKey = GlobalKey<ScaffoldState>();
     final theme = Theme.of(context);
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: _HomeView(theme: theme),
-      ),
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: _HomeView(theme: theme),
     );
   }
 
@@ -143,7 +141,7 @@ class _HomeView extends StatelessWidget {
         // FadeIn(child: const HomeSearchButtons()),
         const SizedBox(height: 10),
         const _Negocios(),
-        // const SizedBox(height: 20),
+        // const SizedBox(height: 100),
       ],
     );
   }
@@ -155,8 +153,9 @@ class _Negocios extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height -
-        AppBar().preferredSize.height -
-        MediaQuery.of(context).padding.top * 0.2;
+        (AppBar().preferredSize.height - MediaQuery.of(context).padding.top) -
+        245;
+
     return SizedBox(
       child: context.watch<NegociosBloc>().state.status ==
               NegociosStatus.fetching
@@ -181,11 +180,11 @@ class _Negocios extends StatelessWidget {
           : FadeIn(
               delay: const Duration(milliseconds: 200),
               child: SizedBox(
-                height: height,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(
+                    SizedBox(
+                      height: height,
                       child: GridView.builder(
                         physics: const BouncingScrollPhysics(),
                         gridDelegate:
@@ -193,7 +192,7 @@ class _Negocios extends StatelessWidget {
                           crossAxisCount: 2,
                           childAspectRatio: 1.0,
                           crossAxisSpacing: 0.0,
-                          mainAxisSpacing: 5,
+                          mainAxisSpacing: 2,
                           mainAxisExtent: 200,
                         ),
                         itemCount:

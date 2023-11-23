@@ -25,6 +25,7 @@ class CuponesState extends Equatable {
         photoUrl: '',
         vigencia: '',
         uid: '',
+        idNegocio: '',
       )});
 
   CuponesState copyWith({

@@ -30,8 +30,18 @@ class _MyWidgetState extends State<PromocionesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final promocion = context.watch<PromocionesBloc>().state.promocion;
-    final negocio = context.watch<NegociosBloc>().state.negocio;
+    final promocion = context
+        .watch<PromocionesBloc>()
+        .state
+        .promociones
+        .where((element) => element.id == widget.id)
+        .first;
+    final negocio = context
+        .watch<NegociosBloc>()
+        .state
+        .negocios
+        .where((element) => element.id == promocion.idNegocio)
+        .first;
 
     return Scaffold(
         backgroundColor: Colors.white,

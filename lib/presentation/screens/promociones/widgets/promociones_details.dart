@@ -19,6 +19,7 @@ class PromocionesDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width * 0.92;
+
     return Container(
       color: bgContainer,
       child: Padding(
@@ -66,8 +67,8 @@ class PromocionesDetails extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                promocion.vigencia,
-                                style: const TextStyle(fontSize: 16),
+                                'Vigencia: ${promocion.vigencia.substring(0, 10)}',
+                                style: const TextStyle(fontSize: 12),
                               ),
                             ],
                           ),

@@ -46,7 +46,10 @@ class FirebasePromocionesDataSource extends PromocionesDataSource {
   @override
   Future<List<Promociones>> getAllPromociones() async {
     List<Promociones> list = [];
-    final response = await _firebaseFirestore.collection('promociones').get();
+    final response = await _firebaseFirestore
+        .collection('promociones')
+        .orderBy('id_negocio')
+        .get();
 
     for (var element in response.docs) {
       list.add(Promociones.fromJson(element.data()));

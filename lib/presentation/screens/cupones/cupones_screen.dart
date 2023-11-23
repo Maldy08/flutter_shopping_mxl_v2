@@ -27,8 +27,18 @@ class _CuponesScreenState extends State<CuponesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final negocio = context.watch<NegociosBloc>().state.negocio;
-    final cupon = context.watch<CuponesBloc>().state.cupon;
+    final cupon = context
+        .watch<CuponesBloc>()
+        .state
+        .cupones
+        .where((element) => element.id == widget.id)
+        .first;
+    final negocio = context
+        .watch<NegociosBloc>()
+        .state
+        .negocios
+        .where((element) => element.id == cupon.idNegocio)
+        .first;
 
     return Scaffold(
         backgroundColor: Colors.white,

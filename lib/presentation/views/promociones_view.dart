@@ -88,7 +88,7 @@ class PromocionesView extends StatelessWidget {
                                         child: Text(
                                           promocion.descripcion,
                                           style: const TextStyle(
-                                            fontSize: 12,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
