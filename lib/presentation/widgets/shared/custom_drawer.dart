@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/widgets/shared/image_loading.dart';
 import 'package:go_router/go_router.dart';
+
+import '/presentation/blocs/blocs.dart';
+import '/presentation/widgets/shared/image_loading.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -16,16 +17,19 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          UserAccountsDrawerHeader(
-            currentAccountPicture: ClipOval(
-              child: ImageLoading(
-                photoUrl: user.photoUrl!,
-              ),
-            ),
-            accountName: Text(user.name!),
-            accountEmail: Text(user.email!),
-            decoration: BoxDecoration(color: color),
-          ),
+          context.read<AuthenticationBloc>().state.status ==
+                  AuthenticationStatus.authenticated
+              ? UserAccountsDrawerHeader(
+                  currentAccountPicture: ClipOval(
+                    child: ImageLoading(
+                      photoUrl: user.photoUrl!,
+                    ),
+                  ),
+                  accountName: Text(user.name!),
+                  accountEmail: Text(user.email!),
+                  decoration: BoxDecoration(color: color),
+                )
+              : Container(),
           ListTile(
             leading: const Icon(Icons.privacy_tip_outlined),
             title: const Text('Aviso de Privacidad'),

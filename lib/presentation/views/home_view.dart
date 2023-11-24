@@ -1,9 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '/config/config.dart';
 import '/infrastructure/models/models.dart';
 import '/presentation/blocs/blocs.dart';
 import '/presentation/widgets/widgets.dart';
@@ -44,7 +44,7 @@ class _HomeViewState extends State<HomeView>
     final theme = Theme.of(context);
 
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(left: 15, right: 15),
       child: _HomeView(theme: theme),
     );
   }
@@ -62,8 +62,6 @@ class _HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<AuthenticationBloc>().state.user;
-
     final favoritos = context
         .watch<UserBloc>()
         .state
@@ -139,7 +137,16 @@ class _HomeView extends StatelessWidget {
         //   height: 20,
         // ),
         // FadeIn(child: const HomeSearchButtons()),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          'Afiliados',
+          style: TextStyle(fontSize: 16),
+        ),
+        SizedBox(
+          height: 10,
+        ),
         _Negocios(),
         // const SizedBox(height: 100),
       ],
@@ -152,11 +159,9 @@ class _Negocios extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height -
-        (AppBar().preferredSize.height - MediaQuery.of(context).padding.top) -
-        150;
+    final height = MediaQuery.of(context).size.height * 0.70;
 
-    return SizedBox(
+    return Container(
       child: context.watch<NegociosBloc>().state.status ==
               NegociosStatus.fetching
           ? SizedBox(
@@ -181,7 +186,6 @@ class _Negocios extends StatelessWidget {
               delay: const Duration(milliseconds: 200),
               child: SizedBox(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
                       height: height,
@@ -190,10 +194,9 @@ class _Negocios extends StatelessWidget {
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          childAspectRatio: 1.0,
-                          crossAxisSpacing: 0.0,
-                          mainAxisSpacing: 2,
-                          mainAxisExtent: 200,
+                          crossAxisSpacing: 0,
+                          mainAxisSpacing: 0,
+                          mainAxisExtent: 170,
                         ),
                         itemCount:
                             context.read<NegociosBloc>().state.negocios.length,
@@ -212,37 +215,10 @@ class _Negocios extends StatelessWidget {
                             },
                             child: Column(
                               children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: bgContainer,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(1),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: ImageLoading(
-                                          photoUrl: negocio.photoUrl),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        maxLines: 2,
-                                        softWrap: true,
-                                        negocio.nombreEmpresa,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontFamily: 'Poppins',
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child:
+                                      ImageLoading(photoUrl: negocio.photoUrl),
                                 ),
                               ],
                             ),

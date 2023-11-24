@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen>
         ),
         drawer: const CustomDrawer(),
         backgroundColor: Colors.white,
-        extendBody: false,
+        extendBody: true,
         // key: scaffoldKey,
         body: SafeArea(
           child: PageView(
