@@ -7,6 +7,7 @@ class NegociosEvent {
 class NegociosFetched extends NegociosEvent {
   //final List<Negocios> negocios;
   //const NegociosFetched(this.negocios);
+  const NegociosFetched();
 }
 
 class NegocioFetchedById extends NegociosEvent {

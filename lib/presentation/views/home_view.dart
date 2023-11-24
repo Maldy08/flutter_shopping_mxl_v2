@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_mxl_v2/config/config.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +22,7 @@ class _HomeViewState extends State<HomeView>
   @override
   void initState() {
     super.initState();
-    context.read<NegociosBloc>().add(NegociosFetched());
+    context.read<NegociosBloc>().add(const NegociosFetched());
     context.read<ProductosBloc>().add(const ProductosFetchedAll());
     context.read<PromocionesBloc>().add(const PromocionesFetchAll());
     context.read<CuponesBloc>().add(const CuponesFetchAll());
@@ -189,41 +189,60 @@ class _Negocios extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: height,
-                      child: GridView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 0,
-                          mainAxisSpacing: 0,
-                          mainAxisExtent: 170,
-                        ),
-                        itemCount:
-                            context.read<NegociosBloc>().state.negocios.length,
-                        itemBuilder: (context, index) {
-                          final negocio = context
+                      child: RefreshIndicator(
+                        onRefresh: () async {
+                          context
+                              .read<NegociosBloc>()
+                              .add(const NegociosFetched());
+                          context
+                              .read<ProductosBloc>()
+                              .add(const ProductosFetchedAll());
+                          context
+                              .read<PromocionesBloc>()
+                              .add(const PromocionesFetchAll());
+                          context
+                              .read<CuponesBloc>()
+                              .add(const CuponesFetchAll());
+                        },
+                        child: GridView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 0,
+                            mainAxisSpacing: 0,
+                            mainAxisExtent: 170,
+                          ),
+                          itemCount: context
                               .read<NegociosBloc>()
                               .state
-                              .negocios[index];
-                          return GestureDetector(
-                            onTap: () {
-                              context.push('/home/0/negocio/${negocio.id}');
-                              // ScaffoldMessenger.of(context)
-                              //     .hideCurrentSnackBar();
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              //     SnackBar(content: Text(negocio.id)));
-                            },
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child:
-                                      ImageLoading(photoUrl: negocio.photoUrl),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                              .negocios
+                              .length,
+                          itemBuilder: (context, index) {
+                            final negocio = context
+                                .read<NegociosBloc>()
+                                .state
+                                .negocios[index];
+                            return GestureDetector(
+                              onTap: () {
+                                context.push('/home/0/negocio/${negocio.id}');
+                                // ScaffoldMessenger.of(context)
+                                //     .hideCurrentSnackBar();
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //     SnackBar(content: Text(negocio.id)));
+                              },
+                              child: Column(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: ImageLoading(
+                                        photoUrl: negocio.photoUrl),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
