@@ -1,7 +1,7 @@
 name: flutter_shopping_mxl_v2
 description: EnOffertaAPP.
 publish_to: 'none'
-version: 0.1.0
+version: 0.1.1
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -37,9 +37,9 @@ flutter:
 
   assets:
     - assets/images/
-  fonts:
-    - family: Poppins
-      fonts:
-        - asset: assets/fonts/Poppins-Regular.ttf
-        - asset: assets/fonts/Poppins-Bold.ttf
-          weight: 700
+  # fonts:
+  #   - family: Poppins
+  #     fonts:
+  #       - asset: assets/fonts/Poppins-Regular.ttf
+  #       - asset: assets/fonts/Poppins-Bold.ttf
+  #         weight: 700

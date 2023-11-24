@@ -65,25 +65,16 @@ class _HomeScreenState extends State<HomeScreen>
     // final theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Theme.of(context).primaryColor,
-          toolbarHeight: 70,
-          title: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/app-logo-white.png',
-                width: 50,
-                height: 50,
-                fit: BoxFit.contain,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              const Text(
-                'ENOFFERTA',
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              )
-            ],
+          toolbarHeight: 60,
+          title: Center(
+            child: Image.asset(
+              'assets/images/app-logo-white.png',
+              width: 60,
+              height: 60,
+              fit: BoxFit.contain,
+            ),
           ),
           actions: [
             widget.pageIndex == 0
@@ -100,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen>
                           content: Text('Busqueda no implementada')));
                     },
                   )
-                : widget.pageIndex == 2
+                : widget.pageIndex == 4
                     ? IconButton(
                         color: Colors.white,
                         icon: const Icon(
@@ -114,7 +105,20 @@ class _HomeScreenState extends State<HomeScreen>
                                   context.read<UserBloc>().state.user.email));
                         },
                       )
-                    : Container(),
+                    : IconButton(
+                        color: Colors.white,
+                        icon: const Icon(
+                          Icons.search_outlined,
+                          size: 28,
+                        ),
+                        tooltip: 'Show Snackbar',
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Busqueda no implementada')));
+                        },
+                      )
             // const Spacer(),
             // Padding(
             //   padding: const EdgeInsets.only(right: 10),
@@ -137,8 +141,9 @@ class _HomeScreenState extends State<HomeScreen>
             // )
           ],
         ),
+        drawer: const CustomDrawer(),
         backgroundColor: Colors.white,
-        extendBody: true,
+        extendBody: false,
         // key: scaffoldKey,
         body: SafeArea(
           child: PageView(

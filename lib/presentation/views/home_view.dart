@@ -75,7 +75,7 @@ class _HomeView extends StatelessWidget {
       context.read<ProductosBloc>().add(FavoritosFetched(favoritos));
     }
 
-    return Column(
+    return const Column(
       children: [
         // Row(
         //   children: [
@@ -95,24 +95,24 @@ class _HomeView extends StatelessWidget {
         //     )
         //   ],
         // ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          children: [
-            const Text(
-              'Hola,',
-              style: TextStyle(fontSize: 18),
-            ),
-            Text(
-              "${user.name}.",
-              style: TextStyle(fontSize: 18, color: theme.primaryColor),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
+        // const SizedBox(
+        //   height: 10,
+        // ),
+        // Row(
+        //   children: [
+        //     const Text(
+        //       'Hola,',
+        //       style: TextStyle(fontSize: 18),
+        //     ),
+        //     Text(
+        //       "${user.name}.",
+        //       style: TextStyle(fontSize: 18, color: theme.primaryColor),
+        //     ),
+        //   ],
+        // ),
+        // const SizedBox(
+        //   height: 10,
+        // ),
         // Row(
         //   children: [
         //     Padding(
@@ -139,8 +139,8 @@ class _HomeView extends StatelessWidget {
         //   height: 20,
         // ),
         // FadeIn(child: const HomeSearchButtons()),
-        const SizedBox(height: 10),
-        const _Negocios(),
+        SizedBox(height: 10),
+        _Negocios(),
         // const SizedBox(height: 100),
       ],
     );
@@ -154,7 +154,7 @@ class _Negocios extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height -
         (AppBar().preferredSize.height - MediaQuery.of(context).padding.top) -
-        245;
+        150;
 
     return SizedBox(
       child: context.watch<NegociosBloc>().state.status ==
