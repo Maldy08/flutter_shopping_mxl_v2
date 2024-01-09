@@ -25,9 +25,14 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     NotificationsBloc.setContext(context);
     super.initState();
-    context
-        .read<UserBloc>()
-        .add(UserLogged(context.read<AuthenticationBloc>().state.user.email!));
+    final email = context.read<AuthenticationBloc>().state.user.email;
+    if (email!.isEmpty) {
+      context.read<AuthenticationBloc>().add(const LogoutRequested());
+    }
+
+    context.read<UserBloc>().add(UserLogged(
+        context.read<AuthenticationBloc>().state.user.email ??
+            'pruebas@google.com'));
     pageController = PageController(
       keepPage: true,
       viewportFraction: 1,
@@ -45,10 +50,11 @@ class _HomeScreenState extends State<HomeScreen>
     PromocionesView(),
     CuponesView(),
     // SearchView(),
-    FavoritesView(
-      pageIndex: 1,
-    ),
+    // FavoritesView(
+    //   pageIndex: 1,
+    // ),
     NotificationScreenSnapshot(),
+    SettingsView(),
   ];
 
   @override
@@ -68,13 +74,22 @@ class _HomeScreenState extends State<HomeScreen>
           iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Theme.of(context).primaryColor,
           toolbarHeight: 60,
-          title: Center(
-            child: Image.asset(
-              'assets/images/app-logo-white.png',
-              width: 60,
-              height: 60,
-              fit: BoxFit.contain,
-            ),
+          title: Row(
+            children: [
+              Image.asset(
+                'assets/images/app-logo-white.png',
+                width: 60,
+                height: 60,
+                fit: BoxFit.contain,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              const Text(
+                'ENOFFERTA',
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              )
+            ],
           ),
           actions: [
             widget.pageIndex == 0
@@ -91,34 +106,35 @@ class _HomeScreenState extends State<HomeScreen>
                           content: Text('Busqueda no implementada')));
                     },
                   )
-                : widget.pageIndex == 4
-                    ? IconButton(
-                        color: Colors.white,
-                        icon: const Icon(
-                          Icons.delete_outlined,
-                          size: 28,
-                        ),
-                        tooltip: 'Eliminar Notificaciones',
-                        onPressed: () {
-                          context.read<FcmnotificationsBloc>().add(
-                              FCMNotificationsDelete(
-                                  context.read<UserBloc>().state.user.email));
-                        },
-                      )
-                    : IconButton(
-                        color: Colors.white,
-                        icon: const Icon(
-                          Icons.search_outlined,
-                          size: 28,
-                        ),
-                        tooltip: 'Show Snackbar',
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Busqueda no implementada')));
-                        },
-                      )
+                : Container()
+            // : widget.pageIndex == 3
+            //     ? IconButton(
+            //         color: Colors.white,
+            //         icon: const Icon(
+            //           Icons.delete_outlined,
+            //           size: 28,
+            //         ),
+            //         tooltip: 'Eliminar Notificaciones',
+            //         onPressed: () {
+            //           context.read<FcmnotificationsBloc>().add(
+            //               FCMNotificationsDelete(
+            //                   context.read<UserBloc>().state.user.email));
+            //         },
+            //       )
+            //     : IconButton(
+            //         color: Colors.white,
+            //         icon: const Icon(
+            //           Icons.search_outlined,
+            //           size: 28,
+            //         ),
+            //         tooltip: 'Show Snackbar',
+            //         onPressed: () {
+            //           ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            //           ScaffoldMessenger.of(context).showSnackBar(
+            //               const SnackBar(
+            //                   content: Text('Busqueda no implementada')));
+            //         },
+            //       )
             // const Spacer(),
             // Padding(
             //   padding: const EdgeInsets.only(right: 10),
@@ -141,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen>
             // )
           ],
         ),
-        drawer: const CustomDrawer(),
+        // drawer: const CustomDrawer(),
         backgroundColor: Colors.white,
         extendBody: true,
         // key: scaffoldKey,

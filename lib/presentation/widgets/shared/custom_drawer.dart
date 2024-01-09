@@ -17,19 +17,21 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          context.read<AuthenticationBloc>().state.status ==
-                  AuthenticationStatus.authenticated
-              ? UserAccountsDrawerHeader(
-                  currentAccountPicture: ClipOval(
-                    child: ImageLoading(
-                      photoUrl: user.photoUrl!,
-                    ),
-                  ),
-                  accountName: Text(user.name!),
-                  accountEmail: Text(user.email!),
-                  decoration: BoxDecoration(color: color),
-                )
-              : Container(),
+          // context.read<AuthenticationBloc>().state.status ==
+          //         AuthenticationStatus.authenticated
+          //     ? UserAccountsDrawerHeader(
+          //         currentAccountPicture: ClipOval(
+          //             child: user.photoUrl != null
+          //                 ? ImageLoading(
+          //                     photoUrl: user.photoUrl!,
+          //                   )
+          //                 : Container()),
+          //         accountName:
+          //             user.name != null ? Text(user.name!) : const Text(''),
+          //         accountEmail: Text(user.email!),
+          //         decoration: BoxDecoration(color: color),
+          //       )
+          //     : Container(),
           ListTile(
             leading: const Icon(Icons.privacy_tip_outlined),
             title: const Text('Aviso de Privacidad'),
@@ -53,6 +55,16 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               context.read<AuthenticationBloc>().add(const LogoutRequested());
             },
+          ),
+          const AboutListTile(
+            icon: Icon(Icons.info),
+            applicationIcon: Icon(
+              Icons.local_play,
+            ),
+            applicationName: 'EnOfferta APP',
+            applicationVersion: '0.1.1',
+            applicationLegalese: '© 2023 ShoppingMX',
+            child: Text("Acerca de"),
           ),
         ],
       ),

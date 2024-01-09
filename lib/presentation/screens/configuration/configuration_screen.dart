@@ -12,6 +12,7 @@ class ConfigurationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final status = context.watch<NotificationsBloc>().state.status;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Configuración'),
@@ -21,6 +22,7 @@ class ConfigurationScreen extends StatelessWidget {
         color: bgContainer,
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
                 height: 10,
@@ -42,7 +44,10 @@ class ConfigurationScreen extends StatelessWidget {
                   ),
                   const Text('Permitir Notificaciones'),
                 ],
-              )
+              ),
+              const SizedBox(
+                height: 10,
+              ),
             ],
           ),
         ),

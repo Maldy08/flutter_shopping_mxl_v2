@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_mxl_v2/config/config.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +29,9 @@ class _HomeViewState extends State<HomeView>
     context.read<CuponesBloc>().add(const CuponesFetchAll());
     context.read<NotificationsBloc>().state.messageToken;
     final email = context.read<AuthenticationBloc>().state.user.email;
-    context.read<FcmnotificationsBloc>().add(FCMnotificationsFetched(email!));
+    context
+        .read<FcmnotificationsBloc>()
+        .add(FCMnotificationsFetched(email ?? 'pruebas@google.com'));
   }
 
   @override
@@ -42,11 +45,7 @@ class _HomeViewState extends State<HomeView>
 
     // final scaffoldKey = GlobalKey<ScaffoldState>();
     final theme = Theme.of(context);
-
-    return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15),
-      child: _HomeView(theme: theme),
-    );
+    return _HomeView(theme: theme);
   }
 
   @override
@@ -62,16 +61,16 @@ class _HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoritos = context
-        .watch<UserBloc>()
-        .state
-        .user
-        .favoritesProducts
-        .map((e) => e.idproducto)
-        .toList();
-    if (favoritos.isNotEmpty) {
-      context.read<ProductosBloc>().add(FavoritosFetched(favoritos));
-    }
+    // final favoritos = context
+    //     .watch<UserBloc>()
+    //     .state
+    //     .user
+    //     .favoritesProducts
+    //     .map((e) => e.idproducto)
+    //     .toList();
+    // if (favoritos.isNotEmpty) {
+    //   context.read<ProductosBloc>().add(FavoritosFetched(favoritos));
+    // }
 
     return const Column(
       children: [
@@ -141,11 +140,11 @@ class _HomeView extends StatelessWidget {
           height: 10,
         ),
         Text(
-          'Afiliados',
-          style: TextStyle(fontSize: 16),
+          'AFILIADOS',
+          style: TextStyle(fontSize: 16, backgroundColor: bgContainer),
         ),
         SizedBox(
-          height: 10,
+          height: 20,
         ),
         _Negocios(),
         // const SizedBox(height: 100),
@@ -191,6 +190,7 @@ class _Negocios extends StatelessWidget {
                       height: height,
                       child: RefreshIndicator(
                         onRefresh: () async {
+                          // await Future.delayed(const Duration(seconds: 2));
                           context
                               .read<NegociosBloc>()
                               .add(const NegociosFetched());

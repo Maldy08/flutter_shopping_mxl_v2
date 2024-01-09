@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'package:fluttericon/linearicons_free_icons.dart';
+import 'package:fluttericon/linecons_icons.dart';
+
 import 'package:go_router/go_router.dart';
 
 class CustomBottomNavigation extends StatefulWidget {
@@ -38,83 +41,93 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
     final colors = Theme.of(context).colorScheme;
     final Stream<QuerySnapshot> notificationsStream = FirebaseFirestore.instance
         .collection('FCMnotifications')
-        .where("email", isEqualTo: FirebaseAuth.instance.currentUser!.email!)
+        .where("email",
+            isEqualTo: FirebaseAuth.instance.currentUser!.email ??
+                'pruebas@google.com')
         .where("readed", isEqualTo: false)
         .snapshots();
 
-    const double size = 28;
+    // const double size = 28;
     //final theme = Theme.of(context);
-    return BottomNavigationBar(
-      backgroundColor: Colors.white,
-      enableFeedback: true,
-
-      elevation: 2,
-      type: BottomNavigationBarType.fixed,
-      //backgroundColor: Colors.blue,
-
-      currentIndex: widget.currentIndex,
-      onTap: (index) => onItemTapped(context, index),
-      //surfaceTintColor: Colors.white,
-      items: [
-        const BottomNavigationBarItem(
-          icon: Icon(
-            // color: Colors.white,
-            Icons.business_outlined,
-            size: size,
-          ),
-          label: 'Afiliados',
-          // activeIcon: Icon(Icons.home_filled),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          top: BorderSide(color: Colors.grey.shade300, width: 1.0),
         ),
-        const BottomNavigationBarItem(
+      ),
+      child: BottomNavigationBar(
+        //backgroundColor: Colors.grey.shade100,
+        enableFeedback: true,
+
+        type: BottomNavigationBarType.fixed,
+        selectedFontSize: 8,
+        unselectedFontSize: 8,
+        iconSize: 26,
+
+        // showSelectedLabels: false,
+        //showUnselectedLabels: false,
+
+        //backgroundColor: Colors.blue,
+
+        currentIndex: widget.currentIndex,
+        onTap: (index) => onItemTapped(context, index),
+        //surfaceTintColor: Colors.white,
+        items: [
+          const BottomNavigationBarItem(
             icon: Icon(
-              Icons.local_offer_outlined,
-              size: size,
+              // color: Colors.white,
+              LineariconsFree.briefcase,
             ),
-            label: "Ofertas"),
-        const BottomNavigationBarItem(
-          icon: Icon(
-            //  color: Colors.white,
-            Icons.local_activity_outlined,
-            size: size,
+            label: 'AFILIADOS',
+            // activeIcon: Icon(Icons.home_filled),
           ),
-          label: 'Cupones',
-        ),
-        const BottomNavigationBarItem(
-          icon: Icon(
-            //color: Colors.white,
-            Icons.favorite_outline,
-            size: size,
+          const BottomNavigationBarItem(
+              icon: Icon(
+                Linecons.tag,
+              ),
+              label: "OFERTAS"),
+          const BottomNavigationBarItem(
+            icon: Icon(
+              //  color: Colors.white,
+              LineariconsFree.bookmark,
+            ),
+            label: 'CUPONES',
           ),
-          label: 'Favoritos',
-        ),
-        BottomNavigationBarItem(
-          icon: StreamBuilder<QuerySnapshot>(
-            stream: notificationsStream,
-            builder: (context, snapshot) {
-              if (snapshot.hasData && snapshot.data!.size > 0) {
-                return Badge.count(
-                  count: snapshot.hasData ? snapshot.data!.size : 0,
-                  largeSize: 15,
-                  smallSize: 10,
-                  textStyle: const TextStyle(fontSize: 10),
-                  backgroundColor: colors.primary,
-                  child: const Icon(
-                    Icons.notifications_outlined,
-                    size: size,
-                  ),
-                );
-              }
+          BottomNavigationBarItem(
+            icon: StreamBuilder<QuerySnapshot>(
+              stream: notificationsStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data!.size > 0) {
+                  return Badge.count(
+                    count: snapshot.hasData ? snapshot.data!.size : 0,
+                    largeSize: 15,
+                    smallSize: 10,
+                    textStyle: const TextStyle(fontSize: 10),
+                    backgroundColor: colors.primary,
+                    child: const Icon(
+                      LineariconsFree.alarm,
+                    ),
+                  );
+                }
 
-              return const Icon(
-                Icons.notifications_outlined,
-                size: size,
-              );
-            },
+                return const Icon(
+                  LineariconsFree.alarm,
+                );
+              },
+            ),
+            label: 'NOTIFICACIONES',
+            // activeIcon: Icon(Icons.favorite),
           ),
-          label: 'Notificaciones',
-          // activeIcon: Icon(Icons.favorite),
-        ),
-      ],
+          const BottomNavigationBarItem(
+            icon: Icon(
+              //  color: Colors.white,
+              LineariconsFree.user_1,
+            ),
+            label: 'USUARIO',
+          ),
+        ],
+      ),
     );
   }
 }

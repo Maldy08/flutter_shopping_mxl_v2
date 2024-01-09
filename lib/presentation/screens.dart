@@ -1,3 +1,5 @@
+export '../presentation/screens/profile/profile_screen.dart';
+
 export '../presentation/screens/notifications/notifications_screen_snapshot.dart';
 
 export '../presentation/screens/account_created/account_created_screen.dart';

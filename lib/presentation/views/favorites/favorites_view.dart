@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import '/presentation/views/views.dart';
 
 class FavoritesView extends StatefulWidget {
+  static const String name = "favorites_view";
   const FavoritesView({super.key, required this.pageIndex});
   final int pageIndex;
 
@@ -9,45 +11,24 @@ class FavoritesView extends StatefulWidget {
   State<FavoritesView> createState() => _FavoritesViewState();
 }
 
-class _FavoritesViewState extends State<FavoritesView>
-    with AutomaticKeepAliveClientMixin {
-  final viewRoutes = const <Widget>[
-    FavoritesViewNegocios(),
-    FavoritesViewProducts(),
-  ];
-
+class _FavoritesViewState extends State<FavoritesView> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    // context
+    //     .watch<UserBloc>()
+    //     .state
+    //     .user
+    //     .favoritesProducts
+    //     .map((e) => e.idproducto)
+    //     .toList();
 
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          bottom: const TabBar(
-            enableFeedback: true,
-            tabs: [
-              Tab(
-                icon: Icon(Icons.business_center_outlined),
-                text: 'Negocios',
-              ),
-              Tab(
-                icon: Icon(Icons.shopping_bag_outlined),
-                text: 'Productos',
-              )
-            ],
-          ),
-          centerTitle: true,
-          title: const Text('Favoritos'),
-        ),
-        body: TabBarView(
-          children: viewRoutes,
-        ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Favoritos'),
       ),
+      body: const FavoritesViewNegocios(),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

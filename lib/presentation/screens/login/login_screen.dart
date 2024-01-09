@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: const CustomAppBar(
-        title: 'Sign in',
+        title: '',
       ),
       backgroundColor: Colors.white,
       body: SafeArea(child: _LoginView()),
@@ -38,7 +38,6 @@ class _LoginView extends StatelessWidget {
                 height: 10,
               ),
               const LoginImage(),
-              const SizedBox(height: 10),
               Container(
                 width: 350,
                 height: 300,

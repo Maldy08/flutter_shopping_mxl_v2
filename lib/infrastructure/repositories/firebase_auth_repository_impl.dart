@@ -25,6 +25,10 @@ class FirebaseAuthRepositoryImpl extends AuthRepository {
     return datasource.signInWithGoogle();
   }
 
+  Future<void> singInWithApple() {
+    return datasource.singInWithApple();
+  }
+
   Stream<FirebaseUser> get user {
     return datasource.user;
   }
@@ -44,6 +48,11 @@ class FirebaseAuthRepositoryImpl extends AuthRepository {
   @override
   Future<void> onUserChange() {
     return datasource.onUserChange();
+  }
+
+  @override
+  Future<void> deleteUser() {
+    return datasource.deleteUser();
   }
 
   // @override

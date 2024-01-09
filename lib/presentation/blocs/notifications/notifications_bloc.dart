@@ -147,7 +147,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     final token = await messaging.getToken();
     messaging.subscribeToTopic("pushNotifications");
     _fcMtokensRepositoryImpl.saveToken(
-      email: auth.currentUser!.email!,
+      email: auth.currentUser!.email ?? 'pruebas@google.com',
       uid: auth.currentUser!.uid,
       token: token!,
     );

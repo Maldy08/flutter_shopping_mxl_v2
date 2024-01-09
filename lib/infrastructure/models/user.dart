@@ -16,6 +16,7 @@ class User {
     required this.uid,
     required this.username,
     required this.token,
+    // required this.firstLogin,
   });
 
   final int? age;
@@ -28,6 +29,7 @@ class User {
   final String uid;
   final String username;
   final String? token;
+  // final bool firstLogin;
 
   static const empty = User(
     age: 0,
@@ -40,6 +42,7 @@ class User {
     uid: '',
     username: '',
     token: '',
+    // firstLogin: false,
   );
 
   bool get isEmpty => this == User.empty;
@@ -60,6 +63,7 @@ class User {
         uid: json["uid"],
         username: json["username"],
         token: json["token"],
+        // firstLogin: json['first_login'],
       );
   Map<String, dynamic> toJson() => {
         "age": age,
@@ -74,6 +78,7 @@ class User {
         "uid": uid,
         "username": username,
         "token": token,
+        // "first_login": firstLogin,
       };
 }
 

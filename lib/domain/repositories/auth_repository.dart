@@ -9,6 +9,7 @@ abstract class AuthRepository {
     required String password,
   });
   Future<void> onUserChange();
+  Future<void> deleteUser();
   // Future<bool> isUserExists({required String email});
   // Future<User?> getCurrentAppUser({required String email});
 }

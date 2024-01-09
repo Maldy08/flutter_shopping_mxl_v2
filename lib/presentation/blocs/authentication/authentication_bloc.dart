@@ -23,6 +23,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
         ) {
     on<_UserChanged>(_onUserChanged);
     on<LogoutRequested>(_onLogoutRequested);
+    on<DeleteAcount>(_onDeleteAcountRequested);
 
     _userSubscription = _authenticationRepository.user.listen(
       (user) => add(_UserChanged(user)),
@@ -50,6 +51,12 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
 
   void onUserChange() {
     _authenticationRepository.onUserChange();
+  }
+
+  void _onDeleteAcountRequested(
+      DeleteAcount event, Emitter<AuthenticationState> emit) {
+    unawaited(_authenticationRepository.deleteUser());
+    notifyListeners();
   }
 
   @override

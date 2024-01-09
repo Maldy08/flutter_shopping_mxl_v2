@@ -6,8 +6,8 @@ class LoginImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
-      height: 280,
+      width: 300,
+      height: 250,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(
@@ -15,7 +15,7 @@ class LoginImage extends StatelessWidget {
         ),
       ),
       child: Image.asset(
-        'assets/images/login-ilust.png',
+        'assets/images/app-logo.png',
       ),
     );
   }

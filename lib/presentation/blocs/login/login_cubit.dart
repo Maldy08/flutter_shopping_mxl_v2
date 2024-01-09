@@ -28,6 +28,16 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
+  Future<void> logInWithApple() async {
+    emit(state.copyWith(isPosting: true));
+    try {
+      await _firebaseAuthRepositoryImpl.singInWithApple();
+      emit(state.copyWith(isPosting: false));
+    } catch (_) {
+      emit(state.copyWith(isPosting: false));
+    }
+  }
+
   Future<void> _loginWithEmaildAndPassword(
       String email, String password) async {
     emit(state.copyWith(

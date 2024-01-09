@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/views/favorites/favorites_view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../presentation/blocs/blocs.dart';
@@ -64,6 +65,18 @@ GoRouter routes(AuthenticationBloc bloc) {
             path: 'configuration',
             name: ConfigurationScreen.name,
             builder: (context, state) => const ConfigurationScreen(),
+          ),
+          GoRoute(
+            path: 'favorites',
+            name: FavoritesView.name,
+            builder: (context, state) => const FavoritesView(
+              pageIndex: 0,
+            ),
+          ),
+          GoRoute(
+            path: 'profile',
+            name: ProfileScreen.name,
+            builder: (context, state) => const ProfileScreen(),
           ),
           GoRoute(
             path: 'negocio/:id',

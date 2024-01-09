@@ -65,8 +65,8 @@ class CuponesDetails extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                cupon.vigencia,
-                                style: const TextStyle(fontSize: 16),
+                                'Vigencia: ${cupon.vigencia.substring(0, 10)}',
+                                style: const TextStyle(fontSize: 12),
                               ),
                             ],
                           ),

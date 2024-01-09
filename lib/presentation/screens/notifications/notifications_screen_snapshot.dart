@@ -22,7 +22,9 @@ class _NotificationScreenSnapshotState
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> notificationsStream = FirebaseFirestore.instance
         .collection('FCMnotifications')
-        .where("email", isEqualTo: FirebaseAuth.instance.currentUser!.email!)
+        .where("email",
+            isEqualTo: FirebaseAuth.instance.currentUser!.email ??
+                'pruebas@google.com')
         .orderBy("sentDate", descending: true)
         .snapshots();
     final colors = Theme.of(context).colorScheme;

@@ -1,8 +1,13 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../models/models.dart' as models;
 
@@ -76,12 +81,87 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
 
       await _firebaseFirestore.collection('users').doc().set({
         'uid': _firebaseAuth.currentUser!.uid,
-        'username': _firebaseAuth.currentUser!.displayName,
+        'username': _firebaseAuth.currentUser!.displayName ?? 'no_display_name',
         'email': _firebaseAuth.currentUser!.email,
         'age': 0,
         'sex': '',
         'phoneNumber': '',
-        'photoUrl': _firebaseAuth.currentUser!.photoURL,
+        'photoUrl': _firebaseAuth.currentUser!.photoURL ??
+            'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg',
+        'favorites_negocios': [],
+        'favorites_products': [],
+        'token': ''
+      });
+
+      await _firebaseFirestore.collection('tokens').doc().set(
+        {
+          'uid': _firebaseAuth.currentUser!.uid,
+          'email': _firebaseAuth.currentUser!.email,
+          'token': '',
+        },
+      );
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  String generateNonce([int length = 32]) {
+    const charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
+  }
+
+  /// Returns the sha256 hash of [input] in hex notation.
+  String sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
+  }
+
+  Future<void> singInWithApple() async {
+    final rawNonce = generateNonce();
+    final nonce = sha256ofString(rawNonce);
+
+    try {
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: nonce,
+      );
+
+      // Create an `OAuthCredential` from the credential returned by Apple.
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        rawNonce: rawNonce,
+      );
+
+      await _firebaseAuth.signInWithCredential(oauthCredential);
+
+      final exists =
+          await isUserExists(email: _firebaseAuth.currentUser!.email!);
+
+      if (exists) return;
+
+      await _firebaseAuth.currentUser!
+          .updateDisplayName(appleCredential.givenName ?? 'appleid_user');
+      await _firebaseAuth.currentUser!.updatePhotoURL(
+          'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg');
+
+      // _firebaseAuth.currentUser!.reload();
+
+      await _firebaseFirestore.collection('users').doc().set({
+        'uid': _firebaseAuth.currentUser!.uid,
+        'username': _firebaseAuth.currentUser!.displayName ?? 'no_display_name',
+        'email': _firebaseAuth.currentUser!.email,
+        'age': 0,
+        'sex': '',
+        'phoneNumber': '',
+        'photoUrl': _firebaseAuth.currentUser!.photoURL ??
+            'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg',
         'favorites_negocios': [],
         'favorites_products': [],
         'token': ''
@@ -103,7 +183,7 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
   Future<void> singOut() async {
     bool exists = false;
     final token = await _firebaseMessaging.getToken();
-    final email = _firebaseAuth.currentUser!.email!;
+    final email = _firebaseAuth.currentUser!.email ?? 'pruebas@google.com';
     await _firebaseFirestore
         .collection("FCMtokens")
         .where("email", isEqualTo: email)
@@ -164,31 +244,6 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
     });
   }
 
-  // Future<models.User> get userApp async {
-  //   final user =
-  //       await getCurrentAppUser(email: _firebaseAuth.currentUser!.email!);
-
-  //   if (user == null) {
-  //     return models.User.empty;
-  //   } else {
-  //     _cache.write(key: userAppCacheKey, value: user);
-  //     return models.User(
-  //       age: user.age,
-  //       email: user.email,
-  //       favorites: user.favorites,
-  //       phoneNumber: user.phoneNumber,
-  //       photoUrl: user.photoUrl,
-  //       sex: user.sex,
-  //       uid: user.uid,
-  //       username: user.username,
-  //     );
-  //   }
-
-  //   //return await getCurrentAppUser(email: _firebaseAuth.currentUser!.email!);
-
-  //   //return models.User.empty;
-  // }
-
   @override
   Future<void> registerUser({
     required String username,
@@ -199,17 +254,11 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
 
-      //  .whenComplete(() {
-      //_firebaseAuth.currentUser!.updateDisplayName(username);
-      //_firebaseAuth.currentUser!.updatePhotoURL(
-      //  'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg');
-      //   });
-
       await _firebaseAuth.currentUser!.updateDisplayName(username);
       await _firebaseAuth.currentUser!.updatePhotoURL(
           'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg');
 
-      _firebaseAuth.currentUser!.reload();
+      // _firebaseAuth.currentUser!.reload();
 
       // await _firebaseFirestore.collection('users');
       await _firebaseFirestore.collection('users').doc().set({
@@ -223,25 +272,21 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
             'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg',
         'favorites_negocios': [],
         'favorites_products': [],
-        'token': ''
+        'token': '',
+        'first_login': true,
       });
 
-      // collectionUsers.add({
-      //   'uid': credentials.user!.uid,
-      //   'username': username,
-      //   'email': credentials.user!.email,
-      //   'age': 0,
-      //   'sex': '',
-      //   'phoneNumber': '',
-      //   'photoUrl':
-      //       'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg'
-      // });
-
-      // .then((_) =>
-      //     _firebaseAuth.currentUser!.updateDisplayName("Carlos Maldonado"));
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
-        throw Exception('Esta email ya se encuentra en uso!');
+        throw Exception('Este email ya se encuentra en uso!');
+      }
+      if (e.code == 'invalid-email') {
+        throw Exception('Este email no es valido');
+      }
+      if (e.code == 'operation-not-allowed') {
+        throw Exception('Operacion no permitida');
       }
     } catch (e) {
       throw Exception(e.toString());
@@ -254,18 +299,64 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
     _firebaseAuth.currentUser?.reload();
   }
 
-  // @override
-  // Future<models.User?> getCurrentAppUser({required String email}) async {
-  //   models.User? usuario;
-  //   await _firebaseFirestore
-  //       .collection('users')
-  //       .where('email', isEqualTo: email)
-  //       .get()
-  //       .then((value) {
-  //     final docs = value.docs.first;
-  //     usuario = models.User.fromJson(docs.data());
-  //   });
+  @override
+  Future<void> deleteUser() async {
+    bool exists = false;
+    final token = await _firebaseMessaging.getToken();
+    final email = _firebaseAuth.currentUser!.email!;
+    await _firebaseFirestore
+        .collection("FCMtokens")
+        .where("email", isEqualTo: email)
+        .where("token", isEqualTo: token)
+        .get()
+        .then((value) => value.size > 0 ? exists = true : exists = false);
 
-  //   return UserMapper.userToEntity(usuario!);
+    if (exists) {
+      final doc = await _firebaseFirestore
+          .collection("FCMtokens")
+          .where("email", isEqualTo: email)
+          .where("token", isEqualTo: token)
+          .get()
+          .then((value) => value.docs.first.id.toString());
+
+      await _firebaseFirestore.collection("FCMtokens").doc(doc).delete();
+    }
+
+    await _firebaseFirestore
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get()
+        .then((value) => value.size > 0 ? exists = true : exists = false);
+
+    if (exists) {
+      final user = await _firebaseFirestore
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .get()
+          .then((value) => value.docs.first.id.toString());
+
+      await _firebaseFirestore.collection('users').doc(user).delete();
+    }
+
+    await _firebaseAuth.currentUser?.delete();
+  }
+
+  // Future<void> updateMissingUserProperties(User user) async {
+  //   if (user.photoURL == null) {
+  //     user.providerData.forEach((provider) async {
+  //       if (provider.photoURL != null) {
+  //         await user.updatePhotoURL(provider.photoURL);
+  //         return;
+  //       }
+  //     });
+  //   }
+  //   if (user.displayName == null) {
+  //     user.providerData.forEach((provider) async {
+  //       if (provider.displayName != null) {
+  //         await user.updateDisplayName(provider.displayName);
+  //         return;
+  //       }
+  //     });
+  //   }
   // }
 }
