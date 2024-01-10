@@ -33,8 +33,7 @@ class _PromocionesViewState extends State<PromocionesView>
             alignment: Alignment.center,
             child: Text(
               '${promociones.length} OFERTAS',
-              style:
-                  const TextStyle(fontSize: 16, backgroundColor: bgContainer),
+              style: const TextStyle(fontSize: 16),
             ),
           ),
           const SizedBox(

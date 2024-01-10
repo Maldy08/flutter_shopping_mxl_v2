@@ -34,8 +34,7 @@ class _CuponesViewState extends State<CuponesView>
             alignment: Alignment.center,
             child: Text(
               '${cupones.length} CUPONES',
-              style:
-                  const TextStyle(fontSize: 16, backgroundColor: bgContainer),
+              style: const TextStyle(fontSize: 16),
             ),
           ),
           const SizedBox(

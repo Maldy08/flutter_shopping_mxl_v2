@@ -20,16 +20,17 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    // ClipOval(
-                    //   child: ImageLoading(
-                    //     photoUrl: user.photoUrl!,
-                    //   ),
-                    // ),
+                    ClipOval(
+                      child: ImageLoading(
+                        photoUrl: user.photoUrl ??
+                            'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg',
+                      ),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
                     Text(user.email ?? ''),
-                    // Text(user.name!),
+                    Text(user.name ?? ''),
                     const SizedBox(
                       height: 100,
                     ),

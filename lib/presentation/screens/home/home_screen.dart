@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen>
     NotificationsBloc.setContext(context);
     super.initState();
     final email = context.read<AuthenticationBloc>().state.user.email;
-    if (email!.isEmpty) {
+    if (email == 'null') {
       context.read<AuthenticationBloc>().add(const LogoutRequested());
     }
 

@@ -141,7 +141,7 @@ class _HomeView extends StatelessWidget {
         ),
         Text(
           'AFILIADOS',
-          style: TextStyle(fontSize: 16, backgroundColor: bgContainer),
+          style: TextStyle(fontSize: 16),
         ),
         SizedBox(
           height: 20,
