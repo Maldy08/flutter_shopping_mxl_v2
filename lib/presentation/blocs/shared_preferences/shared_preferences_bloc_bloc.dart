@@ -5,15 +5,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'shared_preferences_bloc_event.dart';
 part 'shared_preferences_bloc_state.dart';
 
-class SharedPreferencesBlocBloc
+class SharedPreferencesBloc
     extends Bloc<SharedPreferencesBlocEvent, SharedPreferencesBlocState> {
-  SharedPreferencesBlocBloc() : super(const SharedPreferencesBlocState()) {
-    on<SharedPreferencesBlocEvent>((event, emit) {});
+  late SharedPreferences prefs;
+  SharedPreferencesBloc() : super(const SharedPreferencesBlocState()) {
+    on<SharedPreferencesInitialize>(_loadSharedPreferences);
+    on<SharedPreferencesSave>(_saveSharedPreferences);
   }
 
   Future<void> _loadSharedPreferences(SharedPreferencesInitialize event,
       Emitter<SharedPreferencesBlocState> emit) async {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    final SharedPreferences prefs = await _prefs;
+    prefs = await _prefs;
+
+    final use = prefs.getBool('isfirstRun') ?? true;
+
+    emit(state.copyWith(isFirstTime: use));
+  }
+
+  Future<void> _saveSharedPreferences(SharedPreferencesSave event,
+      Emitter<SharedPreferencesBlocState> emit) async {
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    prefs = await _prefs;
+    prefs.setBool('isfirstRun', false);
+    emit(state.copyWith(isFirstTime: false));
   }
 }

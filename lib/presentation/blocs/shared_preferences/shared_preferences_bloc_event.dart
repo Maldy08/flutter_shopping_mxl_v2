@@ -7,3 +7,7 @@ class SharedPreferencesBlocEvent {
 class SharedPreferencesInitialize extends SharedPreferencesBlocEvent {
   const SharedPreferencesInitialize();
 }
+
+class SharedPreferencesSave extends SharedPreferencesBlocEvent {
+  const SharedPreferencesSave();
+}

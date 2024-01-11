@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens/tour/tour_screen.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/views/favorites/favorites_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,9 +15,22 @@ GoRouter routes(AuthenticationBloc bloc) {
     navigatorKey: _rootNavigatorKey,
     routes: [
       GoRoute(
-          path: '/',
-          name: WelcomeScreen.name,
-          builder: (context, state) => const WelcomeScreen()),
+        path: '/',
+        name: WelcomeScreen.name,
+        builder: (context, state) {
+          context
+              .read<SharedPreferencesBloc>()
+              .add(const SharedPreferencesInitialize());
+          final algo = context.read<SharedPreferencesBloc>().state.isFirstTime;
+          if (algo) return TourScreen();
+          return const WelcomeScreen();
+        },
+      ),
+      GoRoute(
+        path: '/tour',
+        name: TourScreen.name,
+        builder: (context, state) => TourScreen(),
+      ),
       GoRoute(
         path: '/login',
         name: LoginScreen.name,
@@ -48,6 +63,7 @@ GoRouter routes(AuthenticationBloc bloc) {
                 isGoingTo == '/home/3' ||
                 isGoingTo == '/home/4') return null;
           }
+
           return '/';
         },
         routes: [
