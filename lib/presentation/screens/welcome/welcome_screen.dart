@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 import 'package:go_router/go_router.dart';
 
 import '/config/theme/app_theme.dart';
 import '/presentation/screens.dart';
 import '/presentation/widgets/widgets.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   static const String name = "welcome_screen";
 
   static Page<void> page() => const MaterialPage<void>(child: WelcomeScreen());
 
   const WelcomeScreen({super.key});
+
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<SharedPreferencesBloc>().add(const SharedPreferencesSave());
+  }
 
   @override
   Widget build(BuildContext context) {

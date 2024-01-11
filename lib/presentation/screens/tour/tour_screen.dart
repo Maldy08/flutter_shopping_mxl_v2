@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/tour/pages/page_1.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/tour/pages/page_2.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/tour/pages/page_3.dart';
+import 'package:go_router/go_router.dart';
 
 class TourScreen extends StatefulWidget {
   const TourScreen({super.key});
@@ -51,6 +54,7 @@ class _TourScreenState extends State<TourScreen> {
         children: [
           PageView(
             controller: _pageController,
+            onPageChanged: onChangedFunction,
             children: const [
               Page1(),
               Page2(),
@@ -59,7 +63,7 @@ class _TourScreenState extends State<TourScreen> {
           ),
           Positioned(
             bottom: 80,
-            left: 200,
+            left: 180,
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -88,23 +92,28 @@ class _TourScreenState extends State<TourScreen> {
           ),
           Positioned(
             bottom: 30,
-            left: 130,
+            left: 100,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Container(
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    InkWell(
-                        onTap: () => previousFunction(),
-                        child: Text("Previous")),
-                    const SizedBox(
-                      width: 50,
-                    ),
-                    InkWell(onTap: () => nextFunction(), child: Text("Next"))
-                  ],
-                ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  TextButton(
+                      onPressed: previousFunction, child: const Text('Atras')),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  currentIndex == 2
+                      ? TextButton(
+                          onPressed: () {
+                            context.push('/');
+                          },
+                          child: const Text('Empezar'))
+                      : TextButton(
+                          onPressed: nextFunction,
+                          child: const Text('Siguiente'))
+                ],
               ),
             ),
           ),
@@ -115,17 +124,20 @@ class _TourScreenState extends State<TourScreen> {
 }
 
 class Indicator extends StatelessWidget {
-  final int positionIndex, currentIndex;
-  const Indicator({super.key, this.currentIndex = 1, this.positionIndex = 1});
+  final int _positionIndex, _currentIndex;
+  const Indicator({super.key, int? positionIndex, int? currentIndex})
+      : _currentIndex = currentIndex ?? 0,
+        _positionIndex = positionIndex ?? 0;
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 12,
       width: 12,
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.blue),
-          color:
-              positionIndex == currentIndex ? Colors.blue : Colors.transparent,
+          border: Border.all(color: Theme.of(context).primaryColor),
+          color: _positionIndex == _currentIndex
+              ? Theme.of(context).primaryColor
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(100)),
     );
   }

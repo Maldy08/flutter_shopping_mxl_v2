@@ -8,6 +8,7 @@ part 'shared_preferences_bloc_state.dart';
 class SharedPreferencesBloc
     extends Bloc<SharedPreferencesBlocEvent, SharedPreferencesBlocState> {
   late SharedPreferences prefs;
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   SharedPreferencesBloc() : super(const SharedPreferencesBlocState()) {
     on<SharedPreferencesInitialize>(_loadSharedPreferences);
     on<SharedPreferencesSave>(_saveSharedPreferences);
@@ -15,19 +16,21 @@ class SharedPreferencesBloc
 
   Future<void> _loadSharedPreferences(SharedPreferencesInitialize event,
       Emitter<SharedPreferencesBlocState> emit) async {
-    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     prefs = await _prefs;
 
-    final use = prefs.getBool('isfirstRun') ?? true;
+    final use = prefs.getBool('isfirstRun');
 
     emit(state.copyWith(isFirstTime: use));
   }
 
   Future<void> _saveSharedPreferences(SharedPreferencesSave event,
       Emitter<SharedPreferencesBlocState> emit) async {
-    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     prefs = await _prefs;
+
     prefs.setBool('isfirstRun', false);
+
+    final use = prefs.getBool('isfirstRun');
+
     emit(state.copyWith(isFirstTime: false));
   }
 }
