@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/tour/tour_screen.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/shared_preferences_test.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/views/favorites/favorites_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,21 +9,17 @@ import '../../presentation/blocs/blocs.dart';
 import '../../presentation/screens.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final prefs = SharedPreferencesTest();
 
 GoRouter routes(AuthenticationBloc bloc) {
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: '/login',
     navigatorKey: _rootNavigatorKey,
     routes: [
       GoRoute(
         path: '/',
         name: WelcomeScreen.name,
         builder: (context, state) {
-          context
-              .read<SharedPreferencesBloc>()
-              .add(const SharedPreferencesInitialize());
-          final algo = context.read<SharedPreferencesBloc>().state.isFirstTime;
-          if (algo) return TourScreen();
           return const WelcomeScreen();
         },
       ),
@@ -64,7 +61,7 @@ GoRouter routes(AuthenticationBloc bloc) {
                 isGoingTo == '/home/4') return null;
           }
 
-          return '/';
+          return '/login';
         },
         routes: [
           // GoRoute(
@@ -142,7 +139,7 @@ GoRouter routes(AuthenticationBloc bloc) {
       ),
     ],
     refreshListenable: bloc,
-    redirect: (_, state) {
+    redirect: (_, state) async {
       final isGoingTo = state.subloc;
       if (bloc.state.status == AuthenticationStatus.authenticated) {
         if (isGoingTo == '/login' ||
@@ -153,6 +150,9 @@ GoRouter routes(AuthenticationBloc bloc) {
         } else if (isGoingTo == '/register') {
           return '/account-created';
         }
+      } else {
+        final firstTime = await prefs.getFirstTimeUse();
+        if (firstTime) return '/tour';
       }
 
       return null;

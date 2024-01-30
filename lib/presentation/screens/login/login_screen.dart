@@ -13,9 +13,6 @@ class LoginScreen extends StatelessWidget {
     //final status = context.read<AuthenticationBloc>().state;
 
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: '',
-      ),
       backgroundColor: Colors.white,
       body: SafeArea(child: _LoginView()),
     );

@@ -54,9 +54,9 @@ void main() async {
           create: (_) =>
               AuthenticationBloc(authenticationRepository: firebaseRepository),
         ),
-        BlocProvider(
-          create: (_) => SharedPreferencesBloc(),
-        ),
+        // BlocProvider(
+        //   create: (_) => SharedPreferencesBloc(),
+        // ),
         BlocProvider(
           create: (_) => LoginCubit(),
         ),

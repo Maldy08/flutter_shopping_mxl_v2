@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
+import 'package:flutter_shopping_mxl_v2/config/router/app_router.dart';
+
 import 'package:flutter_shopping_mxl_v2/presentation/screens/tour/pages/page_1.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/tour/pages/page_2.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/tour/pages/page_3.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/shared_preferences_test.dart';
+
 import 'package:go_router/go_router.dart';
 
 class TourScreen extends StatefulWidget {
-  const TourScreen({super.key});
+  TourScreen({super.key});
   static const String name = "tour_screen";
+  final prefs = SharedPreferencesTest();
 
   @override
   State<TourScreen> createState() => _TourScreenState();
@@ -36,6 +39,11 @@ class _TourScreenState extends State<TourScreen> {
 
   previousFunction() {
     _pageController.previousPage(duration: _kDuration, curve: _kCurve);
+  }
+
+  startFunction() {
+    prefs.setFirstTimeUse(false);
+    context.go('/login');
   }
 
   onChangedFunction(int index) {
@@ -106,9 +114,7 @@ class _TourScreenState extends State<TourScreen> {
                   ),
                   currentIndex == 2
                       ? TextButton(
-                          onPressed: () {
-                            context.push('/');
-                          },
+                          onPressed: startFunction,
                           child: const Text('Empezar'))
                       : TextButton(
                           onPressed: nextFunction,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '/config/theme/app_theme.dart';
 import '/presentation/blocs/blocs.dart';
@@ -96,7 +97,7 @@ class _FormLoginState extends State<FormLogin> {
                 onChanged: context.read<LoginCubit>().onPasswordChanged,
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               SizedBox(
                 width: double.infinity,
@@ -115,6 +116,23 @@ class _FormLoginState extends State<FormLogin> {
                         },
                         label: 'Iniciar sesión',
                         color: Colors.orange),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: Row(
+                  children: [
+                    const Text(
+                      'No tienes una cuenta?',
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          context.push('/register');
+                        },
+                        child: const Text(
+                          'Regístrate!',
+                        ))
+                  ],
+                ),
               )
             ],
           ),

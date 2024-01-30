@@ -14,7 +14,7 @@ class RegisterScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        appBar: const CustomAppBar(title: 'Sign Up'),
+        appBar: const CustomAppBar(title: 'Registrarte'),
         backgroundColor: AppTheme.getBackgroundContainerColor(),
         body: SafeArea(
             child: SizedBox(
@@ -24,11 +24,14 @@ class RegisterScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                const SizedBox(
-                  height: 10,
+                Container(
+                  height: 300,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: Image.asset(
+                    'assets/images/register.png',
+                  ),
                 ),
                 Container(
                   width: 350,
