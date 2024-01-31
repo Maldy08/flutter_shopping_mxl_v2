@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens/negocios/widgets/widgets.dart';
 
 import '/presentation/blocs/blocs.dart';
 import '/presentation/screens.dart';
@@ -101,10 +102,12 @@ class _HomeScreenState extends State<HomeScreen>
                       size: 28,
                     ),
                     tooltip: 'Show Snackbar',
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Busqueda no implementada')));
+                    onPressed: () async {
+                      await showSearch(
+                        context: context,
+                        delegate: SearchNegociosDelegate(
+                            context.read<NegociosBloc>().state.negocios),
+                      );
                     },
                   )
                 : Container()
