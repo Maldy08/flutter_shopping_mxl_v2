@@ -1,5 +1,5 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
 
@@ -33,25 +33,15 @@ class SearchNegociosDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    final List<Negocios> searchResults = searchList
-        .where((item) => item.nombreEmpresa.contains(query.toLowerCase()))
-        .toList();
-    return ListView.builder(
-      itemCount: searchResults.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(searchResults[index].nombreEmpresa),
-          onTap: () {
-            // Handle the selected search result.
-            close(context, searchResults[index]);
-          },
-        );
-      },
-    );
+    return buildResultsAndSuggestions();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    return buildResultsAndSuggestions();
+  }
+
+  Widget buildResultsAndSuggestions() {
     final List<Negocios> suggestionList = query.isEmpty
         ? []
         : searchList
@@ -124,12 +114,3 @@ class _NegocioItem extends StatelessWidget {
     );
   }
 }
-
-
-// ListTile(
-//           title: Text(suggestionList[index].nombreEmpresa),
-//           onTap: () {
-//             query = suggestionList[index].id;
-//             // Show the search results based on the selected suggestion.
-//           },
-//         );
