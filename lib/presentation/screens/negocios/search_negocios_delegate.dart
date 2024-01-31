@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens.dart';
 
 class SearchNegociosDelegate extends SearchDelegate {
   final List<Negocios> searchList;
@@ -64,7 +65,9 @@ class SearchNegociosDelegate extends SearchDelegate {
         return _NegocioItem(
           negocio: suggestionList[index],
           onNegocioSelected: (context, negocio) {
-            // close(context, negocio);
+            close(context, negocio);
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => NegocioScreen(id: negocio.id)));
             //context.push('/home/0/negocio/${negocio.id}');
           },
         );
