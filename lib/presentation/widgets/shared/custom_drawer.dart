@@ -3,16 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '/presentation/blocs/blocs.dart';
-import '/presentation/widgets/shared/image_loading.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final color = Theme.of(context).primaryColor;
-    final user = context.read<AuthenticationBloc>().state.user;
-
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
