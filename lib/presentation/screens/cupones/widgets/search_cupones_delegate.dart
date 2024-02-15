@@ -1,12 +1,14 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_shopping_mxl_v2/infrastructure/models/cupones.dart';
+
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/models.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/cupones/cupones_screen.dart';
 
 class SearchCuponesDelegate extends SearchDelegate {
   final List<Cupones> searchList;
+  final List<Negocios> negocios;
 
-  SearchCuponesDelegate(this.searchList);
+  SearchCuponesDelegate(this.searchList, this.negocios);
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -58,6 +60,8 @@ class SearchCuponesDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         return _PromocionesItem(
           cupones: suggestionList[index],
+          negocio: negocios.firstWhere(
+              (element) => element.id == suggestionList[index].idNegocio),
           onNegocioSelected: (context, negocio) {
             close(context, negocio);
             Navigator.of(context).push(MaterialPageRoute(
@@ -72,10 +76,13 @@ class SearchCuponesDelegate extends SearchDelegate {
 
 class _PromocionesItem extends StatelessWidget {
   final Cupones cupones;
+  final Negocios negocio;
   final Function onNegocioSelected;
 
   const _PromocionesItem(
-      {required this.cupones, required this.onNegocioSelected});
+      {required this.cupones,
+      required this.onNegocioSelected,
+      required this.negocio});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +104,7 @@ class _PromocionesItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
-                  cupones.photoUrl,
+                  negocio.photoUrl,
                   loadingBuilder: (context, child, loadingProgress) =>
                       FadeIn(child: child),
                 ),

@@ -144,7 +144,11 @@ class _HomeScreenState extends State<HomeScreen>
                               await showSearch(
                                 context: context,
                                 delegate: SearchCuponesDelegate(
-                                    context.read<CuponesBloc>().state.cupones),
+                                    context.read<CuponesBloc>().state.cupones,
+                                    context
+                                        .read<NegociosBloc>()
+                                        .state
+                                        .negocios),
                               );
                             },
                           )
