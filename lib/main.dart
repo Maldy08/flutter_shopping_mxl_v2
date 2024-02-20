@@ -27,7 +27,6 @@ void main() async {
   //await Future.delayed(const Duration(seconds: 2));
   // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await NotificationsBloc.initializeFCM();
-
   await LocalNotifications.initializeLocalNotifications();
 
   //final firebaseDatasource = FirebaseAuthDatasource();
