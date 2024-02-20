@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -15,6 +16,7 @@ import '/domain/datasource/auth_datasource.dart';
 
 class FirebaseAuthDatasource extends AuthDatasoruce {
   final FirebaseAuth _firebaseAuth;
+  final FirebaseAnalytics _firebaseAnalytics;
   final FirebaseFirestore _firebaseFirestore;
   final FirebaseMessaging _firebaseMessaging;
   final GoogleSignIn _googleSignIn;
@@ -23,18 +25,24 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
   FirebaseAuthDatasource(
       {CacheClient? cache,
       FirebaseAuth? firebaseAuth,
+      FirebaseAnalytics? firebaseAnalytics,
       GoogleSignIn? googleSignIn,
       FirebaseFirestore? firebaseFirestore,
       FirebaseMessaging? firebaseMessaging})
       : _cache = cache ?? CacheClient(),
         _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance,
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+        _firebaseAnalytics = firebaseAnalytics ?? FirebaseAnalytics.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard(),
         _firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance;
 
   @override
   Future<void> signIn({required String email, required String password}) async {
     try {
+      await _firebaseAnalytics.logEvent(name: 'login', parameters: {
+        'email': email,
+        'password': password,
+      });
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
@@ -72,7 +80,10 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-
+      await _firebaseAnalytics.logEvent(name: 'signInWithGoogle', parameters: {
+        'email': _firebaseAuth.currentUser!.email,
+        'time': DateTime.now().toIso8601String(),
+      });
       await _firebaseAuth.signInWithCredential(credential);
       final exists =
           await isUserExists(email: _firebaseAuth.currentUser!.email!);

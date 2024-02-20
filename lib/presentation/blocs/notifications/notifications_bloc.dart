@@ -26,7 +26,9 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseInAppMessaging firebaseInAppMessaging =
       FirebaseInAppMessaging.instance;
-  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
   int pushNumberId = 0;
 
   static BuildContext? context;
@@ -82,6 +84,9 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       options: DefaultFirebaseOptions.currentPlatform,
     );
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    await analytics.logEvent(name: 'app_open', parameters: {
+      "platform": Platform.operatingSystem,
+    });
   }
 
   void _notificationStatusChanged(
