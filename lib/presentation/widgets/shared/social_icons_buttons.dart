@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -12,15 +13,11 @@ class SocialIconsButtons extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(
-            height: 44,
-            width: 300,
-            child: SignInWithAppleButton(
-              style: SignInWithAppleButtonStyle.black,
-              onPressed: () {
-                context.read<LoginCubit>().logInWithApple();
-              },
-            )),
+        Platform.isIOS
+            ? const AppleButton()
+            : const SizedBox(
+                height: 0,
+              ),
         const SizedBox(height: 10),
         SizedBox(
             height: 44,
@@ -57,6 +54,26 @@ class SocialIconsButtons extends StatelessWidget {
               ),
             )),
       ],
+    );
+  }
+}
+
+class AppleButton extends StatelessWidget {
+  const AppleButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 44,
+      width: 300,
+      child: SignInWithAppleButton(
+        style: SignInWithAppleButtonStyle.black,
+        onPressed: () {
+          context.read<LoginCubit>().logInWithApple();
+        },
+      ),
     );
   }
 }

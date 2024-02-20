@@ -80,10 +80,7 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      await _firebaseAnalytics.logEvent(name: 'signInWithGoogle', parameters: {
-        'email': _firebaseAuth.currentUser!.email,
-        'time': DateTime.now().toIso8601String(),
-      });
+
       await _firebaseAuth.signInWithCredential(credential);
       final exists =
           await isUserExists(email: _firebaseAuth.currentUser!.email!);
@@ -102,6 +99,10 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'favorites_negocios': [],
         'favorites_products': [],
         'token': ''
+      });
+      await _firebaseAnalytics.logLogin(loginMethod: 'google', parameters: {
+        'email': _firebaseAuth.currentUser!.email,
+        'uid': _firebaseAuth.currentUser!.uid,
       });
 
       await _firebaseFirestore.collection('tokens').doc().set(
@@ -154,6 +155,11 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
 
       final exists =
           await isUserExists(email: _firebaseAuth.currentUser!.email!);
+
+      await _firebaseAnalytics.logLogin(loginMethod: 'apple', parameters: {
+        'email': _firebaseAuth.currentUser!.email,
+        'uid': _firebaseAuth.currentUser!.uid,
+      });
 
       if (exists) return;
 

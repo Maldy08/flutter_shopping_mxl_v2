@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
 import 'package:flutter/material.dart';
@@ -26,9 +25,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseInAppMessaging firebaseInAppMessaging =
       FirebaseInAppMessaging.instance;
-  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
+
   int pushNumberId = 0;
 
   static BuildContext? context;
@@ -84,9 +81,6 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       options: DefaultFirebaseOptions.currentPlatform,
     );
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-    await analytics.logEvent(name: 'app_open', parameters: {
-      "platform": Platform.operatingSystem,
-    });
   }
 
   void _notificationStatusChanged(
