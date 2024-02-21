@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/shared/image_loading.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '/config/config.dart';
@@ -29,13 +30,12 @@ class CuponesDetails extends StatelessWidget {
                 height: 30,
               ),
               SizedBox(
-                width: 150,
                 child: Center(
-                  child: Image.asset(
-                    'assets/images/cupon.png',
-                    width: 150,
-                    height: 150,
+                  child: ImageLoading(
+                    photoUrl: negocio.photoUrl,
                     fit: BoxFit.cover,
+                    height: 250,
+                    width: 250,
                   ),
                 ),
               ),
@@ -104,7 +104,7 @@ class CuponesDetails extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              FilledButton(onPressed: () {}, child: Text(cupon.id)),
+              FilledButton(onPressed: () {}, child: const Text('Canjear')),
               const SizedBox(height: 10),
               Container(
                 decoration: BoxDecoration(

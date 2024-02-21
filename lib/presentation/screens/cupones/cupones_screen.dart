@@ -46,10 +46,12 @@ class _CuponesScreenState extends State<CuponesScreen> {
           title: const Text('Cupon'),
           centerTitle: true,
         ),
-        body: SizedBox(
-          child: CuponesDetails(
-            cupon: cupon,
-            negocio: negocio,
+        body: SingleChildScrollView(
+          child: SizedBox(
+            child: CuponesDetails(
+              cupon: cupon,
+              negocio: negocio,
+            ),
           ),
         ));
   }

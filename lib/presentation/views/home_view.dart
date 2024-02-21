@@ -71,83 +71,85 @@ class _HomeView extends StatelessWidget {
     //   context.read<ProductosBloc>().add(FavoritosFetched(favoritos));
     // }
 
-    return const Column(
-      children: [
-        // Row(
-        //   children: [
-        //     const Spacer(),
-        //     CircleAvatar(
-        //       child: user.photoUrl != null
-        //           ? ClipOval(
-        //               child: Image.network(
-        //                 user.photoUrl!,
-        //                 fit: BoxFit.cover,
-        //               ),
-        //             )
-        //           : IconButton(
-        //               onPressed: () {},
-        //               icon: const Icon(Icons.account_circle_rounded),
-        //             ),
-        //     )
-        //   ],
-        // ),
-        // const SizedBox(
-        //   height: 10,
-        // ),
-        // Row(
-        //   children: [
-        //     const Text(
-        //       'Hola,',
-        //       style: TextStyle(fontSize: 18),
-        //     ),
-        //     Text(
-        //       "${user.name}.",
-        //       style: TextStyle(fontSize: 18, color: theme.primaryColor),
-        //     ),
-        //   ],
-        // ),
-        // const SizedBox(
-        //   height: 10,
-        // ),
-        // Row(
-        //   children: [
-        //     Padding(
-        //       padding: const EdgeInsets.symmetric(horizontal: 10),
-        //       child: SizedBox(
-        //         height: 50,
-        //         child: OutlinedButton.icon(
-        //           onPressed: () {},
-        //           icon: const Icon(
-        //             Icons.search,
-        //             color: Color(0xffB9C1CC),
-        //           ),
-        //           label: const Text(
-        //             'Buscar Negocio o Producto',
-        //             style: TextStyle(color: Color(0xffB9C1CC), fontSize: 16),
-        //           ),
-        //           style: AppTheme.outlinedButtonStyleAlignCenterLeft(),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
-        // const SizedBox(
-        //   height: 20,
-        // ),
-        // FadeIn(child: const HomeSearchButtons()),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          'AFILIADOS',
-          style: TextStyle(fontSize: 16),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        _Negocios(),
-        // const SizedBox(height: 100),
-      ],
+    return const SingleChildScrollView(
+      child: Column(
+        children: [
+          // Row(
+          //   children: [
+          //     const Spacer(),
+          //     CircleAvatar(
+          //       child: user.photoUrl != null
+          //           ? ClipOval(
+          //               child: Image.network(
+          //                 user.photoUrl!,
+          //                 fit: BoxFit.cover,
+          //               ),
+          //             )
+          //           : IconButton(
+          //               onPressed: () {},
+          //               icon: const Icon(Icons.account_circle_rounded),
+          //             ),
+          //     )
+          //   ],
+          // ),
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          // Row(
+          //   children: [
+          //     const Text(
+          //       'Hola,',
+          //       style: TextStyle(fontSize: 18),
+          //     ),
+          //     Text(
+          //       "${user.name}.",
+          //       style: TextStyle(fontSize: 18, color: theme.primaryColor),
+          //     ),
+          //   ],
+          // ),
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          // Row(
+          //   children: [
+          //     Padding(
+          //       padding: const EdgeInsets.symmetric(horizontal: 10),
+          //       child: SizedBox(
+          //         height: 50,
+          //         child: OutlinedButton.icon(
+          //           onPressed: () {},
+          //           icon: const Icon(
+          //             Icons.search,
+          //             color: Color(0xffB9C1CC),
+          //           ),
+          //           label: const Text(
+          //             'Buscar Negocio o Producto',
+          //             style: TextStyle(color: Color(0xffB9C1CC), fontSize: 16),
+          //           ),
+          //           style: AppTheme.outlinedButtonStyleAlignCenterLeft(),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
+          // FadeIn(child: const HomeSearchButtons()),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            'AFILIADOS',
+            style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          _Negocios(),
+          // const SizedBox(height: 100),
+        ],
+      ),
     );
   }
 }

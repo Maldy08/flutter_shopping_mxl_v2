@@ -49,8 +49,10 @@ class _MyWidgetState extends State<PromocionesScreen> {
           title: const Text('Promocion'),
           centerTitle: true,
         ),
-        body: SizedBox(
-          child: PromocionesDetails(negocio: negocio, promocion: promocion),
+        body: SingleChildScrollView(
+          child: SizedBox(
+            child: PromocionesDetails(negocio: negocio, promocion: promocion),
+          ),
         ));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/shared/image_loading.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '/config/config.dart';
@@ -31,13 +32,12 @@ class PromocionesDetails extends StatelessWidget {
                 height: 30,
               ),
               SizedBox(
-                width: 150,
                 child: Center(
-                  child: Image.asset(
-                    'assets/images/price-tag.png',
-                    width: 150,
-                    height: 150,
+                  child: ImageLoading(
+                    photoUrl: negocio.photoUrl,
                     fit: BoxFit.cover,
+                    height: 250,
+                    width: 250,
                   ),
                 ),
               ),
