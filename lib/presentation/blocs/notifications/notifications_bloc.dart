@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '/infrastructure/models/fcmnotifications.dart';
 import '/infrastructure/infrastructure.dart';
@@ -141,8 +142,14 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   }
 
   void _initialStatusCheck() async {
-    final settings = await messaging.getNotificationSettings();
-    add(NotificationStatusChanged(settings.authorizationStatus));
+    //  final settings = await messaging.getNotificationSettings();
+    PermissionStatus status = await Permission.notification.status;
+    if (!status.isGranted) {
+      await Permission.notification.request();
+    }
+    add(NotificationStatusChanged(PermissionStatus.granted == status
+        ? AuthorizationStatus.authorized
+        : AuthorizationStatus.denied));
   }
 
   Future<String> _getFCMToken() async {
@@ -156,7 +163,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       token: token!,
     );
 
-    print(token);
+    //print(token);
     return token;
   }
 

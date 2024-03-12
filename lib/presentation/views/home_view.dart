@@ -212,7 +212,7 @@ class _Negocios extends StatelessWidget {
                             crossAxisCount: 2,
                             crossAxisSpacing: 0,
                             mainAxisSpacing: 0,
-                            mainAxisExtent: 170,
+                            mainAxisExtent: 200,
                           ),
                           itemCount: context
                               .read<NegociosBloc>()
@@ -237,7 +237,17 @@ class _Negocios extends StatelessWidget {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     child: ImageLoading(
-                                        photoUrl: negocio.photoUrl),
+                                      photoUrl: negocio.photoUrl,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    negocio.nombreEmpresa,
+                                    maxLines: 2,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ],
                               ),
