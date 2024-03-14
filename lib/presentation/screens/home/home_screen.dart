@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/negocios/widgets/widgets.dart';
-
-import '../cupones/widgets/widgets.dart';
-import '../promociones/widgets/widgets.dart';
 import '/presentation/blocs/blocs.dart';
 import '/presentation/screens.dart';
-
 import '/presentation/views/views.dart';
 import '/presentation/widgets/widgets.dart';
 
@@ -53,10 +48,6 @@ class _HomeScreenState extends State<HomeScreen>
     HomeView(),
     PromocionesView(),
     CuponesView(),
-    // SearchView(),
-    // FavoritesView(
-    //   pageIndex: 1,
-    // ),
     NotificationScreenSnapshot(),
     SettingsView(),
   ];
@@ -71,94 +62,13 @@ class _HomeScreenState extends State<HomeScreen>
         curve: Curves.easeInOut,
       );
     }
-    //final scaffoldKey = GlobalKey<ScaffoldState>();
-    // final theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Theme.of(context).primaryColor,
-          toolbarHeight: 60,
-          title: Row(
-            children: [
-              Image.asset(
-                'assets/images/app-logo-white.png',
-                width: 60,
-                height: 60,
-                fit: BoxFit.contain,
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              const Text(
-                'ENOFFERTA',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              )
-            ],
-          ),
-          actions: [
-            widget.pageIndex == 0
-                ? IconButton(
-                    color: Colors.white,
-                    icon: const Icon(
-                      Icons.search_outlined,
-                      size: 28,
-                    ),
-                    tooltip: 'Buscar Afiliados',
-                    onPressed: () async {
-                      await showSearch(
-                        context: context,
-                        delegate: SearchNegociosDelegate(
-                            context.read<NegociosBloc>().state.negocios),
-                      );
-                    },
-                  )
-                : widget.pageIndex == 1
-                    ? IconButton(
-                        color: Colors.white,
-                        icon: const Icon(
-                          Icons.search_outlined,
-                          size: 28,
-                        ),
-                        tooltip: 'Buscar Ofertas',
-                        onPressed: () async {
-                          await showSearch(
-                            context: context,
-                            delegate: SearchPromocionesDelegate(
-                                context
-                                    .read<PromocionesBloc>()
-                                    .state
-                                    .promociones,
-                                context.read<NegociosBloc>().state.negocios),
-                          );
-                        },
-                      )
-                    : widget.pageIndex == 2
-                        ? IconButton(
-                            color: Colors.white,
-                            icon: const Icon(
-                              Icons.search_outlined,
-                              size: 28,
-                            ),
-                            tooltip: 'Buscar Cupones',
-                            onPressed: () async {
-                              await showSearch(
-                                context: context,
-                                delegate: SearchCuponesDelegate(
-                                    context.read<CuponesBloc>().state.cupones,
-                                    context
-                                        .read<NegociosBloc>()
-                                        .state
-                                        .negocios),
-                              );
-                            },
-                          )
-                        : const SizedBox(),
-          ],
+          toolbarHeight: 30,
         ),
-        // drawer: const CustomDrawer(),
         backgroundColor: Colors.white,
         extendBody: true,
-        // key: scaffoldKey,
         body: SafeArea(
           child: PageView(
             physics: const NeverScrollableScrollPhysics(),
