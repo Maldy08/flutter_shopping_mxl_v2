@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../screens/negocios/widgets/widgets.dart';
 import '/infrastructure/models/models.dart';
 import '/presentation/blocs/blocs.dart';
 import '/presentation/widgets/widgets.dart';
@@ -59,116 +58,11 @@ class _HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Column(
         children: [
-          Container(
-            color: Theme.of(context).primaryColor,
-            child: SizedBox(
-              height: height * 0.25,
-              width: double.infinity,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 40,
-                    child: Image.asset('assets/images/app-logo-white.png'),
-                  ),
-                  const SizedBox(height: 5),
-                  const Text(
-                    'EnOfferta',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  const Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Text(
-                        'Bienvenido!',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  const Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Text(
-                        'Descubre los afiliados en tu ciudad!',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Align(
-                          alignment: Alignment.bottomLeft,
-                          child: SizedBox(
-                            width: 250,
-                            height: 40,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                isDense: true,
-                                prefixIcon: Icon(
-                                  Icons.search_outlined,
-                                  color: theme.primaryColor,
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                                labelText: 'Buscar',
-                                border: const OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                              ),
-                              onTap: () async {
-                                await showSearch(
-                                  context: context,
-                                  delegate: SearchNegociosDelegate(context
-                                      .read<NegociosBloc>()
-                                      .state
-                                      .negocios),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Image.asset(
-                          'assets/images/afiliadosldpi.png',
-                          width: 110,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-/*           Text(
-            'AFILIADOS',
-            style: TextStyle(fontSize: 16),
-          ), */
-
-          const _Negocios(),
+          HeaderAfiliados(),
+          _Negocios(),
           // const SizedBox(height: 100),
         ],
       ),
@@ -185,21 +79,26 @@ class _Negocios extends StatelessWidget {
       color: Theme.of(context).primaryColor,
       child: context.watch<NegociosBloc>().state.status ==
               NegociosStatus.fetching
-          ? SizedBox(
+          ? Container(
+              color: Theme.of(context).primaryColor,
               height: 400,
+              width: double.infinity,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SpinPerfect(
                     infinite: true,
-                    child: Icon(
+                    child: const Icon(
                       Icons.refresh_outlined,
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.white,
                       size: 50,
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Text('Cargando informacion...'),
+                  const Text(
+                    'Cargando informacion...',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ],
               ),
             )
@@ -255,10 +154,6 @@ class _Negocios extends StatelessWidget {
                             return GestureDetector(
                               onTap: () {
                                 context.push('/home/0/negocio/${negocio.id}');
-                                // ScaffoldMessenger.of(context)
-                                //     .hideCurrentSnackBar();
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                //     SnackBar(content: Text(negocio.id)));
                               },
                               child: Column(
                                 children: [

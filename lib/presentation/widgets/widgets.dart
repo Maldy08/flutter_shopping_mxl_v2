@@ -7,3 +7,5 @@ export '/presentation/widgets/shared/no_image.dart';
 export './shared/image_loading.dart';
 export '/presentation/widgets/shared/custom_elevated_button_white.dart';
 export '/presentation/widgets/shared/custom_drawer.dart';
+export '/presentation/widgets/shared/header_ofertas.dart';
+export '/presentation/widgets/shared/header_afiliados.dart';

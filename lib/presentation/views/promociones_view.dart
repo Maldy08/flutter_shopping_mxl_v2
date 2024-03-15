@@ -24,22 +24,20 @@ class _PromocionesViewState extends State<PromocionesView>
     final negocios = context.read<NegociosBloc>().state.negocios;
 
     return Container(
-      padding: const EdgeInsets.all(10),
-      color: Colors.white,
+      color: Colors.grey[200],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              '${promociones.length} OFERTAS',
-              style: const TextStyle(fontSize: 16),
+          const HeaderOfertas(),
+          Container(
+            padding: const EdgeInsets.only(top: 30),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(40),
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Expanded(
+            height: 500,
             child: RefreshIndicator(
               onRefresh: () async {
                 //await Future.delayed(const Duration(seconds: 2))
@@ -98,7 +96,7 @@ class _PromocionesViewState extends State<PromocionesView>
                                       child: Text(
                                         promocion.descripcion,
                                         style: const TextStyle(
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w400,
                                         ),
                                       ),
@@ -109,7 +107,7 @@ class _PromocionesViewState extends State<PromocionesView>
                                     Text(
                                       negocio.first.nombreEmpresa,
                                       style: const TextStyle(
-                                        fontSize: 12,
+                                        fontSize: 14,
                                       ),
                                     ),
                                   ],
@@ -136,44 +134,6 @@ class _PromocionesViewState extends State<PromocionesView>
                               ],
                             ),
                           ),
-
-                          // Container(
-                          //   decoration: BoxDecoration(
-                          //     color: bgContainer,
-                          //     borderRadius: BorderRadius.circular(10),
-                          //   ),
-                          //   child: Padding(
-                          //     padding: const EdgeInsets.all(1),
-                          //     child: ClipRRect(
-                          //       borderRadius: BorderRadius.circular(10),
-                          //       child: Image.asset(
-                          //         'assets/images/price-tag.png',
-                          //         fit: BoxFit.cover,
-                          //         width: 150,
-                          //         height: 150,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // const SizedBox(
-                          //   height: 5,
-                          // ),
-                          // Expanded(
-                          //   child: Column(
-                          //     children: [
-                          //       Text(
-                          //         maxLines: 3,
-                          //         softWrap: true,
-                          //         promocion.descripcion,
-                          //         textAlign: TextAlign.center,
-                          //         style: const TextStyle(
-                          //           fontSize: 14,
-                          //           fontFamily: 'Poppins',
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                         ],
                       ),
                     );
