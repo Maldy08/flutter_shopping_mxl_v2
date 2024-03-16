@@ -99,8 +99,8 @@ class HeaderOfertas extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Image.asset(
-                    'assets/images/afiliadosldpi.png',
-                    width: 110,
+                    'assets/images/ofertasldpi.png',
+                    width: 80,
                   ),
                 ),
               ],
