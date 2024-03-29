@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'config/config.dart';
 import 'infrastructure/infrastructure.dart';
@@ -92,6 +95,26 @@ void main() async {
       ),
     ),
   );
+
+  final StreamSubscription<InternetConnectionStatus> listener =
+      InternetConnectionChecker().onStatusChange.listen(
+    (InternetConnectionStatus status) {
+      switch (status) {
+        case InternetConnectionStatus.connected:
+          // ignore: avoid_print
+          print('Data connection is available.');
+          break;
+        case InternetConnectionStatus.disconnected:
+          // ignore: avoid_print
+          print('You are disconnected from the internet.');
+          break;
+      }
+    },
+  );
+
+  // close listener after 30 seconds, so the program doesn't run forever
+  await Future<void>.delayed(const Duration(seconds: 30));
+  await listener.cancel();
 }
 
 class MainApp extends StatelessWidget {

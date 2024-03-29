@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_shopping_mxl_v2/presentation/screens/promociones/widgets/widgets.dart';
-
+import 'package:flutter_shopping_mxl_v2/presentation/screens/cupones/widgets/widgets.dart';
 import '../../blocs/blocs.dart';
 
-class HeaderOfertas extends StatelessWidget {
-  const HeaderOfertas({super.key});
+class HeaderCupones extends StatelessWidget {
+  const HeaderCupones({super.key});
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final theme = Theme.of(context);
+
     return Container(
       color: Theme.of(context).primaryColor,
       child: SizedBox(
@@ -49,7 +49,7 @@ class HeaderOfertas extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
-                  'Descubre las ofertas en tu ciudad!',
+                  'Descubre los cupones en tu ciudad!',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,
@@ -87,11 +87,8 @@ class HeaderOfertas extends StatelessWidget {
                         onTap: () async {
                           await showSearch(
                             context: context,
-                            delegate: SearchPromocionesDelegate(
-                                context
-                                    .read<PromocionesBloc>()
-                                    .state
-                                    .promociones,
+                            delegate: SearchCuponesDelegate(
+                                context.read<CuponesBloc>().state.cupones,
                                 context.read<NegociosBloc>().state.negocios),
                           );
                         },
