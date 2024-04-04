@@ -115,7 +115,7 @@ class _Negocios extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 500,
+                      height: MediaQuery.of(context).size.height * 0.60,
                       child: RefreshIndicator(
                         onRefresh: () async {
                           // await Future.delayed(const Duration(seconds: 2));

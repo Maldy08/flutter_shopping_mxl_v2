@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import '/presentation/blocs/blocs.dart';
 import '/presentation/screens.dart';
 import '/presentation/views/views.dart';
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen>
           backgroundColor: Theme.of(context).primaryColor,
           toolbarHeight: 30,
         ),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: bgContainer,
         extendBody: true,
         body: SafeArea(
           child: PageView(
