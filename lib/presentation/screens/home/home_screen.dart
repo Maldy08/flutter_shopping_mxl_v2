@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen>
           backgroundColor: Theme.of(context).primaryColor,
           toolbarHeight: 30,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).primaryColor,
         extendBody: true,
         body: SafeArea(
           child: PageView(

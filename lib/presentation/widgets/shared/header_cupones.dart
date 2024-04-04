@@ -36,7 +36,7 @@ class HeaderCupones extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
-                  'Ofertas',
+                  'Cupones',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -100,7 +100,7 @@ class HeaderCupones extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Image.asset(
-                    'assets/images/ofertasldpi.png',
+                    'assets/images/cuponesldpi.png',
                     width: 80,
                   ),
                 ),
