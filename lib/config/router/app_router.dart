@@ -39,6 +39,11 @@ GoRouter routes(AuthenticationBloc bloc) {
         builder: (context, state) => const RegisterScreen(),
       ),
       GoRoute(
+        path: '/forgot-password',
+        name: ForgotPasswordScreen.name,
+        builder: (context, state) => const ForgotPasswordScreen(),
+      ),
+      GoRoute(
         path: '/account-created',
         name: AccountCreatedScreen.name,
         builder: (context, state) => const AccountCreatedScreen(),

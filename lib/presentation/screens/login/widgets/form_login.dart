@@ -125,15 +125,34 @@ class _FormLoginState extends State<FormLogin> {
                       'No tienes una cuenta?',
                     ),
                     TextButton(
-                        onPressed: () {
-                          context.push('/register');
-                        },
-                        child: const Text(
-                          'Regístrate!',
-                        ))
+                      onPressed: () {
+                        context.push('/register');
+                      },
+                      child: const Text(
+                        'Regístrate!',
+                      ),
+                    )
                   ],
                 ),
-              )
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: Row(
+                  children: [
+                    const Text(
+                      'Olvidaste tu contraseña? ',
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        context.push('/forgot-password');
+                      },
+                      child: const Text(
+                        'Recupérala!',
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import '../../../config/theme/app_theme.dart';
 import '../../widgets/shared/custom_appbar.dart';
+import 'widgets/form_forgot_password.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
+  static const String name = "forgot_password_screen";
   const ForgotPasswordScreen({super.key});
 
   @override

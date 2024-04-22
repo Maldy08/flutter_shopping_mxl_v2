@@ -16,3 +16,4 @@ export '../presentation/screens/promociones/promociones_screen.dart';
 export '../presentation/screens/register/register_screen.dart';
 export '../presentation/screens/theme_changer/theme_changer_screen.dart';
 export '../presentation/screens/welcome/welcome_screen.dart';
+export '../presentation/screens/forgot_password/forgot_password_screen.dart';

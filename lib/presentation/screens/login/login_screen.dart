@@ -37,7 +37,7 @@ class _LoginView extends StatelessWidget {
               const LoginImage(),
               Container(
                 width: 350,
-                height: 300,
+                height: 350,
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
