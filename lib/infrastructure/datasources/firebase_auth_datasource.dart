@@ -98,7 +98,8 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
             'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg',
         'favorites_negocios': [],
         'favorites_products': [],
-        'token': ''
+        'token': '',
+        'type_user': 'user_with_google',
       });
       await _firebaseAnalytics.logLogin(loginMethod: 'google', parameters: {
         'email': _firebaseAuth.currentUser!.email,
@@ -181,7 +182,8 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
             'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg',
         'favorites_negocios': [],
         'favorites_products': [],
-        'token': ''
+        'token': '',
+        'type_user': 'user_with_apple',
       });
 
       await _firebaseFirestore.collection('tokens').doc().set(
@@ -291,6 +293,7 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'favorites_products': [],
         'token': '',
         'first_login': true,
+        'type_user': 'user_with_email_and_password',
       });
 
       await _firebaseAuth.signInWithEmailAndPassword(
