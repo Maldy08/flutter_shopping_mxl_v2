@@ -63,6 +63,9 @@ void main() async {
           create: (_) => LoginCubit(),
         ),
         BlocProvider(
+          create: (_) => ForgotPasswordCubit(),
+        ),
+        BlocProvider(
           create: (_) => RegisterCubit(),
         ),
         BlocProvider(

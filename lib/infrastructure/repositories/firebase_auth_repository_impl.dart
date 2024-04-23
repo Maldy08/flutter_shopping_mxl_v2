@@ -55,6 +55,11 @@ class FirebaseAuthRepositoryImpl extends AuthRepository {
     return datasource.deleteUser();
   }
 
+  @override
+  Future<void> resetPassword({required String email}) {
+    return datasource.resetPassword(email: email);
+  }
+
   // @override
   // Future<User?> getCurrentAppUser({required String email}) {
   //   return datasource.getCurrentAppUser(email: email);

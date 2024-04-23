@@ -10,6 +10,7 @@ abstract class AuthRepository {
   });
   Future<void> onUserChange();
   Future<void> deleteUser();
+  Future<void> resetPassword({required String email});
   // Future<bool> isUserExists({required String email});
   // Future<User?> getCurrentAppUser({required String email});
 }

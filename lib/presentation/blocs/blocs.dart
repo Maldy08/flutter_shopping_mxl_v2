@@ -9,3 +9,4 @@ export 'promociones/promociones_bloc.dart';
 export 'cupones/cupones_bloc.dart';
 export 'fcmnotifications/fcmnotifications_bloc.dart';
 export 'shared_preferences/shared_preferences_bloc_bloc.dart';
+export 'forgot_password/forgot_password_cubit.dart';

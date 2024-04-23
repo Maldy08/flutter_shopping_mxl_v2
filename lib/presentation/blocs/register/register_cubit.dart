@@ -120,6 +120,12 @@ class RegisterCubit extends Cubit<RegisterState> {
     );
   }
 
+  Future<void> onResetPassword() async {
+    _touchEveryField();
+    if (!state.isValid) return;
+    await _resetPassword(state.email.value);
+  }
+
   void initializeState() {
     emit(state.copyWith(
         username: const Username.pure(),
@@ -156,6 +162,33 @@ class RegisterCubit extends Cubit<RegisterState> {
         email: email,
         password: password,
       );
+    } catch (e) {
+      emit(state.copyWith(
+        isPosting: false,
+        status: FormzSubmissionStatus.failure,
+        errorMessage: e.toString(),
+      ));
+
+      emit(state.copyWith(
+        isPosting: false,
+        // isFormPosted: true,
+        status: FormzSubmissionStatus.initial,
+      ));
+      // initializeState();
+    }
+    // emit(state.copyWith(
+    //   isPosting: false,
+    //   status: FormzSubmissionStatus.initial,
+    // ));
+  }
+
+  Future<void> _resetPassword(String email) async {
+    emit(state.copyWith(
+        isPosting: true, status: FormzSubmissionStatus.inProgress));
+    //await Future.delayed(const Duration(seconds: 2));
+    //emit(state.copyWith(isPosting: false));
+    try {
+      await _firebaseAuthRepositoryImpl.resetPassword(email: email);
     } catch (e) {
       emit(state.copyWith(
         isPosting: false,

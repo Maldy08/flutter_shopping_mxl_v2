@@ -361,6 +361,11 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
     await _firebaseAuth.currentUser?.delete();
   }
 
+  @override
+  Future<void> resetPassword({required String email}) {
+    return _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
   // Future<void> updateMissingUserProperties(User user) async {
   //   if (user.photoURL == null) {
   //     user.providerData.forEach((provider) async {
