@@ -43,31 +43,22 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'email': email,
         'password': password,
       });
+
+      await _firebaseFirestore
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .where('verify', isEqualTo: false)
+          .get()
+          .then((value) => {
+                if (value.size > 0) {throw Exception('Email no verificado')}
+              });
+
       await _firebaseAuth
           .signInWithEmailAndPassword(
             email: email,
             password: password,
           )
-          .then((user) => {
-                if (user.user!.emailVerified)
-                  {
-                    _firebaseFirestore
-                        .collection('users')
-                        .where('email', isEqualTo: email)
-                        .get()
-                        .then((value) => {
-                              if (value.size > 0)
-                                {
-                                  _firebaseFirestore
-                                      .collection('users')
-                                      .doc(value.docs.first.id)
-                                      .update({'verify': true})
-                                }
-                            })
-                  }
-                else
-                  {throw Exception('Email no verificado')}
-              });
+          .then((value) => value.user!.reload());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw Exception('No user found for that email.');
