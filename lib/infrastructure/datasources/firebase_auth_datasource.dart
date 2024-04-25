@@ -43,8 +43,31 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'email': email,
         'password': password,
       });
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+      await _firebaseAuth
+          .signInWithEmailAndPassword(
+            email: email,
+            password: password,
+          )
+          .then((user) => {
+                if (user.user!.emailVerified)
+                  {
+                    _firebaseFirestore
+                        .collection('users')
+                        .where('email', isEqualTo: email)
+                        .get()
+                        .then((value) => {
+                              if (value.size > 0)
+                                {
+                                  _firebaseFirestore
+                                      .collection('users')
+                                      .doc(value.docs.first.id)
+                                      .update({'verify': true})
+                                }
+                            })
+                  }
+                else
+                  {throw Exception('Email no verificado')}
+              });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw Exception('No user found for that email.');
@@ -293,11 +316,16 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'favorites_products': [],
         'token': '',
         'first_login': true,
+        'verify': false,
         'type_user': 'user_with_email_and_password',
       });
 
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+      await _firebaseAuth.currentUser!
+          .sendEmailVerification()
+          .then((value) => print('Email de verificacion enviado'));
+
+      // await _firebaseAuth.signInWithEmailAndPassword(
+      //     email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         throw Exception('Este email ya se encuentra en uso!');
