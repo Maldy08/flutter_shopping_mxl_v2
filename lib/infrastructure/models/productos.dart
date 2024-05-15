@@ -8,6 +8,7 @@ class Productos {
     required this.precio,
     required this.photoUrl,
     required this.uid,
+    required this.web,
   });
 
   final String id;
@@ -18,6 +19,7 @@ class Productos {
   final String precio;
   final String photoUrl;
   final String uid;
+  final String web;
 
   factory Productos.fromJson(Map<String, dynamic> json) => Productos(
         id: json["id"],
@@ -28,6 +30,7 @@ class Productos {
         precio: json["precio"],
         photoUrl: json["photoUrl"],
         uid: json["uid"],
+        web: json["web"] ?? '',
       );
 
   factory Productos.empty() => const Productos(
@@ -38,7 +41,8 @@ class Productos {
       nombreNegocio: '',
       precio: '',
       photoUrl: '',
-      uid: '');
+      uid: '',
+      web: '');
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -49,5 +53,6 @@ class Productos {
         "precio": precio,
         "photoUrl": photoUrl,
         "uid": uid,
+        "web": web,
       };
 }

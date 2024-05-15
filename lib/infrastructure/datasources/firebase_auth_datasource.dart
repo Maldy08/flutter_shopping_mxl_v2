@@ -44,14 +44,14 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'password': password,
       });
 
-      await _firebaseFirestore
-          .collection('users')
-          .where('email', isEqualTo: email)
-          .where('verify', isEqualTo: false)
-          .get()
-          .then((value) => {
-                if (value.size > 0) {throw Exception('Email no verificado')}
-              });
+      // await _firebaseFirestore
+      //     .collection('users')
+      //     .where('email', isEqualTo: email)
+      //     .where('verify', isEqualTo: false)
+      //     .get()
+      //     .then((value) => {
+      //           if (value.size > 0) {throw Exception('Email no verificado')}
+      //         });
 
       await _firebaseAuth
           .signInWithEmailAndPassword(
@@ -311,9 +311,9 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'type_user': 'user_with_email_and_password',
       });
 
-      await _firebaseAuth.currentUser!
-          .sendEmailVerification()
-          .then((value) => print('Email de verificacion enviado'));
+      await _firebaseAuth.currentUser!.sendEmailVerification().then((value) => {
+            _firebaseAuth.signOut(),
+          });
 
       // await _firebaseAuth.signInWithEmailAndPassword(
       //     email: email, password: password);
@@ -382,7 +382,17 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
 
   @override
   Future<void> resetPassword({required String email}) {
-    return _firebaseAuth.sendPasswordResetEmail(email: email);
+    return _firebaseAuth.sendPasswordResetEmail(
+        email: email,
+        actionCodeSettings: ActionCodeSettings(
+          url: 'https://enofferta.com/auth/login',
+          handleCodeInApp: true,
+          iOSBundleId: 'com.example.ios',
+          androidPackageName: 'com.example.android',
+          androidInstallApp: true,
+          androidMinimumVersion: '12',
+          dynamicLinkDomain: 'enofferta.page.link',
+        ));
   }
 
   // Future<void> updateMissingUserProperties(User user) async {

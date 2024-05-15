@@ -10,5 +10,6 @@ class ProdcutosMapper {
         precio: productos.precio,
         photoUrl: productos.photoUrl,
         uid: productos.uid,
+        web: productos.web,
       );
 }

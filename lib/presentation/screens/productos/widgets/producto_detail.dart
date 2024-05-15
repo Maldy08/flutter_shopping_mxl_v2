@@ -84,17 +84,17 @@ class ProductoDetails extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: SizedBox(
-                          height: 100,
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: QrImageView(
-                              data: producto.id,
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Expanded(
+                      //   child: SizedBox(
+                      //     height: 100,
+                      //     child: Align(
+                      //       alignment: Alignment.bottomRight,
+                      //       child: QrImageView(
+                      //         data: producto.id,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

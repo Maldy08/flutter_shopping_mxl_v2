@@ -53,6 +53,13 @@ class AccountCreatedScreen extends StatelessWidget {
                           style: TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          'Verifica tu correo electronico para poder iniciar sesion',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        const SizedBox(
                           height: 20,
                         ),
                         SizedBox(
@@ -60,10 +67,10 @@ class AccountCreatedScreen extends StatelessWidget {
                           child: FadeIn(
                             delay: const Duration(milliseconds: 1500),
                             child: CustomElevatedButton(
-                              label: 'Iniciar sesion',
+                              label: 'Continuar',
                               color: Colors.orange,
                               func: () {
-                                context.go('/home/0');
+                                context.go('/login');
                               },
                             ),
                           ),

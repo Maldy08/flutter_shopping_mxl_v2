@@ -1,26 +1,26 @@
 class Negocios {
-  const Negocios({
-    required this.ciudad,
-    required this.correo,
-    required this.direccion,
-    required this.estado,
-    required this.giroEmpresa,
-    required this.horario,
-    required this.id,
-    required this.nombreEmpresa,
-    required this.nombreEncargado,
-    required this.numeroEmpleados,
-    required this.pais,
-    required this.photoUrl,
-    required this.telefono,
-  });
+  const Negocios(
+      {required this.ciudad,
+      required this.correo,
+      required this.direccion,
+      required this.estado,
+      required this.giroEmpresa,
+      required this.horario,
+      required this.id,
+      required this.nombreEmpresa,
+      required this.nombreEncargado,
+      required this.numeroEmpleados,
+      required this.pais,
+      required this.photoUrl,
+      required this.telefono,
+      required this.web});
 
   final String ciudad;
   final String correo;
   final String direccion;
   final String estado;
   final String giroEmpresa;
-  final String horario;
+  final List<String> horario;
   final String id;
   final String nombreEmpresa;
   final String nombreEncargado;
@@ -28,6 +28,7 @@ class Negocios {
   final String pais;
   final String photoUrl;
   final String telefono;
+  final String web;
 
   factory Negocios.fromJson(Map<String, dynamic> json) => Negocios(
         ciudad: json["ciudad"],
@@ -35,7 +36,7 @@ class Negocios {
         direccion: json["direccion"],
         estado: json["estado"],
         giroEmpresa: json["giro_empresa"],
-        horario: json["horario"],
+        horario: List<String>.from(json["horario"].map((x) => x)),
         id: json["id"],
         nombreEmpresa: json["nombre_empresa"],
         nombreEncargado: json["nombre_encargado"],
@@ -43,6 +44,7 @@ class Negocios {
         pais: json["pais"],
         photoUrl: json["photoUrl"],
         telefono: json["telefono"],
+        web: json["web"] ?? '',
       );
 
   factory Negocios.empty() => const Negocios(
@@ -51,7 +53,7 @@ class Negocios {
         direccion: '',
         estado: '',
         giroEmpresa: '',
-        horario: '',
+        horario: [''],
         id: '',
         nombreEmpresa: '',
         nombreEncargado: '',
@@ -59,6 +61,7 @@ class Negocios {
         pais: '',
         photoUrl: '',
         telefono: '',
+        web: '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,5 +78,6 @@ class Negocios {
         "pais": pais,
         "photoUrl": photoUrl,
         "telefono": telefono,
+        "web": web,
       };
 }

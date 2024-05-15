@@ -96,7 +96,7 @@ class NegocioDetails extends StatelessWidget {
                               height: 10,
                             ),
                             Text(
-                              negocio.horario,
+                              negocio.horario.first,
                               style: const TextStyle(fontSize: 14),
                             ),
                             const SizedBox(
@@ -110,17 +110,17 @@ class NegocioDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 100,
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: QrImageView(
-                            data: negocio.id,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: SizedBox(
+                    //     height: 100,
+                    //     child: Align(
+                    //       alignment: Alignment.bottomRight,
+                    //       child: QrImageView(
+                    //         data: negocio.id,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

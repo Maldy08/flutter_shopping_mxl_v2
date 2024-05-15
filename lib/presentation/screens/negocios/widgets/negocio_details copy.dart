@@ -80,7 +80,7 @@ class NegocioDetails extends StatelessWidget {
                 ),
                 Flexible(
                   child: Text(
-                    negocio.horario,
+                    negocio.horario.first,
                     style: TextStyle(fontFamily: fontFamily),
                   ),
                 )

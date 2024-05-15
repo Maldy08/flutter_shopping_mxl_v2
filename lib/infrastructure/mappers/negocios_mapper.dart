@@ -15,5 +15,6 @@ class NegociosMapper {
         pais: negocios.pais,
         photoUrl: negocios.photoUrl,
         telefono: negocios.telefono,
+        web: negocios.web,
       );
 }

@@ -19,7 +19,7 @@ class NegociosState extends Equatable {
       direccion: '',
       estado: '',
       giroEmpresa: '',
-      horario: '',
+      horario: [''],
       id: '',
       nombreEmpresa: '',
       nombreEncargado: '',
@@ -27,6 +27,7 @@ class NegociosState extends Equatable {
       pais: '',
       photoUrl: '',
       telefono: '',
+      web: '',
     ),
   });
 

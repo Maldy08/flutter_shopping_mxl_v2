@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/shared/image_loading.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-
 import '/config/config.dart';
 import '/infrastructure/models/negocios.dart';
 import '/infrastructure/models/promociones.dart';
@@ -74,17 +71,17 @@ class PromocionesDetails extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: SizedBox(
-                          height: 100,
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: QrImageView(
-                              data: promocion.id,
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Expanded(
+                      //   child: SizedBox(
+                      //     height: 100,
+                      //     child: Align(
+                      //       alignment: Alignment.bottomRight,
+                      //       child: QrImageView(
+                      //         data: promocion.id,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -106,20 +103,23 @@ class PromocionesDetails extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              FilledButton(onPressed: () {}, child: Text(promocion.id)),
+              FilledButton(
+                onPressed: () {},
+                child: const Text('Canjear promoción'),
+              ),
               const SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white),
-                padding: const EdgeInsets.all(15),
-                child: BarcodeWidget(
-                  data: promocion.id,
-                  barcode: Barcode.code128(),
-                  width: double.infinity,
-                  height: 100,
-                ),
-              )
+              // Container(
+              //   decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(15),
+              //       color: Colors.white),
+              //   padding: const EdgeInsets.all(15),
+              //   child: BarcodeWidget(
+              //     data: promocion.id,
+              //     barcode: Barcode.code128(),
+              //     width: double.infinity,
+              //     height: 100,
+              //   ),
+              // )
             ],
           ),
         ),

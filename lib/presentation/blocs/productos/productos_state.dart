@@ -26,6 +26,7 @@ class ProductosState extends Equatable {
         precio: '',
         photoUrl: '',
         uid: '',
+        web: '',
       )});
 
   ProductosState copyWith({
