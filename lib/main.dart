@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/repositories/firebase_cupones_aplicados_repository_impl.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'config/config.dart';
@@ -20,6 +21,9 @@ final firebaseFCMnotificationsRepository =
     FirebaseFCMnotificationsRepositoryImpl();
 final firebasePromocionesAplicadasRepository =
     FirebasePromocionesAplicadasRepositoryImpl();
+
+final firebaseCuponesAplicadosRepository =
+    FirebaseCuponesAplicadosRepositoryImpl();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -94,6 +98,11 @@ void main() async {
           create: (_) => PromocionesAplicadasBloc(
               firebasePromocionesAplicadasRepositoryImpl:
                   firebasePromocionesAplicadasRepository),
+        ),
+        BlocProvider(
+          create: (_) => CuponesAplicadosBloc(
+              firebaseCuponesAplicadosRepositoryImpl:
+                  firebaseCuponesAplicadosRepository),
         ),
 
         // BlocProvider(

@@ -126,20 +126,47 @@ class _SettingsViewDetails extends StatelessWidget {
                           Icons.arrow_forward_ios_rounded,
                         ),
                         onPressed: () {
-                          context.push('/home/3/cupones');
+                          context.push('/home/3/ofertas-aplicadas');
                         },
                       ),
                       leading: IconButton(
                         iconSize: 20,
                         color: Colors.white,
                         onPressed: () {
-                          context.push('/home/3/cupones');
+                          context.push('/home/3/ofertas-aplicadas');
                         },
-                        icon: const Icon(LineariconsFree.tag_1),
+                        icon: const Icon(Linecons.tag),
                         style: AppTheme.iconButtonSettings(),
                       ),
                       title: const Text(
-                        'Cupones',
+                        'Ofertas aplicadas',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ),
+                  ),
+                  Card(
+                    color: Colors.white,
+                    elevation: 0,
+                    child: ListTile(
+                      trailing: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                        ),
+                        onPressed: () {
+                          context.push('/home/3/cupones-aplicados');
+                        },
+                      ),
+                      leading: IconButton(
+                        iconSize: 20,
+                        color: Colors.white,
+                        onPressed: () {
+                          context.push('/home/3/cupones-aplicados');
+                        },
+                        icon: const Icon(LineariconsFree.bookmark),
+                        style: AppTheme.iconButtonSettings(),
+                      ),
+                      title: const Text(
+                        'Cuopones aplicados',
                         style: TextStyle(fontSize: 14),
                       ),
                     ),
