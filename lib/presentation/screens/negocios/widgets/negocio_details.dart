@@ -95,10 +95,19 @@ class NegocioDetails extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            Text(
-                              negocio.horario.first,
-                              style: const TextStyle(fontSize: 14),
-                            ),
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: negocio.horario.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Text(
+                                    negocio.horario[index],
+                                    style: const TextStyle(fontSize: 14),
+                                  );
+                                }),
+                            // Text(
+                            //   negocio.horario.first,
+                            //   style: const TextStyle(fontSize: 14),
+                            // ),
                             const SizedBox(
                               height: 10,
                             ),
@@ -142,8 +151,11 @@ class NegocioDetails extends StatelessWidget {
                     const Text('Catalogo de Productos'),
                     SizedBox(
                       height: 250,
-                      child:
-                          ProductosList(productos: productos, negocio: negocio),
+                      child: productos.isEmpty
+                          ? const Center(
+                              child: Text('No hay productos disponibles'))
+                          : ProductosList(
+                              productos: productos, negocio: negocio),
                     )
                   ],
                 ),
@@ -166,7 +178,10 @@ class NegocioDetails extends StatelessWidget {
                     const Text('Catalogo de Promociones'),
                     SizedBox(
                       height: 250,
-                      child: PromocionesList(promociones: promociones),
+                      child: promociones.isEmpty
+                          ? const Center(
+                              child: Text('No hay promociones disponibles'))
+                          : PromocionesList(promociones: promociones),
                     )
                   ],
                 ),
@@ -189,7 +204,10 @@ class NegocioDetails extends StatelessWidget {
                     const Text('Catalogo de Cupones'),
                     SizedBox(
                       height: 250,
-                      child: CuponesList(cupones: cupones),
+                      child: cupones.isEmpty
+                          ? const Center(
+                              child: Text('No hay cupones disponibles'))
+                          : CuponesList(cupones: cupones),
                     )
                   ],
                 ),

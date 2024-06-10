@@ -34,7 +34,6 @@ class _SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     //final theme = Theme.of(context);
     final user = context.watch<AuthenticationBloc>().state.user;
-
     return _SettingsViewDetails(user: user);
   }
 }
@@ -56,35 +55,6 @@ class _SettingsViewDetails extends StatelessWidget {
           children: [
             Container(
               alignment: Alignment.center,
-              //color: Colors.amber,
-              // child: Column(
-              //   children: [
-              //     SizedBox(
-              //       height: 100,
-              //       width: 100,
-              //       child: CircleAvatar(
-              //         child: user.photoUrl != null
-              //             ? ClipOval(
-              //                 child: ImageLoading(photoUrl: user.photoUrl!))
-              //             : IconButton(
-              //                 onPressed: () {},
-              //                 icon: const Icon(Icons.account_circle_rounded),
-              //               ),
-              //       ),
-              //     ),
-              //     const SizedBox(height: 10),
-              //     Text(
-              //       user.name ?? '',
-              //       style: const TextStyle(
-              //           fontSize: 18, fontWeight: FontWeight.bold),
-              //     ),
-              //     const SizedBox(height: 10),
-              //     Text(
-              //       user.email ?? '',
-              //       style: TextStyle(color: Colors.grey.shade500),
-              //     )
-              //   ],
-              // ),
             ),
             const SizedBox(
               height: 20,
@@ -93,32 +63,6 @@ class _SettingsViewDetails extends StatelessWidget {
               padding: const EdgeInsets.only(right: 20, left: 20),
               child: Column(
                 children: [
-                  // Card(
-                  //   color: Colors.white,
-                  //   elevation: 0,
-                  //   child: ListTile(
-                  //     trailing: IconButton(
-                  //       icon: const Icon(Icons.arrow_forward_ios_rounded),
-                  //       onPressed: () {
-                  //         context.push('/home/3/notifications');
-                  //       },
-                  //     ),
-                  //     leading: IconButton(
-                  //       iconSize: 20,
-                  //       color: Colors.white,
-                  //       onPressed: () {
-                  //         context.push('/home/3/notifications');
-                  //       },
-                  //       icon: const Icon(Icons.notifications),
-                  //       style: AppTheme.iconButtonSettings(),
-                  //     ),
-                  //     title: const Text(
-                  //       'Notificaciones',
-                  //       style: TextStyle(fontSize: 14),
-                  //     ),
-                  //     // onTap: () => context.push('/home/3/notifications'),
-                  //   ),
-                  // ),
                   Card(
                     color: Colors.white,
                     elevation: 0,
@@ -169,6 +113,33 @@ class _SettingsViewDetails extends StatelessWidget {
                       ),
                       title: const Text(
                         'Favoritos',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ),
+                  ),
+                  Card(
+                    color: Colors.white,
+                    elevation: 0,
+                    child: ListTile(
+                      trailing: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                        ),
+                        onPressed: () {
+                          context.push('/home/3/cupones');
+                        },
+                      ),
+                      leading: IconButton(
+                        iconSize: 20,
+                        color: Colors.white,
+                        onPressed: () {
+                          context.push('/home/3/cupones');
+                        },
+                        icon: const Icon(LineariconsFree.tag_1),
+                        style: AppTheme.iconButtonSettings(),
+                      ),
+                      title: const Text(
+                        'Cupones',
                         style: TextStyle(fontSize: 14),
                       ),
                     ),

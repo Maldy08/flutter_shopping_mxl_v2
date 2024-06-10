@@ -26,7 +26,11 @@ class CuponesBloc extends Bloc<CuponesEvent, CuponesState> {
         await _firebaseCuponesRepositoryImpl.getCupones(uid: event.uid);
 
     emit(state.copyWith(
-        status: CuponesStatus.completed, cuponesByNegocio: cupones));
+        status: CuponesStatus.completed,
+        cuponesByNegocio: cupones
+            .where((cupon) =>
+                DateTime.parse(cupon.vigencia).isAfter(DateTime.now()))
+            .toList()));
   }
 
   Future<void> _fecthCuponeById(
@@ -42,6 +46,11 @@ class CuponesBloc extends Bloc<CuponesEvent, CuponesState> {
     emit(state.copyWith(status: CuponesStatus.fetching));
     final cupones = await _firebaseCuponesRepositoryImpl.getAllCupones();
 
-    emit(state.copyWith(status: CuponesStatus.completed, cupones: cupones));
+    emit(state.copyWith(
+        status: CuponesStatus.completed,
+        cupones: cupones
+            .where((cupon) =>
+                DateTime.parse(cupon.vigencia).isAfter(DateTime.now()))
+            .toList()));
   }
 }

@@ -2,9 +2,13 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/config.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
+
+import 'package:fluttericon/linecons_icons.dart';
 import 'package:go_router/go_router.dart';
 
 class PromocionesView extends StatefulWidget {
@@ -22,7 +26,37 @@ class _PromocionesViewState extends State<PromocionesView>
     super.build(context);
     final promociones = context.watch<PromocionesBloc>().state.promociones;
     final negocios = context.read<NegociosBloc>().state.negocios;
+    final color = Theme.of(context).primaryColor;
 
+    return promociones.isEmpty
+        ? Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Icon(Linecons.tag, size: 40, color: color),
+            const Text(
+              'No hay promociones disponibles',
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+          ])
+        : PromocionesData(promociones: promociones, negocios: negocios);
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+}
+
+class PromocionesData extends StatelessWidget {
+  const PromocionesData({
+    super.key,
+    required this.promociones,
+    required this.negocios,
+  });
+
+  final List<Promociones> promociones;
+  final List<Negocios> negocios;
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         color: Theme.of(context).primaryColor,
@@ -149,9 +183,6 @@ class _PromocionesViewState extends State<PromocionesView>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 

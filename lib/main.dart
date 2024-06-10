@@ -18,6 +18,8 @@ final firebaseCuponesRepository = FirebaseCuponesRepositoryImpl();
 final firebaseFCMtokensRepository = FirebaseFCMtokensRepositoryImpl();
 final firebaseFCMnotificationsRepository =
     FirebaseFCMnotificationsRepositoryImpl();
+final firebasePromocionesAplicadasRepository =
+    FirebasePromocionesAplicadasRepositoryImpl();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -87,6 +89,11 @@ void main() async {
         BlocProvider(
           create: (_) =>
               UserBloc(firebaseUserRepositoryImpl: firebaseUserRepository),
+        ),
+        BlocProvider(
+          create: (_) => PromocionesAplicadasBloc(
+              firebasePromocionesAplicadasRepositoryImpl:
+                  firebasePromocionesAplicadasRepository),
         ),
 
         // BlocProvider(

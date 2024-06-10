@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttericon/linearicons_free_icons.dart';
 
 import '/config/config.dart';
 import '/infrastructure/models/models.dart';
@@ -57,8 +58,8 @@ class _NotificationScreenSnapshotState
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.notifications_outlined,
-                  size: 60,
+                  LineariconsFree.alarm,
+                  size: 40,
                   color: colors.primary,
                 ),
                 const Text(

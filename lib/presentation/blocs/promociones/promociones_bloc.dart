@@ -28,7 +28,10 @@ class PromocionesBloc extends Bloc<PromocionesEvent, PromocionesState> {
     final promociones =
         await _firebasePromocionesRepositoryImpl.getPromociones(uid: event.uid);
     emit(state.copyWith(
-        promocionesByNegocio: promociones,
+        promocionesByNegocio: promociones
+            .where((promocion) =>
+                DateTime.parse(promocion.vigencia).isAfter(DateTime.now()))
+            .toList(),
         status: PromocionesStatus.completed));
   }
 
@@ -48,6 +51,10 @@ class PromocionesBloc extends Bloc<PromocionesEvent, PromocionesState> {
     final promociones =
         await _firebasePromocionesRepositoryImpl.getAllPromociones();
     emit(state.copyWith(
-        promociones: promociones, status: PromocionesStatus.completed));
+        promociones: promociones
+            .where((promocion) =>
+                DateTime.parse(promocion.vigencia).isAfter(DateTime.now()))
+            .toList(),
+        status: PromocionesStatus.completed));
   }
 }

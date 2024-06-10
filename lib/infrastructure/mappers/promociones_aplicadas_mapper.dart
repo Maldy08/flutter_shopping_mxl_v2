@@ -1,0 +1,15 @@
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/promociones_aplicadas.dart';
+
+class PromocionesAplicadasMapper {
+  static PromocionesAplicadas promocionesAplicadasToEntity(
+          PromocionesAplicadas promocionesAplicadas) =>
+      PromocionesAplicadas(
+        id: promocionesAplicadas.id,
+        idPromocion: promocionesAplicadas.idPromocion,
+        idUsuario: promocionesAplicadas.idUsuario,
+        idNegocio: promocionesAplicadas.idNegocio,
+        fechaAplicada: promocionesAplicadas.fechaAplicada,
+        vigencia: promocionesAplicadas.vigencia,
+        vecesAplicada: promocionesAplicadas.vecesAplicada,
+      );
+}

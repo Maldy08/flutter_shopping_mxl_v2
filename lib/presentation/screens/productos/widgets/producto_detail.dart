@@ -63,7 +63,7 @@ class ProductoDetails extends StatelessWidget {
                             children: [
                               Text(
                                 producto.descripcion,
-                                style: const TextStyle(fontSize: 16),
+                                style: const TextStyle(fontSize: 14),
                               ),
                               const SizedBox(
                                 height: 10,
@@ -115,8 +115,8 @@ class ProductoDetails extends StatelessWidget {
               //     ),
               //   ),
               // ),
-              const SizedBox(height: 20),
-              FilledButton(onPressed: () {}, child: Text(producto.id)),
+              // const SizedBox(height: 20),
+              // FilledButton(onPressed: () {}, child: Text(producto.id)),
               // const SizedBox(height: 10),
               // Container(
               //   decoration: BoxDecoration(

@@ -1,6 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/cupones.dart';
+import 'package:flutter_shopping_mxl_v2/infrastructure/models/negocios.dart';
+import 'package:fluttericon/linearicons_free_icons.dart';
 import '/config/config.dart';
 import '/presentation/blocs/cupones/cupones_bloc.dart';
 import '/presentation/blocs/negocios/negocios_bloc.dart';
@@ -23,7 +26,37 @@ class _CuponesViewState extends State<CuponesView>
     super.build(context);
     final cupones = context.watch<CuponesBloc>().state.cupones;
     final negocios = context.read<NegociosBloc>().state.negocios;
+    final color = Theme.of(context).primaryColor;
 
+    return cupones.isEmpty
+        ? Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Icon(LineariconsFree.bookmark, size: 40, color: color),
+            const Text(
+              'No hay cupones disponibles',
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+          ])
+        : CuponesData(cupones: cupones, negocios: negocios);
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+}
+
+class CuponesData extends StatelessWidget {
+  const CuponesData({
+    super.key,
+    required this.cupones,
+    required this.negocios,
+  });
+
+  final List<Cupones> cupones;
+  final List<Negocios> negocios;
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         color: Theme.of(context).primaryColor,
@@ -183,7 +216,4 @@ class _CuponesViewState extends State<CuponesView>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

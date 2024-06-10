@@ -8,3 +8,4 @@ export 'repositories/firebase_cupones_repository_impl.dart';
 export 'repositories/firebase_fcmtokens_repository_impl.dart';
 export 'repositories/firebase_fcmnotifications_repository_impl.dart';
 export 'repositories/firebase_user_repository_impl.dart';
+export 'repositories/firebase_promociones_aplicadas_repository_impl.dart';

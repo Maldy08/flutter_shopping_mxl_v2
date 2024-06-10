@@ -4,19 +4,17 @@ import 'dart:math';
 import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../models/models.dart' as models;
-
 import '/domain/datasource/auth_datasource.dart';
 
 class FirebaseAuthDatasource extends AuthDatasoruce {
   final FirebaseAuth _firebaseAuth;
-  final FirebaseAnalytics _firebaseAnalytics;
+  // final FirebaseAnalytics _firebaseAnalytics;
   final FirebaseFirestore _firebaseFirestore;
   final FirebaseMessaging _firebaseMessaging;
   final GoogleSignIn _googleSignIn;
@@ -25,34 +23,18 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
   FirebaseAuthDatasource(
       {CacheClient? cache,
       FirebaseAuth? firebaseAuth,
-      FirebaseAnalytics? firebaseAnalytics,
       GoogleSignIn? googleSignIn,
       FirebaseFirestore? firebaseFirestore,
       FirebaseMessaging? firebaseMessaging})
       : _cache = cache ?? CacheClient(),
         _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance,
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _firebaseAnalytics = firebaseAnalytics ?? FirebaseAnalytics.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard(),
         _firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance;
 
   @override
   Future<void> signIn({required String email, required String password}) async {
     try {
-      await _firebaseAnalytics.logEvent(name: 'login', parameters: {
-        'email': email,
-        'password': password,
-      });
-
-      // await _firebaseFirestore
-      //     .collection('users')
-      //     .where('email', isEqualTo: email)
-      //     .where('verify', isEqualTo: false)
-      //     .get()
-      //     .then((value) => {
-      //           if (value.size > 0) {throw Exception('Email no verificado')}
-      //         });
-
       await _firebaseAuth
           .signInWithEmailAndPassword(
             email: email,
@@ -115,10 +97,6 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
         'token': '',
         'type_user': 'user_with_google',
       });
-      await _firebaseAnalytics.logLogin(loginMethod: 'google', parameters: {
-        'email': _firebaseAuth.currentUser!.email,
-        'uid': _firebaseAuth.currentUser!.uid,
-      });
 
       await _firebaseFirestore.collection('tokens').doc().set(
         {
@@ -170,11 +148,6 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
 
       final exists =
           await isUserExists(email: _firebaseAuth.currentUser!.email!);
-
-      await _firebaseAnalytics.logLogin(loginMethod: 'apple', parameters: {
-        'email': _firebaseAuth.currentUser!.email,
-        'uid': _firebaseAuth.currentUser!.uid,
-      });
 
       if (exists) return;
 
@@ -394,23 +367,4 @@ class FirebaseAuthDatasource extends AuthDatasoruce {
           dynamicLinkDomain: 'enofferta.page.link',
         ));
   }
-
-  // Future<void> updateMissingUserProperties(User user) async {
-  //   if (user.photoURL == null) {
-  //     user.providerData.forEach((provider) async {
-  //       if (provider.photoURL != null) {
-  //         await user.updatePhotoURL(provider.photoURL);
-  //         return;
-  //       }
-  //     });
-  //   }
-  //   if (user.displayName == null) {
-  //     user.providerData.forEach((provider) async {
-  //       if (provider.displayName != null) {
-  //         await user.updateDisplayName(provider.displayName);
-  //         return;
-  //       }
-  //     });
-  //   }
-  // }
 }
