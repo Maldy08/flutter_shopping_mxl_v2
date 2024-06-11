@@ -20,7 +20,7 @@ class CuponesAplicados {
   factory CuponesAplicados.fromJson(Map<String, dynamic> json) =>
       CuponesAplicados(
         id: json['id'],
-        idCupon: json['id_promocion'],
+        idCupon: json['id_cupon'],
         idNegocio: json['id_negocio'],
         idUsuario: json['id_usuario'],
         fechaAplicada: json['fecha_aplicada'],

@@ -45,14 +45,14 @@ class _CuponesDetailsState extends State<CuponesDetails> {
           );
         }
 
-        if (state.status == CuponesAplicadosStatus.applied) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('Cupón aplicado con éxito'),
-              backgroundColor: Theme.of(context).primaryColor,
-            ),
-          );
-        }
+        // if (state.status == CuponesAplicadosStatus.applied) {
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     SnackBar(
+        //       content: const Text('Cupón aplicado con éxito'),
+        //       backgroundColor: Theme.of(context).primaryColor,
+        //     ),
+        //   );
+        // }
       },
       child: Container(
         color: bgContainer,
@@ -139,7 +139,75 @@ class _CuponesDetailsState extends State<CuponesDetails> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                FilledButton(onPressed: () {}, child: const Text('Canjear')),
+                context
+                        .watch<CuponesAplicadosBloc>()
+                        .state
+                        .cuponesAplicados
+                        .any((element) => element.idCupon == widget.cupon.id)
+                    ? FilledButton(
+                        onPressed: () {}, child: const Text('Cupón aplicado'))
+                    : FilledButton(
+                        onPressed: () {
+                          context.read<CuponesAplicadosBloc>().add(
+                                CuponesAplicadosSave(
+                                  idCupon: widget.cupon.id,
+                                  idNegocio: widget.negocio.id,
+                                  idUsuario:
+                                      context.read<UserBloc>().state.user.email,
+                                  vigencia: widget.cupon.vigencia,
+                                ),
+                              );
+
+                          showModalBottomSheet(
+                              context: context,
+                              isDismissible: false,
+                              builder: (context) {
+                                return Container(
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        context
+                                                    .watch<
+                                                        CuponesAplicadosBloc>()
+                                                    .state
+                                                    .status ==
+                                                CuponesAplicadosStatus.apliying
+                                            ? const Column(
+                                                children: [
+                                                  CircularProgressIndicator(),
+                                                  SizedBox(height: 10),
+                                                  Text('Aplicando cupón...')
+                                                ],
+                                              )
+                                            : const Text(
+                                                'Cupón aplicado con éxito'),
+                                        const SizedBox(height: 10),
+                                        context
+                                                    .watch<
+                                                        CuponesAplicadosBloc>()
+                                                    .state
+                                                    .status ==
+                                                CuponesAplicadosStatus.apliying
+                                            ? const SizedBox()
+                                            : FilledButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Cerrar'))
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
+                        },
+                        child: const Text('Canjear'),
+                      ),
                 const SizedBox(height: 10),
                 Container(
                   decoration: BoxDecoration(
