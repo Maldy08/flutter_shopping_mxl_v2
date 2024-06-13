@@ -13,7 +13,9 @@ class FirebasePromocionesAplicadasDataSource
   @override
   Future<void> aplicarPromocion(
       {required String idPromocion,
+      required String descripcion,
       required String idNegocio,
+      required String nombreNegocio,
       required String idUsuario,
       required String vigencia}) async {
     try {
@@ -36,7 +38,9 @@ class FirebasePromocionesAplicadasDataSource
             "id":
                 _firebaseFirestore.collection("promociones-aplicadas").doc().id,
             "id_promocion": idPromocion,
+            "descripcion": descripcion,
             "id_negocio": idNegocio,
+            "nombre_negocio": nombreNegocio,
             "id_usuario": idUsuario,
             "vigencia": vigencia,
             "fecha_aplicada": DateTime.now().toString(),

@@ -20,7 +20,9 @@ class PromocionesAplicadasState extends Equatable {
     this.promocionAplicada = const PromocionesAplicadas(
       id: '',
       idNegocio: '',
+      nombreNegocio: '',
       idPromocion: '',
+      descripcion: '',
       fechaAplicada: '',
       idUsuario: '',
       vecesAplicada: 0,

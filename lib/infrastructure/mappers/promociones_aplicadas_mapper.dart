@@ -6,8 +6,10 @@ class PromocionesAplicadasMapper {
       PromocionesAplicadas(
         id: promocionesAplicadas.id,
         idPromocion: promocionesAplicadas.idPromocion,
+        descripcion: promocionesAplicadas.descripcion,
         idUsuario: promocionesAplicadas.idUsuario,
         idNegocio: promocionesAplicadas.idNegocio,
+        nombreNegocio: promocionesAplicadas.nombreNegocio,
         fechaAplicada: promocionesAplicadas.fechaAplicada,
         vigencia: promocionesAplicadas.vigencia,
         vecesAplicada: promocionesAplicadas.vecesAplicada,

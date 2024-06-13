@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/shared/image_loading.dart';
-import '../../../blocs/blocs.dart';
 import '/config/config.dart';
 import '/infrastructure/models/negocios.dart';
 import '/infrastructure/models/promociones.dart';
+import '../../../blocs/blocs.dart';
 
 class PromocionesDetails extends StatefulWidget {
   final Promociones promocion;
@@ -63,7 +63,10 @@ class _PromocionesDetailsState extends State<PromocionesDetails> {
                 const SizedBox(
                   height: 30,
                 ),
-                SizedBox(
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.black),
                   child: Center(
                     child: ImageLoading(
                       photoUrl: widget.negocio.photoUrl,
@@ -125,6 +128,7 @@ class _PromocionesDetailsState extends State<PromocionesDetails> {
                         ),
                       )),
                 ),
+
                 const SizedBox(height: 20),
                 context.read<PromocionesAplicadasBloc>().state.status ==
                             PromocionesAplicadasStatus.applied ||
@@ -140,11 +144,14 @@ class _PromocionesDetailsState extends State<PromocionesDetails> {
                     : FilledButton(
                         onPressed: () {
                           context.read<PromocionesAplicadasBloc>().add(
-                              PromocionesAplicadasSave(
-                                  idPromocion: widget.promocion.id,
-                                  idNegocio: widget.promocion.idNegocio,
-                                  idUsuario: idUsuario,
-                                  vigencia: widget.promocion.vigencia));
+                                PromocionesAplicadasSave(
+                                    idPromocion: widget.promocion.id,
+                                    descripcion: widget.promocion.descripcion,
+                                    idNegocio: widget.promocion.idNegocio,
+                                    nombreNegocio: widget.negocio.nombreEmpresa,
+                                    idUsuario: idUsuario,
+                                    vigencia: widget.promocion.vigencia),
+                              );
                         },
                         child: context
                                     .watch<PromocionesAplicadasBloc>()

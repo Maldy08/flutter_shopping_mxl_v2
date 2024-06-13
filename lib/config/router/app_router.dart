@@ -92,6 +92,11 @@ GoRouter routes(AuthenticationBloc bloc) {
             ),
           ),
           GoRoute(
+            path: 'promociones-aplicadas',
+            name: PromocionesAplicadasScreen.name,
+            builder: (context, state) => const PromocionesAplicadasScreen(),
+          ),
+          GoRoute(
             path: 'profile',
             name: ProfileScreen.name,
             builder: (context, state) => const ProfileScreen(),

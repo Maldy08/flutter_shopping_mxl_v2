@@ -126,14 +126,14 @@ class _SettingsViewDetails extends StatelessWidget {
                           Icons.arrow_forward_ios_rounded,
                         ),
                         onPressed: () {
-                          context.push('/home/3/ofertas-aplicadas');
+                          context.push('/home/3/promociones-aplicadas');
                         },
                       ),
                       leading: IconButton(
                         iconSize: 20,
                         color: Colors.white,
                         onPressed: () {
-                          context.push('/home/3/ofertas-aplicadas');
+                          context.push('/home/3/promociones-aplicadas');
                         },
                         icon: const Icon(Linecons.tag),
                         style: AppTheme.iconButtonSettings(),

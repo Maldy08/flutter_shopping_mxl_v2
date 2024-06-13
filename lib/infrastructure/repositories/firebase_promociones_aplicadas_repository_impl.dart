@@ -14,12 +14,16 @@ class FirebasePromocionesAplicadasRepositoryImpl
   @override
   Future<void> aplicarPromocion(
       {required String idPromocion,
+      required String descripcion,
       required String idNegocio,
+      required String nombreNegocio,
       required String idUsuario,
       required String vigencia}) {
     return dataSource.aplicarPromocion(
         idPromocion: idPromocion,
+        descripcion: descripcion,
         idNegocio: idNegocio,
+        nombreNegocio: nombreNegocio,
         idUsuario: idUsuario,
         vigencia: vigencia);
   }

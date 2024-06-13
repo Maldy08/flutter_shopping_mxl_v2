@@ -42,7 +42,9 @@ class PromocionesAplicadasBloc
     await Future.delayed(const Duration(seconds: 5));
     await _firebasePromocionesAplicadasRepositoryImpl.aplicarPromocion(
         idPromocion: event.idPromocion,
+        descripcion: event.descripcion,
         idNegocio: event.idNegocio,
+        nombreNegocio: event.nombreNegocio,
         idUsuario: event.idUsuario,
         vigencia: event.vigencia);
     final promocionesAplicadas =
