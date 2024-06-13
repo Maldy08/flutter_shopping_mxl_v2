@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
-import 'package:go_router/go_router.dart';
 
 class PromocionesAplicadasScreen extends StatefulWidget {
   static const String name = "promociones_aplicadas_screen";
@@ -64,7 +62,7 @@ class _PromocionesAplicadasScreenState
                             ),
                             title: Text(promocion.nombreNegocio),
                             subtitle: Text(promocion.descripcion,
-                                maxLines: 2,
+                                maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(fontSize: 12)),
                             trailing:
