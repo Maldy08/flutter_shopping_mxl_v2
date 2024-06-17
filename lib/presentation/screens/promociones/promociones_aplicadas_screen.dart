@@ -27,8 +27,12 @@ class _PromocionesAplicadasScreenState
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text('Ofertas aplicadas'),
+          title: const Text(
+            'Ofertas aplicadas',
+            style: TextStyle(color: Colors.white),
+          ),
           centerTitle: true,
+          backgroundColor: Theme.of(context).colorScheme.primary,
         ),
         body: Padding(
           padding: const EdgeInsets.only(top: 5),
