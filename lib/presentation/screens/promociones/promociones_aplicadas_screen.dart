@@ -24,62 +24,67 @@ class _PromocionesAplicadasScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text(
-            'Ofertas aplicadas',
-            style: TextStyle(color: Colors.white),
-          ),
-          centerTitle: true,
-          backgroundColor: Theme.of(context).colorScheme.primary,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(top: 5),
-          child: SizedBox(child:
-              BlocBuilder<PromocionesAplicadasBloc, PromocionesAplicadasState>(
-            builder: (context, state) {
-              return ListView.builder(
-                itemCount: state.promocionesAplicadas.length,
-                itemBuilder: (context, index) {
-                  if (state.promocionesAplicadas.isEmpty) {
-                    return const Center(
-                        child: Text('No tienes ofertas aplicadas'));
-                  }
-                  final promocion = state.promocionesAplicadas[index];
-                  final neg = context
-                      .read<NegociosBloc>()
-                      .state
-                      .negocios
-                      .where((element) =>
-                          element.id == promocion.idNegocio.toString())
-                      .first
-                      .photoUrl;
+    return context
+            .read<PromocionesAplicadasBloc>()
+            .state
+            .promocionesAplicadas
+            .isEmpty
+        ? const Scaffold(
+            appBar: CustomAppBar(
+              title: 'Ofertas aplicadas',
+            ),
+            body: Center(child: Text('No tienes ofertas aplicadas')))
+        : Scaffold(
+            backgroundColor: Colors.white,
+            appBar: const CustomAppBar(
+              title: 'Ofertas aplicadas',
+            ),
+            body: Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: SizedBox(child: BlocBuilder<PromocionesAplicadasBloc,
+                  PromocionesAplicadasState>(
+                builder: (context, state) {
+                  return ListView.builder(
+                    itemCount: state.promocionesAplicadas.length,
+                    itemBuilder: (context, index) {
+                      if (state.promocionesAplicadas.isEmpty) {
+                        return const Center(
+                            child: Text('No tienes ofertas aplicadas'));
+                      }
+                      final promocion = state.promocionesAplicadas[index];
+                      final neg = context
+                          .read<NegociosBloc>()
+                          .state
+                          .negocios
+                          .where((element) =>
+                              element.id == promocion.idNegocio.toString())
+                          .first
+                          .photoUrl;
 
-                  return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 3),
-                      child: Card(
-                          color: bgContainer,
-                          elevation: 0,
-                          child: ListTile(
-                            leading: ImageLoading(
-                              photoUrl: neg,
-                              width: 100,
-                              height: 100,
-                            ),
-                            title: Text(promocion.nombreNegocio),
-                            subtitle: Text(promocion.descripcion,
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(fontSize: 12)),
-                            trailing:
-                                Text(promocion.fechaAplicada.substring(0, 10)),
-                          )));
+                      return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 3),
+                          child: Card(
+                              color: bgContainer,
+                              elevation: 0,
+                              child: ListTile(
+                                leading: ImageLoading(
+                                  photoUrl: neg,
+                                  width: 100,
+                                  height: 100,
+                                ),
+                                title: Text(promocion.nombreNegocio),
+                                subtitle: Text(promocion.descripcion,
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(fontSize: 12)),
+                                trailing: Text(
+                                    promocion.fechaAplicada.substring(0, 10)),
+                              )));
+                    },
+                  );
                 },
-              );
-            },
-          )),
-        ));
+              )),
+            ));
   }
 }

@@ -11,28 +11,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title),
-      leadingWidth: 100,
-      leading: ElevatedButton.icon(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        icon: const Icon(
-          Icons.arrow_back_rounded,
-        ),
-        label: const Text(''),
-        style: const ButtonStyle(
-          padding: MaterialStatePropertyAll(EdgeInsets.only(left: 5)),
-          backgroundColor: MaterialStatePropertyAll(Colors.white),
-          foregroundColor: MaterialStatePropertyAll(Colors.black),
-          elevation: MaterialStatePropertyAll(0),
-          shape: MaterialStatePropertyAll(
-            CircleBorder(),
-          ),
-        ),
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 20, color: Colors.white),
       ),
-      elevation: 0.0,
-      backgroundColor: Colors.white,
+      leadingWidth: 100,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        color: Colors.white,
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+      backgroundColor: Theme.of(context).primaryColor,
       foregroundColor: Colors.black,
     );
   }
