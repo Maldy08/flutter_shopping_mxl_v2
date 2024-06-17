@@ -37,6 +37,11 @@ class _CuponesAplicadosScreenState extends State<CuponesAplicadosScreen> {
               return ListView.builder(
                 itemCount: state.cuponesAplicados.length,
                 itemBuilder: (context, index) {
+                  if (state.cuponesAplicados.isEmpty) {
+                    return const Center(
+                        child: Text('No tienes cupones aplicados'));
+                  }
+
                   final cupon = state.cuponesAplicados[index];
                   final neg = context
                       .read<NegociosBloc>()

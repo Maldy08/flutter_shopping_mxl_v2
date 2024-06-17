@@ -38,6 +38,10 @@ class _PromocionesAplicadasScreenState
               return ListView.builder(
                 itemCount: state.promocionesAplicadas.length,
                 itemBuilder: (context, index) {
+                  if (state.promocionesAplicadas.isEmpty) {
+                    return const Center(
+                        child: Text('No tienes ofertas aplicadas'));
+                  }
                   final promocion = state.promocionesAplicadas[index];
                   final neg = context
                       .read<NegociosBloc>()
