@@ -45,3 +45,8 @@ class SaveToken extends UserEvent {
   final String email;
   const SaveToken(this.email, this.token);
 }
+
+class SetNegocios extends UserEvent {
+  final List<Negocios> negocios;
+  const SetNegocios(this.negocios);
+}

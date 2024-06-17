@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/blocs/negocios/negocios_bloc.dart';
 
 import '/infrastructure/models/models.dart';
 import '/infrastructure/repositories/firebase_user_repository_impl.dart';
@@ -10,7 +11,9 @@ part 'user_state.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   final FirebaseUserRepositoryImpl _firebaseUserRepositoryImpl;
 
-  UserBloc({FirebaseUserRepositoryImpl? firebaseUserRepositoryImpl})
+  UserBloc(
+      {FirebaseUserRepositoryImpl? firebaseUserRepositoryImpl,
+      NegociosBloc? negociosBloc})
       : _firebaseUserRepositoryImpl =
             firebaseUserRepositoryImpl ?? FirebaseUserRepositoryImpl(),
         super(const UserState()) {
@@ -20,6 +23,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<IsFavorite>(_isFavorite);
     on<IsFavoriteProduct>(_isFavoriteProduct);
     on<SaveToken>(_saveToken);
+    on<SetNegocios>(_setNegocios);
   }
 
   Future<void> _userLogged(UserLogged event, Emitter<UserState> emit) async {
@@ -112,5 +116,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   void _saveToken(SaveToken event, Emitter<UserState> emitter) async {
     await _firebaseUserRepositoryImpl.saveToken(
         email: event.email, token: event.token);
+  }
+
+  void _setNegocios(SetNegocios event, Emitter<UserState> emit) {
+    emit(state.copyWith(negocios: event.negocios));
   }
 }

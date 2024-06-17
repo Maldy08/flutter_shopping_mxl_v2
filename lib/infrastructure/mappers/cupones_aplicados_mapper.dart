@@ -6,8 +6,10 @@ class CuponesAplicadosMapper {
       CuponesAplicados(
         id: cuponesAplicados.id,
         idCupon: cuponesAplicados.idCupon,
+        descripcion: cuponesAplicados.descripcion,
         idUsuario: cuponesAplicados.idUsuario,
         idNegocio: cuponesAplicados.idNegocio,
+        nombreNegocio: cuponesAplicados.nombreNegocio,
         fechaAplicada: cuponesAplicados.fechaAplicada,
         vigencia: cuponesAplicados.vigencia,
         vecesAplicada: cuponesAplicados.vecesAplicada,

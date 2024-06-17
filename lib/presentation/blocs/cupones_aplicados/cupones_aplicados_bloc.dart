@@ -41,7 +41,9 @@ class CuponesAplicadosBloc
     await Future.delayed(const Duration(seconds: 5));
     await _firebaseCuponesAplicadosRepositoryImpl.aplicarCupon(
         idCupon: event.idCupon,
+        descripcion: event.descripcion,
         idNegocio: event.idNegocio,
+        nombreNegocio: event.nombreNegocio,
         idUsuario: event.idUsuario,
         vigencia: event.vigencia);
     final cuponesAplicados = await _firebaseCuponesAplicadosRepositoryImpl

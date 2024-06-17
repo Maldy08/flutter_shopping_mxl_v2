@@ -29,6 +29,12 @@ class _HomeViewState extends State<HomeView>
     context
         .read<FcmnotificationsBloc>()
         .add(FCMnotificationsFetched(email ?? 'pruebas@google.com'));
+
+    // 16/06/2024
+
+    context
+        .read<UserBloc>()
+        .add(SetNegocios(context.read<NegociosBloc>().state.negocios));
   }
 
   @override

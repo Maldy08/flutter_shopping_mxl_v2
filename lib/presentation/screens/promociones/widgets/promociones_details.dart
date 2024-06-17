@@ -31,8 +31,6 @@ class _PromocionesDetailsState extends State<PromocionesDetails> {
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width * 0.92;
-    final idUsuario = context.read<UserBloc>().state.user.email;
-
     return BlocListener<PromocionesAplicadasBloc, PromocionesAplicadasState>(
       listener: (context, state) {
         if (state.status == PromocionesAplicadasStatus.error) {
@@ -44,14 +42,14 @@ class _PromocionesDetailsState extends State<PromocionesDetails> {
           );
         }
 
-        if (state.status == PromocionesAplicadasStatus.applied) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('Promoción aplicada con éxito'),
-              backgroundColor: Theme.of(context).primaryColor,
-            ),
-          );
-        }
+        // if (state.status == PromocionesAplicadasStatus.applied) {
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     SnackBar(
+        //       content: const Text('Promoción aplicada con éxito'),
+        //       backgroundColor: Theme.of(context).primaryColor,
+        //     ),
+        //   );
+        // }
       },
       child: Container(
         color: bgContainer,
@@ -63,10 +61,7 @@ class _PromocionesDetailsState extends State<PromocionesDetails> {
                 const SizedBox(
                   height: 30,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.black),
+                SizedBox(
                   child: Center(
                     child: ImageLoading(
                       photoUrl: widget.negocio.photoUrl,
@@ -120,79 +115,92 @@ class _PromocionesDetailsState extends State<PromocionesDetails> {
                       color: Colors.white),
                   width: double.infinity,
                   child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Center(
-                        child: Text(
-                          widget.promocion.descripcion,
-                          textAlign: TextAlign.justify,
-                        ),
-                      )),
+                    padding: const EdgeInsets.all(15),
+                    child: Center(
+                      child: Text(
+                        widget.promocion.descripcion,
+                        textAlign: TextAlign.justify,
+                      ),
+                    ),
+                  ),
                 ),
-
                 const SizedBox(height: 20),
-                context.read<PromocionesAplicadasBloc>().state.status ==
-                            PromocionesAplicadasStatus.applied ||
-                        context
-                            .read<PromocionesAplicadasBloc>()
-                            .state
-                            .promocionesAplicadas
-                            .any((element) =>
-                                element.idPromocion == widget.promocion.id)
+                context
+                        .watch<PromocionesAplicadasBloc>()
+                        .state
+                        .promocionesAplicadas
+                        .any((element) =>
+                            element.idPromocion == widget.promocion.id)
                     ? FilledButton(
                         onPressed: () {},
-                        child: const Text('Promoción aplicada'))
+                        child: const Text('Promocion aplicada'))
                     : FilledButton(
                         onPressed: () {
                           context.read<PromocionesAplicadasBloc>().add(
                                 PromocionesAplicadasSave(
-                                    idPromocion: widget.promocion.id,
-                                    descripcion: widget.promocion.descripcion,
-                                    idNegocio: widget.promocion.idNegocio,
-                                    nombreNegocio: widget.negocio.nombreEmpresa,
-                                    idUsuario: idUsuario,
-                                    vigencia: widget.promocion.vigencia),
+                                  descripcion: widget.promocion.descripcion,
+                                  idPromocion: widget.promocion.id,
+                                  nombreNegocio: widget.negocio.nombreEmpresa,
+                                  idNegocio: widget.negocio.id,
+                                  idUsuario:
+                                      context.read<UserBloc>().state.user.email,
+                                  vigencia: widget.promocion.vigencia,
+                                ),
                               );
+
+                          showModalBottomSheet(
+                              context: context,
+                              isDismissible: false,
+                              builder: (context) {
+                                return Container(
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        context
+                                                    .watch<
+                                                        PromocionesAplicadasBloc>()
+                                                    .state
+                                                    .status ==
+                                                PromocionesAplicadasStatus
+                                                    .apliying
+                                            ? const Column(
+                                                children: [
+                                                  CircularProgressIndicator(),
+                                                  SizedBox(height: 10),
+                                                  Text('Aplicando promocion...')
+                                                ],
+                                              )
+                                            : const Text(
+                                                'Promocion aplicada con éxito'),
+                                        const SizedBox(height: 10),
+                                        context
+                                                    .watch<
+                                                        PromocionesAplicadasBloc>()
+                                                    .state
+                                                    .status ==
+                                                PromocionesAplicadasStatus
+                                                    .apliying
+                                            ? const SizedBox()
+                                            : FilledButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Cerrar'))
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
                         },
-                        child: context
-                                    .watch<PromocionesAplicadasBloc>()
-                                    .state
-                                    .status ==
-                                PromocionesAplicadasStatus.apliying
-                            ? Container(
-                                padding: const EdgeInsets.all(10),
-                                width: 250,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: const Row(
-                                  children: [
-                                    SizedBox(
-                                        height: 20,
-                                        width: 20,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                          color: Colors.white,
-                                        )),
-                                    SizedBox(width: 10),
-                                    Text('Aplicando promoción...'),
-                                  ],
-                                ),
-                              )
-                            : const Text('Aplicar promoción'),
+                        child: const Text('Aplicar'),
                       ),
                 const SizedBox(height: 10),
-                // Container(
-                //   decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(15),
-                //       color: Colors.white),
-                //   padding: const EdgeInsets.all(15),
-                //   child: BarcodeWidget(
-                //     data: promocion.id,
-                //     barcode: Barcode.code128(),
-                //     width: double.infinity,
-                //     height: 100,
-                //   ),
-                // )
               ],
             ),
           ),

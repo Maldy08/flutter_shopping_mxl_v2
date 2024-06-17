@@ -13,12 +13,16 @@ class FirebaseCuponesAplicadosRepositoryImpl
   @override
   Future<void> aplicarCupon(
       {required String idCupon,
+      required String descripcion,
       required String idNegocio,
+      required String nombreNegocio,
       required String idUsuario,
       required String vigencia}) {
     return dataSource.aplicarCupon(
         idCupon: idCupon,
+        descripcion: descripcion,
         idNegocio: idNegocio,
+        nombreNegocio: nombreNegocio,
         idUsuario: idUsuario,
         vigencia: vigencia);
   }

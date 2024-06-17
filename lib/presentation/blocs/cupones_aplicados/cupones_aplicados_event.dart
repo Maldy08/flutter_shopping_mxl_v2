@@ -18,13 +18,17 @@ class CuponesAplicadosFetched extends CuponesAplicadosEvent {
 
 class CuponesAplicadosSave extends CuponesAplicadosEvent {
   final String idCupon;
+  final String descripcion;
   final String idNegocio;
+  final String nombreNegocio;
   final String idUsuario;
   final String vigencia;
 
   const CuponesAplicadosSave({
     required this.idCupon,
+    required this.descripcion,
     required this.idNegocio,
+    required this.nombreNegocio,
     required this.idUsuario,
     required this.vigencia,
   });

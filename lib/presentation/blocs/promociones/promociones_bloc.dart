@@ -52,8 +52,8 @@ class PromocionesBloc extends Bloc<PromocionesEvent, PromocionesState> {
         await _firebasePromocionesRepositoryImpl.getAllPromociones();
     emit(state.copyWith(
         promociones: promociones
-            .where((promocion) =>
-                DateTime.parse(promocion.vigencia).isAfter(DateTime.now()))
+            //   .where((promocion) =>
+            //     DateTime.parse(promocion.vigencia).isAfter(DateTime.now()))
             .toList(),
         status: PromocionesStatus.completed));
   }

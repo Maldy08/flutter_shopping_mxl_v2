@@ -31,7 +31,7 @@ class _PromocionesAplicadasScreenState
           centerTitle: true,
         ),
         body: Padding(
-          padding: const EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: 5),
           child: SizedBox(child:
               BlocBuilder<PromocionesAplicadasBloc, PromocionesAplicadasState>(
             builder: (context, state) {

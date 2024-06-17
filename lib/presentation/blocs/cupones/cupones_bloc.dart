@@ -49,8 +49,8 @@ class CuponesBloc extends Bloc<CuponesEvent, CuponesState> {
     emit(state.copyWith(
         status: CuponesStatus.completed,
         cupones: cupones
-            .where((cupon) =>
-                DateTime.parse(cupon.vigencia).isAfter(DateTime.now()))
+            // .where((cupon) =>
+            //  DateTime.parse(cupon.vigencia).isAfter(DateTime.now()))
             .toList()));
   }
 }

@@ -150,7 +150,9 @@ class _CuponesDetailsState extends State<CuponesDetails> {
                         onPressed: () {
                           context.read<CuponesAplicadosBloc>().add(
                                 CuponesAplicadosSave(
+                                  descripcion: widget.cupon.descripcion,
                                   idCupon: widget.cupon.id,
+                                  nombreNegocio: widget.negocio.nombreEmpresa,
                                   idNegocio: widget.negocio.id,
                                   idUsuario:
                                       context.read<UserBloc>().state.user.email,

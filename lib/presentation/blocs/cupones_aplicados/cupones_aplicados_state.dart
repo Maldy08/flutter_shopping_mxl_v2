@@ -20,7 +20,9 @@ class CuponesAplicadosState extends Equatable {
     this.cuponAplicado = const CuponesAplicados(
       id: '',
       idNegocio: '',
+      nombreNegocio: '',
       idCupon: '',
+      descripcion: '',
       fechaAplicada: '',
       idUsuario: '',
       vecesAplicada: 0,

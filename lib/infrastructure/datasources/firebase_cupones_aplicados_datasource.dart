@@ -14,7 +14,9 @@ class FirebaseCuponesAplicadosDataSource extends CuponesAplicadosDataSource {
   @override
   Future<void> aplicarCupon(
       {required String idCupon,
+      required String descripcion,
       required String idNegocio,
+      required String nombreNegocio,
       required String idUsuario,
       required String vigencia}) async {
     try {
@@ -36,7 +38,9 @@ class FirebaseCuponesAplicadosDataSource extends CuponesAplicadosDataSource {
           _firebaseFirestore.collection("cupones-aplicados").add({
             "id": _firebaseFirestore.collection("cupones-aplicados").doc().id,
             "id_cupon": idCupon,
+            "descripcion": descripcion,
             "id_negocio": idNegocio,
+            "nombre_negocio": nombreNegocio,
             "id_usuario": idUsuario,
             "vigencia": vigencia,
             "fecha_aplicada": DateTime.now().toString(),

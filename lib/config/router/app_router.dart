@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/screens/cupones/cupones_aplicados_screen.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/tour/tour_screen.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/shared_preferences_test.dart';
@@ -96,6 +97,12 @@ GoRouter routes(AuthenticationBloc bloc) {
             name: PromocionesAplicadasScreen.name,
             builder: (context, state) => const PromocionesAplicadasScreen(),
           ),
+          GoRoute(
+            path: 'cupones-aplicados',
+            name: CuponesAplicadosScreen.name,
+            builder: (context, state) => const CuponesAplicadosScreen(),
+          ),
+
           GoRoute(
             path: 'profile',
             name: ProfileScreen.name,

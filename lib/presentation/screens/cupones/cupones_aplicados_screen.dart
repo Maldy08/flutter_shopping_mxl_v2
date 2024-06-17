@@ -59,9 +59,9 @@ class _CuponesAplicadosScreenState extends State<CuponesAplicadosScreen> {
                               width: 100,
                               height: 100,
                             ),
-                            title: Text(cupon.nombre),
+                            title: Text(cupon.nombreNegocio),
                             subtitle: Text(cupon.descripcion),
-                            trailing: Text(cupon.fechaFin),
+                            trailing: Text(cupon.vigencia.substring(0, 10)),
                           )));
                 },
               );
