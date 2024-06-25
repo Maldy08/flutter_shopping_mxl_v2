@@ -1,19 +1,13 @@
 part of 'cupones_aplicados_bloc.dart';
 
-class CuponesAplicadosEvent extends Equatable {
+class CuponesAplicadosEvent {
   const CuponesAplicadosEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
 class CuponesAplicadosFetched extends CuponesAplicadosEvent {
   final String idUsuario;
 
   const CuponesAplicadosFetched(this.idUsuario);
-
-  @override
-  List<Object> get props => [idUsuario];
 }
 
 class CuponesAplicadosSave extends CuponesAplicadosEvent {
@@ -32,7 +26,4 @@ class CuponesAplicadosSave extends CuponesAplicadosEvent {
     required this.idUsuario,
     required this.vigencia,
   });
-
-  @override
-  List<Object> get props => [idCupon, idNegocio, idUsuario, vigencia];
 }

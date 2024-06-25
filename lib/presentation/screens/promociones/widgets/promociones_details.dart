@@ -6,7 +6,7 @@ import '/infrastructure/models/negocios.dart';
 import '/infrastructure/models/promociones.dart';
 import '../../../blocs/blocs.dart';
 
-class PromocionesDetails extends StatefulWidget {
+class PromocionesDetails extends StatelessWidget {
   final Promociones promocion;
   final Negocios negocio;
 
@@ -15,18 +15,6 @@ class PromocionesDetails extends StatefulWidget {
     required this.promocion,
     required this.negocio,
   });
-
-  @override
-  State<PromocionesDetails> createState() => _PromocionesDetailsState();
-}
-
-class _PromocionesDetailsState extends State<PromocionesDetails> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<PromocionesAplicadasBloc>().add(
-        PromocionesAplicadasFetched(context.read<UserBloc>().state.user.email));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +52,7 @@ class _PromocionesDetailsState extends State<PromocionesDetails> {
                 SizedBox(
                   child: Center(
                     child: ImageLoading(
-                      photoUrl: widget.negocio.photoUrl,
+                      photoUrl: negocio.photoUrl,
                       fit: BoxFit.cover,
                       height: 250,
                       width: 250,
@@ -90,14 +78,14 @@ class _PromocionesDetailsState extends State<PromocionesDetails> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  widget.negocio.nombreEmpresa,
+                                  negocio.nombreEmpresa,
                                   style: const TextStyle(fontSize: 20),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                  'Vigencia: ${widget.promocion.vigencia.substring(0, 10)}',
+                                  'Vigencia: ${promocion.vigencia.substring(0, 10)}',
                                   style: const TextStyle(fontSize: 12),
                                 ),
                               ],
@@ -118,7 +106,7 @@ class _PromocionesDetailsState extends State<PromocionesDetails> {
                     padding: const EdgeInsets.all(15),
                     child: Center(
                       child: Text(
-                        widget.promocion.descripcion,
+                        promocion.descripcion,
                         textAlign: TextAlign.justify,
                       ),
                     ),
@@ -126,11 +114,10 @@ class _PromocionesDetailsState extends State<PromocionesDetails> {
                 ),
                 const SizedBox(height: 20),
                 context
-                        .watch<PromocionesAplicadasBloc>()
+                        .read<PromocionesAplicadasBloc>()
                         .state
                         .promocionesAplicadas
-                        .any((element) =>
-                            element.idPromocion == widget.promocion.id)
+                        .any((element) => element.idPromocion == promocion.id)
                     ? FilledButton(
                         onPressed: () {},
                         child: const Text('Promocion aplicada'))
@@ -138,13 +125,13 @@ class _PromocionesDetailsState extends State<PromocionesDetails> {
                         onPressed: () {
                           context.read<PromocionesAplicadasBloc>().add(
                                 PromocionesAplicadasSave(
-                                  descripcion: widget.promocion.descripcion,
-                                  idPromocion: widget.promocion.id,
-                                  nombreNegocio: widget.negocio.nombreEmpresa,
-                                  idNegocio: widget.negocio.id,
+                                  descripcion: promocion.descripcion,
+                                  idPromocion: promocion.id,
+                                  nombreNegocio: negocio.nombreEmpresa,
+                                  idNegocio: negocio.id,
                                   idUsuario:
                                       context.read<UserBloc>().state.user.email,
-                                  vigencia: widget.promocion.vigencia,
+                                  vigencia: promocion.vigencia,
                                 ),
                               );
 

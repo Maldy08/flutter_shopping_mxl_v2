@@ -4,23 +4,9 @@ import 'package:flutter_shopping_mxl_v2/config/config.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/blocs.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
-class PromocionesAplicadasScreen extends StatefulWidget {
+class PromocionesAplicadasScreen extends StatelessWidget {
   static const String name = "promociones_aplicadas_screen";
   const PromocionesAplicadasScreen({super.key});
-
-  @override
-  State<PromocionesAplicadasScreen> createState() =>
-      _PromocionesAplicadasScreenState();
-}
-
-class _PromocionesAplicadasScreenState
-    extends State<PromocionesAplicadasScreen> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<PromocionesAplicadasBloc>().add(
-        PromocionesAplicadasFetched(context.read<UserBloc>().state.user.email));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +33,6 @@ class _PromocionesAplicadasScreenState
                   return ListView.builder(
                     itemCount: state.promocionesAplicadas.length,
                     itemBuilder: (context, index) {
-                      if (state.promocionesAplicadas.isEmpty) {
-                        return const Center(
-                            child: Text('No tienes ofertas aplicadas'));
-                      }
                       final promocion = state.promocionesAplicadas[index];
                       final neg = context
                           .read<NegociosBloc>()

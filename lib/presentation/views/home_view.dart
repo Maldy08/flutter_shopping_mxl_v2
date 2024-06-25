@@ -35,6 +35,12 @@ class _HomeViewState extends State<HomeView>
     context
         .read<UserBloc>()
         .add(SetNegocios(context.read<NegociosBloc>().state.negocios));
+
+    context.read<CuponesAplicadosBloc>().add(
+        CuponesAplicadosFetched(context.read<UserBloc>().state.user.email));
+
+    context.read<PromocionesAplicadasBloc>().add(
+        PromocionesAplicadasFetched(context.read<UserBloc>().state.user.email));
   }
 
   @override

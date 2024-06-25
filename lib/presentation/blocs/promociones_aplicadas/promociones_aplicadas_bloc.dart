@@ -27,6 +27,8 @@ class PromocionesAplicadasBloc
       Emitter<PromocionesAplicadasState> emit) async {
     emit(state.copyWith(status: PromocionesAplicadasStatus.fetching));
 
+    //await Future.delayed(const Duration(seconds: 5));
+
     final promocionesAplicadas =
         await _firebasePromocionesAplicadasRepositoryImpl
             .getPromocionesAplicadas(idUsuario: event.idUsuario);
