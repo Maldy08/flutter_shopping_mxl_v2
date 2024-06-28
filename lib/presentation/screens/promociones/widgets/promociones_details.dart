@@ -6,7 +6,7 @@ import '/infrastructure/models/negocios.dart';
 import '/infrastructure/models/promociones.dart';
 import '../../../blocs/blocs.dart';
 
-class PromocionesDetails extends StatelessWidget {
+class PromocionesDetails extends StatefulWidget {
   final Promociones promocion;
   final Negocios negocio;
 
@@ -17,6 +17,18 @@ class PromocionesDetails extends StatelessWidget {
   });
 
   @override
+  State<PromocionesDetails> createState() => _PromocionesDetailsState();
+}
+
+class _PromocionesDetailsState extends State<PromocionesDetails> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<PromocionesAplicadasBloc>().add(
+        PromocionesAplicadasFetched(context.read<UserBloc>().state.user.email));
+  }
+
+  @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width * 0.92;
     return BlocListener<PromocionesAplicadasBloc, PromocionesAplicadasState>(
@@ -24,7 +36,7 @@ class PromocionesDetails extends StatelessWidget {
         if (state.status == PromocionesAplicadasStatus.error) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Error al aplicar promoción'),
+              content: Text('Error al aplicar oferta'),
               backgroundColor: Colors.red,
             ),
           );
@@ -52,7 +64,7 @@ class PromocionesDetails extends StatelessWidget {
                 SizedBox(
                   child: Center(
                     child: ImageLoading(
-                      photoUrl: negocio.photoUrl,
+                      photoUrl: widget.negocio.photoUrl,
                       fit: BoxFit.cover,
                       height: 250,
                       width: 250,
@@ -78,14 +90,14 @@ class PromocionesDetails extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  negocio.nombreEmpresa,
+                                  widget.negocio.nombreEmpresa,
                                   style: const TextStyle(fontSize: 20),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                  'Vigencia: ${promocion.vigencia.substring(0, 10)}',
+                                  'Vigencia: ${widget.promocion.vigencia.substring(0, 10)}',
                                   style: const TextStyle(fontSize: 12),
                                 ),
                               ],
@@ -106,7 +118,7 @@ class PromocionesDetails extends StatelessWidget {
                     padding: const EdgeInsets.all(15),
                     child: Center(
                       child: Text(
-                        promocion.descripcion,
+                        widget.promocion.descripcion,
                         textAlign: TextAlign.justify,
                       ),
                     ),
@@ -114,24 +126,24 @@ class PromocionesDetails extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 context
-                        .read<PromocionesAplicadasBloc>()
+                        .watch<PromocionesAplicadasBloc>()
                         .state
                         .promocionesAplicadas
-                        .any((element) => element.idPromocion == promocion.id)
+                        .any((element) =>
+                            element.idPromocion == widget.promocion.id)
                     ? FilledButton(
-                        onPressed: () {},
-                        child: const Text('Promocion aplicada'))
+                        onPressed: () {}, child: const Text('Oferta aplicada'))
                     : FilledButton(
                         onPressed: () {
                           context.read<PromocionesAplicadasBloc>().add(
                                 PromocionesAplicadasSave(
-                                  descripcion: promocion.descripcion,
-                                  idPromocion: promocion.id,
-                                  nombreNegocio: negocio.nombreEmpresa,
-                                  idNegocio: negocio.id,
+                                  descripcion: widget.promocion.descripcion,
+                                  idPromocion: widget.promocion.id,
+                                  nombreNegocio: widget.negocio.nombreEmpresa,
+                                  idNegocio: widget.negocio.id,
                                   idUsuario:
                                       context.read<UserBloc>().state.user.email,
-                                  vigencia: promocion.vigencia,
+                                  vigencia: widget.promocion.vigencia,
                                 ),
                               );
 
@@ -160,11 +172,11 @@ class PromocionesDetails extends StatelessWidget {
                                                 children: [
                                                   CircularProgressIndicator(),
                                                   SizedBox(height: 10),
-                                                  Text('Aplicando promocion...')
+                                                  Text('Aplicando oferta...')
                                                 ],
                                               )
                                             : const Text(
-                                                'Promocion aplicada con éxito'),
+                                                'Oferta aplicada con éxito'),
                                         const SizedBox(height: 10),
                                         context
                                                     .watch<

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../config/config.dart';
 import '../../blocs/blocs.dart';
 import '../../widgets/widgets.dart';
@@ -17,39 +16,61 @@ class _CuponesAplicadosScreenState extends State<CuponesAplicadosScreen> {
   @override
   void initState() {
     super.initState();
+    context.read<CuponesAplicadosBloc>().add(
+        CuponesAplicadosFetched(context.read<UserBloc>().state.user.email));
   }
 
   @override
   Widget build(BuildContext context) {
-    return context.read<CuponesAplicadosBloc>().state.cuponesAplicados.isEmpty
-        ? const Scaffold(
-            appBar: CustomAppBar(
-              title: 'Cupones aplicados',
-            ),
-            body: Center(child: Text('No tienes cupones aplicados')))
-        : Scaffold(
-            backgroundColor: Colors.white,
-            appBar: const CustomAppBar(
-              title: 'Cupones aplicados',
-            ),
-            body: Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: SizedBox(child:
-                  BlocBuilder<CuponesAplicadosBloc, CuponesAplicadosState>(
-                builder: (context, state) {
-                  return ListView.builder(
+    return BlocListener<CuponesAplicadosBloc, CuponesAplicadosState>(
+        listener: (context, state) {
+      if (state.status == CuponesAplicadosStatus.fetching) {
+        showModalBottomSheet(
+            isDismissible: true,
+            enableDrag: false,
+            context: context,
+            builder: (context) {
+              return const SizedBox(
+                  height: 200,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(child: CircularProgressIndicator()),
+                      SizedBox(height: 10),
+                      Center(child: Text('Cargando cupones aplicados...')),
+                    ],
+                  ));
+            });
+      } else {
+        Navigator.of(context).pop();
+      }
+    }, child: BlocBuilder<CuponesAplicadosBloc, CuponesAplicadosState>(
+      builder: (context, state) {
+        return state.cuponesAplicados.isEmpty
+            ? const Scaffold(
+                appBar: CustomAppBar(
+                  title: 'Cupones aplicadas',
+                ),
+                body: Center(child: Text('No tienes cupones aplicados')))
+            : Scaffold(
+                backgroundColor: Colors.white,
+                appBar: const CustomAppBar(
+                  title: 'Cupones aplicados',
+                ),
+                body: Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: SizedBox(
+                      child: ListView.builder(
                     itemCount: state.cuponesAplicados.length,
                     itemBuilder: (context, index) {
-                      final cupon = state.cuponesAplicados[index];
-                      final neg = context
+                      final promocion = state.cuponesAplicados[index];
+                      final negocio = context
                           .read<NegociosBloc>()
                           .state
                           .negocios
                           .where((element) =>
-                              element.id == cupon.idNegocio.toString())
-                          .first
-                          .photoUrl;
-
+                              element.id == promocion.idNegocio.toString())
+                          .first;
                       return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 3),
@@ -58,18 +79,20 @@ class _CuponesAplicadosScreenState extends State<CuponesAplicadosScreen> {
                               elevation: 0,
                               child: ListTile(
                                 leading: ImageLoading(
-                                  photoUrl: neg,
-                                  width: 100,
-                                  height: 100,
+                                  photoUrl: negocio.photoUrl,
+                                  fit: BoxFit.cover,
+                                  height: 50,
+                                  width: 50,
                                 ),
-                                title: Text(cupon.nombreNegocio),
-                                subtitle: Text(cupon.descripcion),
-                                trailing: Text(cupon.vigencia.substring(0, 10)),
+                                title: Text(promocion.nombreNegocio),
+                                subtitle: Text(promocion.descripcion),
+                                trailing: Text(promocion.vigencia),
                               )));
                     },
-                  );
-                },
-              )),
-            ));
+                  )),
+                ),
+              );
+      },
+    ));
   }
 }

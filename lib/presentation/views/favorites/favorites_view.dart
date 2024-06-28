@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
 import '/presentation/views/views.dart';
 
@@ -22,13 +23,11 @@ class _FavoritesViewState extends State<FavoritesView> {
     //     .map((e) => e.idproducto)
     //     .toList();
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Favoritos'),
+    return const Scaffold(
+      appBar: CustomAppBar(
+        title: 'Favoritos',
       ),
-      body: const FavoritesViewNegocios(),
+      body: FavoritesViewNegocios(),
     );
   }
 }

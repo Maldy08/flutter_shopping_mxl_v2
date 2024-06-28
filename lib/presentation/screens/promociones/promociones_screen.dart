@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
 import '/presentation/blocs/blocs.dart';
 import '/presentation/screens/promociones/widgets/widgets.dart';
@@ -45,9 +46,9 @@ class _MyWidgetState extends State<PromocionesScreen> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text('Promocion'),
+        appBar: const CustomAppBar(
           centerTitle: true,
+          title: 'Oferta',
         ),
         body: SingleChildScrollView(
           child: SizedBox(

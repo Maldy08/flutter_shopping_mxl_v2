@@ -26,7 +26,7 @@ class CuponesAplicadosBloc
   Future<void> _fetchCuponesAplicados(CuponesAplicadosFetched event,
       Emitter<CuponesAplicadosState> emit) async {
     emit(state.copyWith(status: CuponesAplicadosStatus.fetching));
-
+    await Future.delayed(const Duration(milliseconds: 500));
     final cuponesAplicados = await _firebaseCuponesAplicadosRepositoryImpl
         .getCuponesAplicados(idUsuario: event.idUsuario);
     emit(state.copyWith(

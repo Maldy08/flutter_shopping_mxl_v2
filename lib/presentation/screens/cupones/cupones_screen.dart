@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/cupones/cupones_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/blocs/negocios/negocios_bloc.dart';
 import 'package:flutter_shopping_mxl_v2/presentation/screens/cupones/widgets/cupones_details.dart';
+import 'package:flutter_shopping_mxl_v2/presentation/widgets/widgets.dart';
 
 class CuponesScreen extends StatefulWidget {
   final String id;
@@ -42,8 +43,8 @@ class _CuponesScreenState extends State<CuponesScreen> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text('Cupon'),
+        appBar: const CustomAppBar(
+          title: 'Cupón',
           centerTitle: true,
         ),
         body: SingleChildScrollView(
