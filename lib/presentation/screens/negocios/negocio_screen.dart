@@ -39,7 +39,15 @@ class _NegocioScreenState extends State<NegocioScreen> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text('Negocio'),
+          backgroundColor: Theme.of(context).primaryColor,
+          foregroundColor: Colors.white,
+          title: Text(
+            negocio.nombreEmpresa,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
           centerTitle: true,
           actions: [
             BlocBuilder<UserBloc, UserState>(

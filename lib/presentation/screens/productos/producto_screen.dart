@@ -74,8 +74,13 @@ class _ProductoScreenState extends State<ProductoScreen> {
               },
             )
           ],
-          title: Text(negocio.nombreEmpresa),
+          title: Text(
+            negocio.nombreEmpresa,
+            style: const TextStyle(fontSize: 20),
+          ),
           centerTitle: true,
+          backgroundColor: Theme.of(context).primaryColor,
+          foregroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
           child: SizedBox(

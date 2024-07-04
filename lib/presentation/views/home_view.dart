@@ -198,4 +198,117 @@ class _Negocios extends StatelessWidget {
             ),
     );
   }
+
+  //  Widget build(BuildContext context) {
+  //   return Container(
+  //     color: Theme.of(context).primaryColor,
+  //     child: context.watch<NegociosBloc>().state.status ==
+  //             NegociosStatus.fetching
+  //         ? Container(
+  //             color: Theme.of(context).primaryColor,
+  //             height: 400,
+  //             width: double.infinity,
+  //             child: Column(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: [
+  //                 SpinPerfect(
+  //                   infinite: true,
+  //                   child: const Icon(
+  //                     Icons.refresh_outlined,
+  //                     color: Colors.white,
+  //                     size: 50,
+  //                   ),
+  //                 ),
+  //                 const SizedBox(height: 10),
+  //                 const Text(
+  //                   'Cargando informacion...',
+  //                   style: TextStyle(color: Colors.white),
+  //                 ),
+  //               ],
+  //             ),
+  //           )
+  //         : FadeIn(
+  //             delay: const Duration(milliseconds: 200),
+  //             child: Container(
+  //               padding: const EdgeInsets.only(top: 30),
+  //               decoration: BoxDecoration(
+  //                 color: Colors.grey.shade100,
+  //                 borderRadius: const BorderRadius.only(
+  //                   topLeft: Radius.circular(40),
+  //                 ),
+  //               ),
+  //               child: Column(
+  //                 children: [
+  //                   SizedBox(
+  //                     height: MediaQuery.of(context).size.height * 0.60,
+  //                     child: RefreshIndicator(
+  //                       onRefresh: () async {
+  //                         // await Future.delayed(const Duration(seconds: 2));
+  //                         context
+  //                             .read<NegociosBloc>()
+  //                             .add(const NegociosFetched());
+  //                         context
+  //                             .read<ProductosBloc>()
+  //                             .add(const ProductosFetchedAll());
+  //                         context
+  //                             .read<PromocionesBloc>()
+  //                             .add(const PromocionesFetchAll());
+  //                         context
+  //                             .read<CuponesBloc>()
+  //                             .add(const CuponesFetchAll());
+  //                       },
+  //                       child: GridView.builder(
+  //                         physics: const BouncingScrollPhysics(),
+  //                         gridDelegate:
+  //                             const SliverGridDelegateWithFixedCrossAxisCount(
+  //                           crossAxisCount: 2,
+  //                           crossAxisSpacing: 0,
+  //                           mainAxisSpacing: 0,
+  //                           mainAxisExtent: 200,
+  //                         ),
+  //                         itemCount: context
+  //                             .read<NegociosBloc>()
+  //                             .state
+  //                             .negocios
+  //                             .length,
+  //                         itemBuilder: (context, index) {
+  //                           final negocio = context
+  //                               .read<NegociosBloc>()
+  //                               .state
+  //                               .negocios[index];
+  //                           return GestureDetector(
+  //                             onTap: () {
+  //                               context.push('/home/0/negocio/${negocio.id}');
+  //                             },
+  //                             child: Column(
+  //                               children: [
+  //                                 ClipRRect(
+  //                                   borderRadius: BorderRadius.circular(10),
+  //                                   child: ImageLoading(
+  //                                     photoUrl: negocio.photoUrl,
+  //                                   ),
+  //                                 ),
+  //                                 const SizedBox(height: 5),
+  //                                 Text(
+  //                                   negocio.nombreEmpresa,
+  //                                   maxLines: 2,
+  //                                   style: TextStyle(
+  //                                     color: Colors.grey.shade600,
+  //                                     fontSize: 12,
+  //                                     fontWeight: FontWeight.bold,
+  //                                   ),
+  //                                 ),
+  //                               ],
+  //                             ),
+  //                           );
+  //                         },
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //   );
+  // }
 }
