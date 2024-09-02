@@ -12,3 +12,4 @@ export 'shared_preferences/shared_preferences_bloc_bloc.dart';
 export 'forgot_password/forgot_password_cubit.dart';
 export 'promociones_aplicadas/promociones_aplicadas_bloc.dart';
 export 'cupones_aplicados/cupones_aplicados_bloc.dart';
+export 'loading/loading_bloc.dart';
