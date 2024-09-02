@@ -13,7 +13,14 @@ class ImageLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
+    return Image.asset(
+      'assets/images/image-preview.png',
+      height: height ?? 150,
+      width: width ?? 150,
+      fit: fit ?? BoxFit.cover,
+    );
+
+    /* Image.network(
       photoUrl,
       height: height ?? 150,
       width: width ?? 150,
@@ -40,6 +47,6 @@ class ImageLoading extends StatelessWidget {
       errorBuilder: (context, exception, stackTrace) {
         return const Text('Error');
       },
-    );
+    ); */
   }
 }
